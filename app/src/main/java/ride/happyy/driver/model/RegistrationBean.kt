@@ -1,0 +1,15 @@
+package ride.happyy.driver.model
+
+
+
+class RegistrationBean : BaseBean() {
+
+    var name: String= ""
+    var phone: String= ""
+    var email: String= ""
+    var password: String= ""
+    var location: String= ""
+}
+
+
+

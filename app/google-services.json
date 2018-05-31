@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "800946751018",
+    "firebase_url": "https://happyyride-production.firebaseio.com",
+    "project_id": "happyyride-production",
+    "storage_bucket": "happyyride-production.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:800946751018:android:4550871976144e86",
+        "android_client_info": {
+          "package_name": "ride.happyy.driver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "800946751018-bmsatuh3omvrgv8500t4ar7la5faeg1r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ride.happyy.driver",
+            "certificate_hash": "ffd9caee79ebb9837868091d56c11ccca0a242a4"
+          }
+        },
+        {
+          "client_id": "800946751018-51h82pk5t8514pg74iau7t2mf8odatsu.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "800946751018-51h82pk5t8514pg74iau7t2mf8odatsu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7lnNXieheI0cWC4h385tYZm47i5h6Ns4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "800946751018-51h82pk5t8514pg74iau7t2mf8odatsu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
