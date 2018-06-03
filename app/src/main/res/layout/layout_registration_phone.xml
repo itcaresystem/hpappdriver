@@ -25,7 +25,7 @@
             <ride.happyy.driver.widgets.CustomTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/label_earn_more"
+                android:text="EARN WITH"
                 android:textColor="@color/white"
                 android:textSize="30sp"
                 android:textStyle="bold"
@@ -34,7 +34,7 @@
             <ride.happyy.driver.widgets.CustomTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/label_with_la_taxi"
+                android:text="HAPPYY RIDE"
                 android:textColor="@color/white"
                 android:textSize="22sp"
                 app:textAllCaps="true"/>
@@ -80,6 +80,7 @@
                 android:background="@color/transparent"
                 android:hint="@string/hint_enter_your_number"
                 android:inputType="phone"
+                android:maxLength="11"
                 android:minHeight="45dp"
                 android:textSize="16sp"/>
 

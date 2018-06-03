@@ -198,7 +198,7 @@
             <LinearLayout
                 android:id="@+id/ll_ratings_pro_tips"
                 style="@style/MenuItemParent"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:background="?selectableItemBackground">
 
                 <ImageView
@@ -218,7 +218,7 @@
             </LinearLayout>
 
             <View
-                android:visibility="gone"
+                android:visibility="visible"
                 style="@style/MenuItemUnderline"/>
 
 

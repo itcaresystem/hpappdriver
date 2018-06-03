@@ -102,7 +102,7 @@
                     android:layout_marginTop="110dp"
                     android:gravity="center"
                     android:minHeight="30dp"
-                    android:text="@string/sample_vehicle"
+                    android:text="Account"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/text_4"/>
 
@@ -111,15 +111,205 @@
 
         </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+
+        android:orientation="vertical"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp">
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+           android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="2dp"
+            android:background="@color/colorPrimary"
+            android:paddingRight="2dp"
+            >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+
+            android:text="Lifetime Earning"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="30dp"
+                android:text=":"/>
+            <TextView
+                android:id="@+id/accountLifeTimeEarningTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textSize="30dp"
+                android:textColor="@color/white"
+                android:text="৳ 5000"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            android:paddingRight="2dp"
+            android:paddingLeft="2dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:text="Lifetime Trip"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textSize="30dp"
+                android:textColor="@color/white"
+                android:text=":"/>
+            <TextView
+                android:id="@+id/accountLifetimeTripTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textSize="30dp"
+                android:textColor="@color/white"
+                android:text="20"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            android:paddingRight="2dp"
+            android:paddingLeft="2dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:text="Referral Bonus"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textSize="30dp"
+                android:textColor="@color/white"
+                android:text=":"/>
+            <TextView
+                android:id="@+id/accountReferralBonusTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textSize="30dp"
+                android:textColor="@color/white"
+                android:text="৳ 0"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            android:paddingRight="2dp"
+            android:paddingLeft="2dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffff0000">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:text="Total Due"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textSize="30dp"
+                android:textColor="@color/white"
+                android:text=":"/>
+            <TextView
+                android:id="@+id/accountTotalDueTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textSize="30dp"
+                android:textColor="@color/white"
+                android:text="৳ 500"/>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/accounCommRateTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="20dp"
+                android:background="@color/colorPrimary1"
+                android:textColor="@color/white"
+                android:layout_marginRight="5dp"
+                android:text="Comm. Rate : 80"/>
+            <TextView
+                android:id="@+id/accountRatingTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:textSize="20dp"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="@color/white"
+                android:text="Ratting : 90%"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="5dp"
             android:layout_weight="1"
             android:background="@color/white"
             android:orientation="vertical"
-            android:paddingBottom="50dp"
-            android:paddingTop="10dp">
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
 
 
             <LinearLayout

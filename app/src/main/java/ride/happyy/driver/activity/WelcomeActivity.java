@@ -13,6 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import ride.happyy.driver.R;
+import ride.happyy.driver.SelectVehicle;
 import ride.happyy.driver.app.App;
 import ride.happyy.driver.listeners.BasicListener;
 import ride.happyy.driver.model.BasicBean;
@@ -97,7 +98,7 @@ public class WelcomeActivity extends BaseAppCompatNoDrawerActivity {
 
    /*     Digits.logout();
         Digits.authenticate(authConfig);*/
-        Intent intent = new Intent(WelcomeActivity.this, RegistrationActivity.class);
+        Intent intent = new Intent(WelcomeActivity.this, SelectVehicle.class);
         startActivity(intent);
     }
 

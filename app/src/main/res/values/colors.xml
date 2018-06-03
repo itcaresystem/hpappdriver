@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#c20427</color>
-    <color name="colorPrimaryDark">#fa133c</color>
+    <color name="colorPrimary1">#c20427</color>
+    <color name="colorPrimary">#000</color>
+    <color name="colorPrimaryDark">#aa0092</color>
     <color name="colorAccent">#aa0092</color>
 
     <color name="transparent">#00000000</color>
@@ -11,8 +12,8 @@
     <color name="blue_twitter">#55acee</color>
     <color name="blue_click_old">#bbdefb</color>
     <color name="blue_click">#ff33b5e5</color>
-    <color name="red">#D40201</color>
-    <color name="red_wayay">#df4629</color>
+    <color name="red">#aa0092</color>
+    <color name="red_wayay">#aa0092</color>
     <color name="green">#3E9124</color>
     <color name="purple">#631380</color>
     <color name="pink">#B35EA4</color>
@@ -64,7 +65,7 @@
     <color name="brown_1_transparent_bb">#bb3e2723</color>
     <color name="orange_transparent_cc">#ccCE7609</color>
     <color name="blue_transparent_cc">#cc1961BC</color>
-    <color name="red_transparent_cc">#ccD40201</color>
+    <color name="red_transparent_cc">#aa0092</color>
     <color name="green_1_transparent_cc">#cc20976c</color>
     <color name="yellow_1_transparent_cc">#ccffe473</color>
     <color name="white_transparent_cc">#ccffffff</color>
@@ -136,7 +137,7 @@
     <color name="bg_fab">#181818</color>
     <color name="bg_fab_2">#2B2B2B</color>
     <color name="bg_fab_3">#3F3F3F</color>
-    <color name="bg_welcome_header">#D40201</color>
+    <color name="bg_welcome_header">#aa0092</color>
     <color name="bg_driver_Type">#f2f2f2</color>
 
     <color name="underline_color">#8d8d8d</color>

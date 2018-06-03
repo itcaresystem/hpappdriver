@@ -54,6 +54,7 @@ public class AccountsFragment extends BaseFragment {
     private ImageView ivProfilePhoto;
     private ProfileBean profileBean;
     private View.OnClickListener snackBarRefreshOnClickListener;
+    private TextView lifetimeEarnTv, lifetimeTripTv, accountReferralBonusTv, accountTotalDueTv, accountRatingTv, accountCommissionRateTv;
 
     public AccountsFragment() {
         // Required empty public constructor
@@ -73,6 +74,7 @@ public class AccountsFragment extends BaseFragment {
             mapBean = (MapBean) getArguments().getSerializable("mapBean");*/
 
         intiView(rootView);
+
 
 
         return lytBase;
@@ -98,6 +100,13 @@ public class AccountsFragment extends BaseFragment {
                 fetchProfile();
             }
         };
+
+        lifetimeEarnTv = rootView.findViewById(R.id.accountLifeTimeEarningTv);
+        lifetimeTripTv = rootView.findViewById(R.id.accountLifetimeTripTv);
+        accountReferralBonusTv = rootView.findViewById(R.id.accountReferralBonusTv);
+        accountTotalDueTv = rootView.findViewById(R.id.accountTotalDueTv);
+        accountRatingTv = rootView.findViewById(R.id.accountRatingTv);
+        accountCommissionRateTv = rootView.findViewById(R.id.accounCommRateTv);
 
 
         llHelp = (LinearLayout) rootView.findViewById(R.id.ll_accounts_help);

@@ -15,7 +15,7 @@ import ride.happyy.driver.net.DataManager;
 
 
 
-public class LaTaxiDriverFirebaseInstanceIDService extends FirebaseInstanceIdService {
+public class HappyyRideDriverFirebaseInstanceIDService extends FirebaseInstanceIdService {
     private static final String TAG = "LTFIService";
 
     @Override

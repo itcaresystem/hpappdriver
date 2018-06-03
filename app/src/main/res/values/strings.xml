@@ -1,6 +1,6 @@
 ﻿<resources>
 
-    <string name="app_name">Happyy Driver</string>
+    <string name="app_name">HappyyRide Driver</string>
     <string name="api_key">AIzaSyAxYEVKFJuMAeZCJjBnSAFFeVRexSJfBb4</string>
     <string name="browser_api_key">AIzaSyBRMSYwxdQVoI-6NgaVXs6SBhsn5yn3I-U</string>
 
@@ -111,13 +111,13 @@
     <string name="label_change_password">Change Password</string>
     <string name="label_collect_cash">Collect Cash</string>
     <string name="label_commercial_insurance">Commercial Insurance</string>
-    <string name="label_consent_agreement">I understand that the information provide by me may be used by Smart, or its affiliates, authbridge research services private limited or its affiliates (being a third party agency appointed by Smart Cab), or any third party appointed by Smart Cab from time to time, to verify and validate the information I have provided as necessary background Checks. I understand that the third party agency appointed by Smart Cab may obtain Information it deems appropriate from various sources including, but not limited to, current and past employers, Criminal conviction records, educational records, professional and personal references and other verifying sources / authorities.</string>
+    <string name="label_consent_agreement">I understand that the information provide by me may be used by Happyy Ride, or its affiliates, authbridge research services private limited or its affiliates (being a third party agency appointed by HappyyRide), or any third party appointed by HappyyRide from time to time, to verify and validate the information I have provided as necessary background Checks. I understand that the third party agency appointed by HappyyRide may obtain Information it deems appropriate from various sources including, but not limited to, current and past employers, Criminal conviction records, educational records, professional and personal references and other verifying sources / authorities.</string>
     <string name="label_contacts">Contacts</string>
     <string name="label_continue_to_earn_more_money">Continue to earn more money \nin your spare time</string>
     <string name="label_create_your_account_password">Create your account Password</string>
     <string name="label_current_rating">Current Rating</string>
     <string name="label_daily_earnings">Daily Earnings</string>
-    <string name="label_did_you_know">Did you know that \nthousands of \nDrivers are using Smart Cab</string>
+    <string name="label_did_you_know">Did you know that \nthousands of \nDrivers are using Happyy Ride</string>
     <string name="label_distance">Distance</string>
     <string name="label_documents">Documents</string>
     <string name="label_driver">Driver</string>
@@ -147,8 +147,8 @@
     <string name="label_i_am_deaf_or_hard_of_hearing">I"'"m deaf or hard of hearing</string>
     <string name="label_if_a_rider_reports_a_problem">If a rider reports a problem, the reason will appear here.</string>
     <string name="label_keep_driving_and_see">Keep driving and see what people say!</string>
-    <string name="label_la_taxi">Smart Cab</string>
-    <string name="label_la_taxi_fee">Smart Cab Fee</string>
+    <string name="label_la_taxi">HAPPYY RIDE</string>
+    <string name="label_la_taxi_fee">HappyyRide Fee</string>
     <string name="label_legal_consent">Legal Consent</string>
     <string name="label_logout">Logout</string>
     <string name="label_make_sure_your_document_is_readable">Make sure your Document \nis readable</string>
@@ -213,7 +213,7 @@
     <string name="label_terms_and_conditions">By proceeding you are agree to the Terms \nand conditions and privacy policy</string>
     <string name="label_thu">Thu</string>
     <string name="label_to">TO</string>
-    <string name="label_to_drive_with_lataxi">To drive with Smart Cab your Vehicle must be 2008 or newer and be a mid size or full size sedan that comfortably seats 4 – 8 Passengers.</string>
+    <string name="label_to_drive_with_lataxi">To drive with Happyy Ride your Vehicle must be 2010 or newer and be a mid size or full size sedan that comfortably seats 4 – 8 Passengers.</string>
     <string name="label_today">Today</string>
     <string name="label_tolls">Tolls</string>
     <string name="label_total_payout">Total Payout</string>
@@ -235,45 +235,45 @@
     <string name="label_way_bill">Way Bill</string>
     <string name="label_wed">Web</string>
     <string name="label_welcome">Welcome!</string>
-    <string name="label_what_is_your_email_address">What\'s your email Address?</string>
-    <string name="label_what_is_your_name">Whats\'s your name?</string>
-    <string name="label_where_are_you_from">Where are you from?</string>
-    <string name="label_with_la_taxi">With Smart Cab</string>
+    <string name="label_what_is_your_email_address">Your email Address</string>
+    <string name="label_what_is_your_name">Your name</string>
+    <string name="label_where_are_you_from">City</string>
+    <string name="label_with_la_taxi">With Happyy Ride</string>
     <string name="label_you_rated">You Rated</string>
     <string name="label_your_todays_total_rides">Your Today\'s Total Rides</string>
 
     <string name="sample_00">00</string>
-    <string name="sample_address">Three Road Jn. \nKakkanad P O, Kochi 682030</string>
+    <string name="sample_address">Matikata,Bazar Road,Dhaka-1306</string>
     <string name="sample_at_time">at 09:00 am</string>
-    <string name="sample_car_type">La Go</string>
+    <string name="sample_car_type">Primeo</string>
     <string name="sample_comment">Comment</string>
-    <string name="sample_date">10 November 2017, Friday</string>
-    <string name="sample_date_and_time">28/ 02/ 2017, 05:50 am</string>
-    <string name="sample_date_numerical">22/02/2017</string>
+    <string name="sample_date">10 May 2018, Friday</string>
+    <string name="sample_date_and_time">28/ 02/ 2018, 05:50 am</string>
+    <string name="sample_date_numerical">22/02/2018</string>
     <string name="sample_day">Wednesday</string>
     <string name="sample_distance">20.02 km</string>
     <string name="sample_duration">18 Min</string>
     <string name="sample_email">abcde@abcde.com</string>
-    <string name="sample_fare">₹ 6500</string>
+    <string name="sample_fare">৳ 6500</string>
     <string name="sample_issue">Issue</string>
-    <string name="sample_last_backup">Last Backup : 24 September 2016</string>
+    <string name="sample_last_backup">Last Backup : 01 May, 2018</string>
     <string name="sample_location">Place</string>
-    <string name="sample_lorem_ipsum_large">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
-    <string name="sample_lorem_ipsum_medium">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
-    <string name="sample_lorem_ipsum_small">Lorem Ipisum Small</string>
-    <string name="sample_month">November</string>
+    <string name="sample_lorem_ipsum_large">HappyyRide Ispam Large</string>
+    <string name="sample_lorem_ipsum_medium">Happyrrid Mediume</string>
+    <string name="sample_lorem_ipsum_small">HappyyRide Ispam small</string>
+    <string name="sample_month">June</string>
     <string name="sample_name">Name</string>
     <string name="sample_online_time">2:36 Hours Online</string>
     <string name="sample_percent">100%</string>
-    <string name="sample_phone">+919876543210</string>
+    <string name="sample_phone">+8801623473041</string>
     <string name="sample_rating">4.50</string>
     <string name="sample_schedule_type">Meeting</string>
     <string name="sample_time">09:00 am</string>
     <string name="sample_trips">00 Trips</string>
     <string name="sample_vehicle">Vehicle</string>
     <string name="sample_week">This Week</string>
-    <string name="sample_year">2017</string>
-    <string name="sample_you_are_good_partner">You are a good partner</string>
+    <string name="sample_year">2018</string>
+    <string name="sample_you_are_good_partner">You are valuable to us.</string>
 
     <string name="title_country">Country :</string>
     <string name="title_court_type">Court Type :</string>
@@ -282,7 +282,7 @@
     <string name="title_mobile_verification">Mobile Verification</string>
     <string name="title_on_trip">On Trip</string>
     <string name="title_pay_statements">Pay Statements</string>
-    <string name="title_reminder">Smart Cab Reminder :</string>
+    <string name="title_reminder">Happyy Ride Reminder :</string>
     <string name="title_select">Select : </string>
     <string name="title_state">State :</string>
     <string name="title_terms_and_condition">Terms and Conditions</string>
@@ -290,7 +290,7 @@
 
     <string name="message_accessibility_settings_updated">Accessibility Settings Updated</string>
     <string name="message_address_is_required">Address is required</string>
-    <string name="message_app_crash">Smart Cab Driver Has Crashed Due To An Error. \nApplication Will Restart Now.  \nSorry For Any Inconvinience Caused</string>
+    <string name="message_app_crash">HappyyRide Driver Has Crashed Due To An Error. \nApplication Will Restart Now.  \nSorry For Any Inconvinience Caused</string>
     <string name="message_arrival_confirmed">Your arrival at the required location is confirmed!</string>
     <string name="message_at"> at </string>
     <string name="message_bluetooth_not_enabled">Bluetooth Not Enabled</string>

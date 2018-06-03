@@ -32,13 +32,13 @@ import ride.happyy.driver.app.App;
 
 public class FileOp {
 
-    private static final String APP_FOLDER = "/LaTaxiDriver";
+    private static final String APP_FOLDER = "/HappyyRideDriver";
     private static final String TAG = "FileOp";
     private final Context context;
     private FileOutputStream fos;
     private OutputStreamWriter osw;
     private File file;
-    private final String pathEx = Environment.getExternalStorageDirectory() + "/LaTaxiDriver/";
+    private final String pathEx = Environment.getExternalStorageDirectory() + "/HappyyRideDriver/";
     private String pathSP;
     private FileInputStream fis;
     private InputStreamReader isr;

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".SelectVehicle"
+    tools:showIn="@layout/app_bar_main">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:id="@+id/linearLayout">
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Select Vehicle"
+           android:shadowColor="#0000"
+           android:textStyle="bold"
+           android:textSize="21dp"/>
+        <Button
+            android:id="@+id/carbtn"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginLeft="25dp"
+            android:padding="5dp"
+            android:textStyle="italic"
+            android:textSize="30dp"
+            android:textAllCaps="false"
+            android:textColor="#ffff"
+            android:background="#aa0092"
+            android:text="Car"/>
+        <Button
+            android:id="@+id/bikebtn"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginLeft="25dp"
+            android:padding="5dp"
+            android:textStyle="italic"
+            android:textSize="30dp"
+            android:textAllCaps="false"
+            android:textColor="#ffff"
+            android:background="#aa0092"
+            android:text="Bike"/>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/containFrameLayout">
+
+    </FrameLayout>
+
+</LinearLayout>

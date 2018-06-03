@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
@@ -47,15 +46,9 @@ import ride.happyy.driver.model.WeeklyEarningsBean;
 import ride.happyy.driver.net.DataManager;
 import ride.happyy.driver.util.AppConstants;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link EarningsFragmentListener} interface
- * to handle interaction events.
- */
-public class EarningsFragment extends BaseFragment {
+public class LeaderBordFragment extends BaseFragment {
 
-    private EarningsFragmentListener mListener;
+    private EarningsFragment.EarningsFragmentListener mListener;
     private BarChart mChart;
 
     protected RectF mOnValueSelectedRectF = new RectF();
@@ -71,7 +64,7 @@ public class EarningsFragment extends BaseFragment {
     private Calendar calToday;
     private View.OnClickListener snackBarRefreshOnClickListener;
 
-    public EarningsFragment() {
+    public LeaderBordFragment() {
         // Required empty public constructor
     }
 
@@ -385,9 +378,7 @@ public class EarningsFragment extends BaseFragment {
                 mChart.invalidate();
             }
 
-            String weeklyEarningT = weeklyEarningsBean.getTotalPayout().substring(1);
-
-            txtTotalPayout.setText("৳"+weeklyEarningT);
+            txtTotalPayout.setText("৳"+weeklyEarningsBean.getTotalPayout());
         } else {
             txtTotalPayout.setText(R.string.label_not_available);
         }
@@ -460,12 +451,12 @@ public class EarningsFragment extends BaseFragment {
     }
 
     private void setListener(Context context) {
-        if (getActivity() instanceof EarningsFragmentListener) {
-            mListener = (EarningsFragmentListener) getActivity();
-        } else if (getParentFragment() instanceof EarningsFragmentListener) {
-            mListener = (EarningsFragmentListener) getParentFragment();
-        } else if (context instanceof EarningsFragmentListener) {
-            mListener = (EarningsFragmentListener) context;
+        if (getActivity() instanceof EarningsFragment.EarningsFragmentListener) {
+            mListener = (EarningsFragment.EarningsFragmentListener) getActivity();
+        } else if (getParentFragment() instanceof EarningsFragment.EarningsFragmentListener) {
+            mListener = (EarningsFragment.EarningsFragmentListener) getParentFragment();
+        } else if (context instanceof EarningsFragment.EarningsFragmentListener) {
+            mListener = (EarningsFragment.EarningsFragmentListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement EarningsFragmentListener");
@@ -475,12 +466,12 @@ public class EarningsFragment extends BaseFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (getActivity() instanceof EarningsFragmentListener) {
-            mListener = (EarningsFragmentListener) getActivity();
-        } else if (getParentFragment() instanceof EarningsFragmentListener) {
-            mListener = (EarningsFragmentListener) getParentFragment();
-        } else if (context instanceof EarningsFragmentListener) {
-            mListener = (EarningsFragmentListener) context;
+        if (getActivity() instanceof EarningsFragment.EarningsFragmentListener) {
+            mListener = (EarningsFragment.EarningsFragmentListener) getActivity();
+        } else if (getParentFragment() instanceof EarningsFragment.EarningsFragmentListener) {
+            mListener = (EarningsFragment.EarningsFragmentListener) getParentFragment();
+        } else if (context instanceof EarningsFragment.EarningsFragmentListener) {
+            mListener = (EarningsFragment.EarningsFragmentListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement EarningsFragmentListener");

@@ -71,6 +71,7 @@ public class RegistrationActivity extends BaseAppCompatNoDrawerActivity {
     private EditText etxtLocation;
     private Spinner spinnerCountryCodes;
     private ArrayAdapter<String> adapterCountryCodes;
+    private String vehicleType;
     private String phone;
     private CountryListBean countryListBean;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
@@ -95,6 +96,19 @@ public class RegistrationActivity extends BaseAppCompatNoDrawerActivity {
         setContentView(R.layout.activity_registration);
 
         initViews();
+
+        if (getIntent().hasExtra("Car")) {
+            vehicleType = getIntent().getStringExtra("Car");
+           // registrationBean.setPhone(phone);
+//            etxtPhone.setText(phone);
+        }
+
+        if (getIntent().hasExtra("Bike")) {
+            vehicleType = getIntent().getStringExtra("Bike");
+            // registrationBean.setPhone(phone);
+//            etxtPhone.setText(phone);
+        }
+
 
         if (getIntent().hasExtra("phone")) {
             phone = getIntent().getStringExtra("phone");

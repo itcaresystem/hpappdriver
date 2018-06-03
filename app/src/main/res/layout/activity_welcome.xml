@@ -28,20 +28,20 @@
                 android:layout_alignParentTop="true"
                 android:gravity="center"
                 android:minHeight="200dp"
-                android:background="@color/colorPrimary"
+                android:background="@color/bg_fab"
                 android:orientation="vertical">
 
                 <ride.happyy.driver.widgets.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/label_earn_more"
+                    android:text="Join"
                     android:textColor="#f9f9f9"
                     android:textSize="23sp"/>
 
                 <ride.happyy.driver.widgets.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/label_with_la_taxi"
+                    android:text="HAPPYY RIDE"
                     android:textColor="#f9f9f9"
                     android:textSize="27sp"
                     android:textStyle="bold"/>

@@ -62,8 +62,8 @@ import ride.happyy.driver.util.TypefaceManager;
 public class App extends Application {
 
     // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
-    private static final String TWITTER_KEY = "55wuhXRUSBtQnrb1lQi7QrEVe";
-    private static final String TWITTER_SECRET = "ZKows9PlDO5BEnB5babyXLHYDVwkd76ux8IewkqrjUSEM3xHUX";
+    private static final String TWITTER_KEY = "aSvPSyxOkaQoM4HAQmAEREaKs";
+    private static final String TWITTER_SECRET = "ODsOrBLqPBNs9iuLczSHMwVbmKGUP3pHz8XvtOyeEMmrqO1Kjv";
 
 
     public static final int SERVER_CONNECTION_AVAILABLE = 0;
@@ -542,10 +542,10 @@ public class App extends Application {
             // Create an image file name
             String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault())
                     .format(new Date());
-            String imageFileName = "LaTaxi" + timeStamp + "_";
+            String imageFileName = "HappyyRide" + timeStamp + "_";
             if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
                 File storageDir = new File(
-                        Environment.getExternalStorageDirectory() + "/LaTaxi/Photo/");
+                        Environment.getExternalStorageDirectory() + "/HappyyRide/Photo/");
                 if (!storageDir.exists()) {
                     storageDir.mkdirs();
                 }
@@ -569,10 +569,10 @@ public class App extends Application {
 
         // Create an image file name
 
-        String imageFileName = "LaTaxi" + "_" + fileName;
+        String imageFileName = "HappyyRide" + "_" + fileName;
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             File storageDir = new File(
-                    Environment.getExternalStorageDirectory() + "/LaTaxiDriver/Photo/");
+                    Environment.getExternalStorageDirectory() + "/HappyyRideDriver/Photo/");
             if (!storageDir.exists()) {
                 storageDir.mkdirs();
             }

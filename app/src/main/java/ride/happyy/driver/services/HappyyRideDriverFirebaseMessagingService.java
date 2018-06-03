@@ -11,7 +11,7 @@ import ride.happyy.driver.activity.TripDetailsActivity;
 import ride.happyy.driver.model.BasicBean;
 import ride.happyy.driver.net.parsers.RequestParser;
 
-public class LaTaxiDriverFirebaseMessagingService extends FirebaseMessagingService {
+public class HappyyRideDriverFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "LFMService";
 
