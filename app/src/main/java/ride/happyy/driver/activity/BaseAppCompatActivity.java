@@ -209,8 +209,9 @@ public class BaseAppCompatActivity extends BaseActivity implements
             }
         };
 
-        mDrawerToggle.setDrawerIndicatorEnabled(true);
+        mDrawerToggle.setDrawerIndicatorEnabled(false);
         // Set the drawer toggle as the DrawerListener
+        mDrawerToggle.setHomeAsUpIndicator(R.drawable.ic_message_group_icon);
         drawerLayout.addDrawerListener(mDrawerToggle);
         drawerLayout.setDrawerShadow(R.drawable.shadow,
                 GravityCompat.START);

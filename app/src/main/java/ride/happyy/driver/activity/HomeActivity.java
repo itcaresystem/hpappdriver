@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,6 +28,7 @@ import ride.happyy.driver.config.Config;
 import ride.happyy.driver.fragments.AccountsFragment;
 import ride.happyy.driver.fragments.EarningsFragment;
 import ride.happyy.driver.fragments.HomeFragment;
+import ride.happyy.driver.fragments.LeaderBordFragmentNew;
 import ride.happyy.driver.fragments.RatingsFragment;
 import ride.happyy.driver.listeners.BasicListener;
 import ride.happyy.driver.model.BasicBean;
@@ -38,7 +40,7 @@ import ride.happyy.driver.widgets.CustomTextView;
 
 public class HomeActivity extends BaseAppCompatActivity implements HomeFragment.HomeFragmentListener,
         EarningsFragment.EarningsFragmentListener, RatingsFragment.RatingsFragmentListener,
-        AccountsFragment.AccountsFragmentListener {
+        AccountsFragment.AccountsFragmentListener, LeaderBordFragmentNew.LeaderBordNewFragmentListener {
 
     private FileOp fop = new FileOp(this);
 
@@ -69,10 +71,15 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeFragment.
         initViews();
         initFCM();
 
+       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+       // getSupportActionBar().setHomeButtonEnabled(true);
+       // getSupportActionBar().setTitle(R.string.label_offline);
+        //getSupportActionBar().setDisplayShowTitleEnabled(true);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setTitle(R.string.label_offline);
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        // getSupportActionBar().setTitle("");
+        getSupportActionBar().setIcon(R.drawable.driverappbarfinal);
 
     }
 
@@ -179,6 +186,12 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeFragment.
                 .setText(R.string.btn_earnings)
                 //                .setIcon(R.drawable.ic_action_popular)
                 .setCustomView(customTab));
+        customTab = (CustomTextView) inflater.inflate(R.layout.custom_tab, null);
+        customTab.setText(R.string.btn_leaderbord);
+        tabLayout.addTab(tabLayout.newTab()
+                .setText(R.string.btn_leaderbord)
+                //                .setIcon(R.drawable.ic_action_popular)
+                .setCustomView(customTab));
 
         customTab = (CustomTextView) inflater.inflate(R.layout.custom_tab, null);
         customTab.setText(R.string.btn_ratings);
@@ -196,7 +209,7 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeFragment.
 //        tab_layout.addTab(tab_layout.newTab()/*.setText("Stream")*/.setIcon(R.drawable.ic_action_stream));
 
 
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        tabLayout.setTabGravity(Gravity.BOTTOM);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
 
         pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -244,7 +257,7 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeFragment.
         pager.setCurrentItem(0);
         tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(getApplicationContext(), R.color.transparent));
 //        tabLayout.setSelectedTabIndicatorHeight((int) mActionBarHeight);
-        pager.setOffscreenPageLimit(4);
+        pager.setOffscreenPageLimit(5);
 
         swipeView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

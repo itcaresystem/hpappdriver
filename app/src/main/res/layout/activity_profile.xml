@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/happyyridesplashbacgground"
     tools:context="ride.happyy.driver.activity.ProfileActivity">
 
 
@@ -53,7 +54,7 @@
             android:background="@drawable/btn_click_black_rectangle_with_semicircle_edge"
             android:gravity="center"
             android:minWidth="150dp"
-            android:onClick="onProfileTakePhotoClick"
+            android:onClick="onProfileTakePhotoClickBtn"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:visibility="visible">
@@ -104,6 +105,42 @@
             android:minHeight="40dp"
             android:text="@string/btn_name"
             android:textColor="@color/text_2"/>
+
+
+        <ride.happyy.driver.widgets.CustomTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/btn_gender"
+            android:textColor="@color/text_red_3"/>
+
+
+        <Spinner
+            android:id="@+id/genderSpiner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/gender_arry"/>
+
+        <ride.happyy.driver.widgets.CustomTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="DOB"
+            android:textColor="@color/text_red_3"/>
+
+
+        <EditText
+            android:id="@+id/etxt_profile_dob"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:lines="1"
+            android:backgroundTint="@color/gray_transparent_70"
+            android:maxLines="1"
+            android:minHeight="40dp"
+            android:text="@string/hint_dob"
+            android:textColor="@color/text_2"/>
+
 
         <ride.happyy.driver.widgets.CustomTextView
             android:layout_width="match_parent"
@@ -204,6 +241,7 @@
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
+            android:visibility="gone"
             android:id="@+id/til_profile_state"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

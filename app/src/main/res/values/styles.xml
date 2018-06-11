@@ -314,7 +314,7 @@
         <item name="android:layout_marginTop">3dp</item>
         <item name="android:gravity">center_vertical|start</item>
         <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
-        <item name="android:textColor">@color/text_red_1</item>
+        <item name="android:textColor">#fa0c0c</item>
     </style>
 
     <style name="DocumentItemError">
@@ -323,7 +323,7 @@
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:scaleType">centerInside</item>
         <item name="android:padding">3dp</item>
-        <item name="android:tint">@color/text_red_1</item>
+        <item name="android:tint">#fa0c0c</item>
         <item name="android:src">@drawable/ic_i</item>
         <item name="android:visibility">visible</item>
     </style>
@@ -358,9 +358,9 @@
 
 
     <style name="MySwitch" parent="Theme.AppCompat.Light">
-        <item name="colorControlActivated">#C64228</item>
-        <item name="colorSwitchThumbNormal">#6C6C6C</item>
-        <item name="android:colorForeground">#CCCCCC</item>
+        <item name="colorControlActivated">#00cd00</item>
+        <item name="colorSwitchThumbNormal">#ff0000</item>
+        <item name="android:colorForeground">#777676</item>
     </style>
 
     <style name="TripSummaryItemParent">

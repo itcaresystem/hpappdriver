@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_earning"
-    tools:context="ride.happyy.driver.fragments.EarningsFragment">
+    tools:context="ride.happyy.driver.fragments.LeaderBordFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

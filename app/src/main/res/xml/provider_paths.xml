@@ -2,10 +2,10 @@
 <paths xmlns:android="http://schemas.android.com/apk/res/android">
     <external-path
         name="files_root"
-        path="Android/data/ride.happyy.LaTaxiDriver/"/>
+        path="Android/data/ride.happyy.driver/"/>
     <external-path
         name="external_app_folder"
-        path="LaTaxiDriver/"/>
+        path="HappyyDriver/"/>
     <external-path
         name="external_storage_root"
         path="."/>

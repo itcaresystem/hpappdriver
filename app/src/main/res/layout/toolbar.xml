@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="top"
-    android:background="@color/colorPrimary"
+    android:background="#fff"
     android:elevation="1dp"
     android:minHeight="?attr/actionBarSize"
-    android:textColor="@color/white"
+    android:textColor="#000"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     app:layout_collapseMode="pin"
     app:layout_scrollFlags="scroll|enterAlways"
-    app:theme="@style/ThemeOverlay.AppCompat.Dark">
+    app:theme="@style/ThemeOverlay.AppCompat.Light">
 
    <!-- <in.techware.lataxidriver.widgets.CustomTextView
         android:id="@+id/txt_action_search"

@@ -7,6 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/happyyridesplashbacgground"
     tools:context="ride.happyy.driver.activity.DocumentUploadActivity">
 
 
@@ -71,7 +72,7 @@
             android:layout_marginBottom="30dp"
             android:background="@drawable/btn_click_black_rectangle_with_semicircle_edge"
             android:gravity="center"
-            android:onClick="onDocumentUploadTakePhotoClick"
+            android:onClick="onClickDocumentUpload"
             android:visibility="visible">
 
             <ImageView

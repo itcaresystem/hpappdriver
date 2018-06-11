@@ -75,7 +75,7 @@ public class LeaderBordFragment extends BaseFragment {
         // Inflate the layout for this fragment
         initBase(inflater, container, savedInstanceState);
 
-        View rootView = inflater.inflate(R.layout.fragment_earnings, null);
+        View rootView = inflater.inflate(R.layout.fragment_leaderbord, null);
         lytContent.addView(rootView);
 
 
@@ -378,7 +378,9 @@ public class LeaderBordFragment extends BaseFragment {
                 mChart.invalidate();
             }
 
-            txtTotalPayout.setText("৳"+weeklyEarningsBean.getTotalPayout());
+            String weeklyEarning = weeklyEarningsBean.getTotalPayout().substring(1);
+
+            txtTotalPayout.setText("৳"+weeklyEarning);
         } else {
             txtTotalPayout.setText(R.string.label_not_available);
         }

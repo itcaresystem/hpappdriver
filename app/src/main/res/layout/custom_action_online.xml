@@ -5,9 +5,8 @@
     android:id="@+id/switch_action_online"
     android:layout_width="wrap_content"
     android:layout_height="?actionBarSize"
-    app:trackTint="@color/colorPrimaryDark"
     app:switchMinWidth="50dp"
-    app:thumbTint="@color/colorAccent"
     android:paddingLeft="10dp"
     android:checked="false"
-    android:paddingRight="10dp"/>
+    android:paddingRight="10dp"
+    app:theme="@style/MySwitch"/>

@@ -7,6 +7,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import ride.happyy.driver.fragments.AccountsFragment;
 import ride.happyy.driver.fragments.EarningsFragment;
 import ride.happyy.driver.fragments.HomeFragment;
+import ride.happyy.driver.fragments.LeaderBordFragment;
+import ride.happyy.driver.fragments.LeaderBordFragmentNew;
 import ride.happyy.driver.fragments.RatingsFragment;
 
 
@@ -14,6 +16,8 @@ public class HomePagerAdapter extends FragmentPagerAdapter {
 
     private HomeFragment homeFragment;
     private EarningsFragment earningsFragment;
+   // private LeaderBordFragment leaderBordFragment;
+    private LeaderBordFragmentNew leaderBordFragmentNew;
     private RatingsFragment ratingsFragment;
     private AccountsFragment accountsFragment;
 
@@ -35,12 +39,18 @@ public class HomePagerAdapter extends FragmentPagerAdapter {
                     earningsFragment = new EarningsFragment();
                 }
                 return earningsFragment;
+
             case 2:
+                if (leaderBordFragmentNew == null) {
+                    leaderBordFragmentNew = new LeaderBordFragmentNew();
+                }
+                return leaderBordFragmentNew;
+            case 3:
                 if (ratingsFragment == null) {
                     ratingsFragment = new RatingsFragment();
                 }
                 return ratingsFragment;
-            case 3:
+            case 4:
                 if (accountsFragment == null) {
                     accountsFragment = new AccountsFragment();
                 }
@@ -52,6 +62,6 @@ public class HomePagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 4;
+        return 5;
     }
 }

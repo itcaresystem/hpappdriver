@@ -187,7 +187,7 @@
 
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="41fe22fe29e9adee56bd422170375370af6f965c" />
+            android:value="2d9c12368efeb2745613a2732df30f211c7d4e2c" />
 
         <activity android:name=".SelectVehicle"></activity>
     </application>

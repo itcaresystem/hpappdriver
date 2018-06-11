@@ -9,6 +9,7 @@
     android:id="@+id/lyt_home_card_online"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
+    android:visibility="gone"
     android:paddingTop="10dp">
 
     <ride.happyy.driver.widgets.CustomTextView

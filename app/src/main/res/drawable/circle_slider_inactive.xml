@@ -6,7 +6,7 @@
        android:useLevel="false">
 
     <corners android:radius="2dp"/>
-    <solid android:color="@color/circle_inactive"/>
+    <solid android:color="#fa0c0c"/>
 
 
 </shape>

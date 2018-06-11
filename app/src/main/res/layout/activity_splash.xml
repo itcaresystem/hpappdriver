@@ -6,13 +6,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:background="@drawable/happyyridesplashbacgground"
     tools:context="ride.happyy.driver.activity.SplashActivity">
 
-    <ImageView
+
+    <ProgressBar
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
-        android:scaleType="centerInside"
-        app:srcCompat="@drawable/logo"/>
+        android:layout_height="wrap_content"
+        android:paddingBottom="150dp"
+        android:layout_gravity="bottom"/>
+
 
 </FrameLayout>

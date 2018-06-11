@@ -1,5 +1,6 @@
 package ride.happyy.driver.activity;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +44,7 @@ import ride.happyy.driver.model.BasicBean;
 import ride.happyy.driver.model.ProfileBean;
 import ride.happyy.driver.net.DataManager;
 import ride.happyy.driver.util.AppConstants;
+import ride.happyy.driver.util.ImageFilePath;
 
 /*import com.digits.sdk.android.AuthCallback;
 import com.digits.sdk.android.AuthConfig;
@@ -52,6 +55,7 @@ import com.digits.sdk.android.DigitsSession;*/
 public class ProfileActivity extends BaseAppCompatNoDrawerActivity {
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int REQUEST_IMAGE_GALLERY = 3;
     private static final int REQ_MOBILE_VERIFICATION = 2;
     private boolean isEditing = false;
     private MenuItem menuProfileEdit;
@@ -65,6 +69,7 @@ public class ProfileActivity extends BaseAppCompatNoDrawerActivity {
     private TextInputEditText etxtState;
     private TextInputEditText etxtPostalCode;
     private EditText etxtName;
+    private EditText dob;
     private EditText etxtEmail;
     private TextView txtPhone;
     private View.OnClickListener snackBarRefreshOnClickListener;
@@ -73,7 +78,11 @@ public class ProfileActivity extends BaseAppCompatNoDrawerActivity {
     private ImageView ivProfilePhoto;
     private String imagePath;
     private String documentPath;
+    private Dialog dialog;
 //    private AuthConfig authConfig;
+    Spinner genderSpiner;
+    private String gender;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -183,10 +192,37 @@ public class ProfileActivity extends BaseAppCompatNoDrawerActivity {
             documentPath = imagePath;
             //    setBannerPic(tempImagePath);
             setProfilePhotoImage(imagePath);
+            if (dialog != null)
+                dialog.dismiss();
             isEditing = true;
             menuProfileEdit.setVisible(false);
             menuProfileSave.setVisible(true);
             setEditable(true);
+        }
+
+        if (requestCode == REQUEST_IMAGE_GALLERY && resultCode == RESULT_OK) {
+
+/*            Uri uri = data.getData();
+            Cursor cursor = getContentResolver().query(uri, new String[]{
+                    MediaStore.Images.ImageColumns.DATA}, null, null, null);
+            cursor.moveToFirst();
+            String imageFilePath = cursor.getString(0);
+            cursor.close();/
+            System.out.println(data.getData());
+            System.out.println(data.getData().getScheme());
+            System.out.println(data.getData().getEncodedPath());
+            /if (data.getData().getScheme().equalsIgnoreCase("file"))
+                imageFilePath = "file://"+data.getData().getPath();
+            else*/
+            String imageFilePath = ImageFilePath.getPath(getApplicationContext(), data.getData());
+            System.out.println(imageFilePath);
+
+            documentPath = imageFilePath;
+            //    setBannerPic(tempImagePath);
+            setProfilePhotoImage(imageFilePath);
+
+            if (dialog != null)
+                dialog.dismiss();
         }
 
         if (requestCode == REQ_MOBILE_VERIFICATION && resultCode == RESULT_OK) {
@@ -217,6 +253,9 @@ public class ProfileActivity extends BaseAppCompatNoDrawerActivity {
         };
 
         ivProfilePhoto = (ImageView) findViewById(R.id.iv_profile_display_photo);
+
+         genderSpiner = findViewById(R.id.genderSpiner);
+         dob = findViewById(R.id.etxt_profile_dob);
 
         tilAddress1 = (TextInputLayout) findViewById(R.id.til_profile_address_1);
         tilCity = (TextInputLayout) findViewById(R.id.til_profile_city);
@@ -286,10 +325,12 @@ public class ProfileActivity extends BaseAppCompatNoDrawerActivity {
     private void setEditable(boolean isEditing) {
 
         etxtName.setEnabled(isEditing);
+        genderSpiner.setEnabled(isEditing);
+        dob.setEnabled(isEditing);
         etxtEmail.setEnabled(isEditing);
         txtPhone.setEnabled(isEditing);
         etxtCity.setEnabled(isEditing);
-        etxtState.setEnabled(isEditing);
+       // etxtState.setEnabled(isEditing);
         etxtAddress1.setEnabled(isEditing);
         etxtPostalCode.setEnabled(isEditing);
     }
@@ -331,11 +372,12 @@ public class ProfileActivity extends BaseAppCompatNoDrawerActivity {
 
 
         etxtName.setText(profileBean.getName());
+        dob.setText(profileBean.getDOB());
         etxtEmail.setText(profileBean.getEmail());
         txtPhone.setText(profileBean.getPhone());
         etxtAddress1.setText(profileBean.getAddress());
         etxtCity.setText(profileBean.getCity());
-        etxtState.setText(profileBean.getState());
+       // etxtState.setText(profileBean.getState());
         etxtPostalCode.setText(profileBean.getPostalCode());
 
         Glide.with(getApplicationContext())
@@ -359,7 +401,8 @@ public class ProfileActivity extends BaseAppCompatNoDrawerActivity {
         String phone = txtPhone.getText().toString();
         String address1 = etxtAddress1.getText().toString();
         String city = etxtCity.getText().toString();
-        String state = etxtState.getText().toString();
+      //  String state = etxtState.getText().toString();
+        gender = genderSpiner.getSelectedItem().toString();
         String postalCode = etxtPostalCode.getText().toString();
 
         if (name.equals("")) {
@@ -371,6 +414,14 @@ public class ProfileActivity extends BaseAppCompatNoDrawerActivity {
                 editProfileBean = new ProfileBean();
             editProfileBean.setName(name);
         }
+
+        //set gender
+
+        editProfileBean = new ProfileBean();
+        editProfileBean.setGender(gender);
+        editProfileBean.setDOB(dob.getText().toString());
+
+
 
         if (email.equals("")) {
             Snackbar.make(coordinatorLayout, R.string.message_email_is_required, Snackbar.LENGTH_LONG)
@@ -416,7 +467,7 @@ public class ProfileActivity extends BaseAppCompatNoDrawerActivity {
             editProfileBean.setCity(city);
         }
 
-        if (state.equals("")) {
+    /*    if (state.equals("")) {
             Snackbar.make(coordinatorLayout, R.string.message_state_is_required, Snackbar.LENGTH_LONG)
                     .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
             return false;
@@ -425,6 +476,9 @@ public class ProfileActivity extends BaseAppCompatNoDrawerActivity {
                 editProfileBean = new ProfileBean();
             editProfileBean.setState(state);
         }
+        */
+        editProfileBean = new ProfileBean();
+        editProfileBean.setState(" ");
 
         if (postalCode.equals("")) {
             Snackbar.make(coordinatorLayout, R.string.message_postal_code_is_required, Snackbar.LENGTH_LONG)
@@ -440,7 +494,30 @@ public class ProfileActivity extends BaseAppCompatNoDrawerActivity {
         return true;
     }
 
-    public void onProfileTakePhotoClick(View view) {
+   public void onProfileTakePhotoClickBtn(View view){
+       dialog = new Dialog(this);
+       dialog.setContentView(R.layout.dialog_photo_colect);
+       dialog.show();
+
+
+   }
+
+    public void onAddProfilePhotoFromGallery(View view) {
+        view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+
+        if (!checkForReadWritePermissions()) {
+            getReadWritePermissions();
+
+        } else {
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("image/*");
+            startActivityForResult(intent, REQUEST_IMAGE_GALLERY);
+
+            dialog.dismiss();
+        }
+    }
+
+    public void onDocumentUploadTakePhotoClick(View view) {
         view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
         //mVibrator.vibrate(25);
 
@@ -538,6 +615,8 @@ public class ProfileActivity extends BaseAppCompatNoDrawerActivity {
             if (editProfileBean.getEmail() != null && !editProfileBean.getEmail().equalsIgnoreCase("")
                     && !editProfileBean.getEmail().equalsIgnoreCase(profileBean.getEmail()))
                 postData.put("email", editProfileBean.getEmail());
+                postData.put("gender", editProfileBean.getGender());
+                postData.put("dob", editProfileBean.getDOB());
 
             if (editProfileBean.getPhone() != null && !editProfileBean.getPhone().equalsIgnoreCase("")
                     && !editProfileBean.getPhone().equalsIgnoreCase(profileBean.getPhone()))

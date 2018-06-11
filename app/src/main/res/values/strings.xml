@@ -11,8 +11,10 @@
     <string name="action_share">Share</string>
     <string name="action_edit_account">Edit Account</string>
     <string name="action_sign_out">Sign Out</string>
-
-    <string name="btn_accounts">Accounts</string>
+<string name="label_choose_an_action">Choose an action!</string>
+    <string name="label_gallery">Galary</string>
+    <string name="label_camera">Camera</string>
+    <string name="btn_accounts">PROFILE</string>
     <string name="btn_add">Add</string>
     <string name="btn_any">Any</string>
     <string name="btn_camera">Camera</string>
@@ -24,20 +26,22 @@
     <string name="btn_confirm_you_have_arrived">Confirm you have arrived</string>
     <string name="btn_continue">Continue</string>
     <string name="btn_dismiss">Dismiss</string>
-    <string name="btn_earnings">Earnings</string>
+    <string name="btn_earnings">EARNING</string>
+    <string name="btn_leaderbord">LEADERBORD</string>
     <string name="btn_forgot_password">Forgot Password</string>
     <string name="btn_gallery">Gallery</string>
-    <string name="btn_home">Home</string>
+    <string name="btn_home">HOME</string>
     <string name="btn_issues">Issues</string>
     <string name="btn_location">Location</string>
     <string name="btn_log_in">Login</string>
     <string name="btn_login_here">Login Here</string>
     <string name="btn_logout">Logout</string>
     <string name="btn_name">Name</string>
+    <string name="btn_gender">Gender</string>
     <string name="btn_ok">OK</string>
     <string name="btn_open">Open</string>
     <string name="btn_open_settings">Open Settings</string>
-    <string name="btn_ratings">Ratings</string>
+    <string name="btn_ratings">RATING</string>
     <string name="btn_refresh">Refresh</string>
     <string name="btn_register">Register</string>
     <string name="btn_remove">Remove</string>
@@ -69,7 +73,8 @@
     <string name="hint_city">City</string>
     <string name="hint_confirm_password">Confrim Password</string>
     <string name="hint_country">Country</string>
-    <string name="hint_email">name@example.com</string>
+    <string name="hint_email">rajib@example.com</string>
+    <string name="hint_dob">05/06/1990</string>
     <string name="hint_email_address"><i>Email Address</i></string>
     <string name="hint_enter_your_city">Enter your City</string>
     <string name="hint_enter_your_name_here">Enter your name here</string>
@@ -282,6 +287,7 @@
     <string name="title_mobile_verification">Mobile Verification</string>
     <string name="title_on_trip">On Trip</string>
     <string name="title_pay_statements">Pay Statements</string>
+    <string name="title_pay_statements_leader">Leader Bord</string>
     <string name="title_reminder">Happyy Ride Reminder :</string>
     <string name="title_select">Select : </string>
     <string name="title_state">State :</string>
@@ -399,5 +405,10 @@
         <item>+88</item>
 
     </string-array>
+
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

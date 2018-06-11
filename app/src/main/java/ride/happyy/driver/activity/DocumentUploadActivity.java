@@ -1,5 +1,6 @@
 package ride.happyy.driver.activity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -38,6 +39,7 @@ import ride.happyy.driver.util.FileOp;
 public class DocumentUploadActivity extends BaseAppCompatNoDrawerActivity {
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int REQUEST_IMAGE_GALLERY = 2;
     private static final int IMAGE_PICKER_SELECT = 2;
     private static final String TAG = "DocUpA";
     private int type = AppConstants.DOCUMENT_TYPE_DRIVER_LICENCE;
@@ -48,6 +50,7 @@ public class DocumentUploadActivity extends BaseAppCompatNoDrawerActivity {
     private Button btnRetake;
     private Button btnSave;
     private ViewFlipper viewFlipper;
+    private Dialog dialog;
 
 
     @Override
@@ -161,6 +164,17 @@ public class DocumentUploadActivity extends BaseAppCompatNoDrawerActivity {
 
     }
 
+
+    public void  onClickDocumentUpload(View view){
+
+        view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+
+        dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_photo_colect);
+        dialog.show();
+
+    }
+
     public void onDocumentUploadTakePhotoClick(View view) {
 
         view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
@@ -194,6 +208,22 @@ public class DocumentUploadActivity extends BaseAppCompatNoDrawerActivity {
                     startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
                 }
             }
+        }
+    }
+
+    public void onAddProfilePhotoFromGallery(View view) {
+
+        view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+
+        if (!checkForReadWritePermissions()) {
+            getReadWritePermissions();
+
+        } else {
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("image/*");
+            startActivityForResult(intent, REQUEST_IMAGE_GALLERY);
+
+            dialog.dismiss();
         }
     }
 

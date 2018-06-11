@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary1">#c20427</color>
-    <color name="colorPrimary">#000</color>
-    <color name="colorPrimaryDark">#aa0092</color>
-    <color name="colorAccent">#aa0092</color>
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryDark_1">#aa0092</color>
+    <color name="colorPrimary_gray">#66696C</color>
+
+    <color name="colorPrimaryDark">#000</color>
+    <color name="colorAccent">#66696C</color>
 
     <color name="transparent">#00000000</color>
-    <color name="black">#000000</color>
+    <color name="black">#000</color>
     <color name="blue">#1961BC</color>
     <color name="blue_login">#33B5EB</color>
     <color name="blue_twitter">#55acee</color>
     <color name="blue_click_old">#bbdefb</color>
     <color name="blue_click">#ff33b5e5</color>
-    <color name="red">#aa0092</color>
+    <color name="red">#ff0000</color>
     <color name="red_wayay">#aa0092</color>
-    <color name="green">#3E9124</color>
+    <color name="green">#00cd00</color>
     <color name="purple">#631380</color>
     <color name="pink">#B35EA4</color>
     <color name="white">#ffffff</color>
