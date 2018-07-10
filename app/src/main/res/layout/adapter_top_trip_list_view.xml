@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:layout_margin="3dp"
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:minWidth="35dp"
     android:orientation="horizontal"
+    android:layout_margin="3dp"
     android:paddingTop="5dp"
+    android:paddingBottom="5dp"
     android:weightSum="100">
 
 
@@ -12,7 +15,7 @@
         android:gravity="center"
         android:text="1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/leaderbord_list_height"
         android:id="@+id/slistTv"
         android:textSize="18dp"
         android:textColor="#000"
@@ -21,7 +24,7 @@
         android:gravity="left"
         android:text="Rajib Hossain"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/leaderbord_list_height"
         android:id="@+id/ernerNameTv"
         android:textSize="18dp"
         android:textColor="#000"
@@ -32,7 +35,7 @@
         android:id="@+id/tripTv"
         android:text="20"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/leaderbord_list_height"
         android:textSize="18dp"
         android:textColor="#000"
         android:layout_weight="38"/>

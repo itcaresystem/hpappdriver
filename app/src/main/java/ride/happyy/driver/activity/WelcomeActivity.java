@@ -40,7 +40,7 @@ public class WelcomeActivity extends BaseAppCompatNoDrawerActivity {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.bg_welcome_header));
+            getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.black));
         }
 
         getSupportActionBar().hide();

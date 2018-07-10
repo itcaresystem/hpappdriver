@@ -107,6 +107,14 @@ public class SettingsActivity extends BaseAppCompatNoDrawerActivity {
 
     }
 
+    //on click reseet password button
+    public void onSettingsResetPasswordClick(View view) {
+
+        Intent intent = new Intent(SettingsActivity.this, MyResetPasswordActivity.class);
+        startActivity(intent);
+
+    }
+
     public void onSettingsContactClick(View view) {
 
         view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);

@@ -1,12 +1,17 @@
 package ride.happyy.driver.activity;
 
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.Gravity;
@@ -15,6 +20,11 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.nex3z.notificationbadge.NotificationBadge;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -58,7 +68,12 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeFragment.
     private SwitchCompat switchOnline;
     private CustomTextView customTab;
     private String requestID;
+    private TextView onlineOffLine_status;
+    private ImageButton notificatinImageButton;
+    private NotificationBadge mNotificationBadge;
+    private int countNotification =0;
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,12 +91,35 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeFragment.
        // getSupportActionBar().setTitle(R.string.label_offline);
         //getSupportActionBar().setDisplayShowTitleEnabled(true);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        // getSupportActionBar().setTitle("");
-        getSupportActionBar().setIcon(R.drawable.driverappbarfinal);
+       // getSupportActionBar().setTitle("HAPPYY DRIVE");
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.layout_actionbar_title);
+
+
+      // getSupportActionBar().setIcon(R.drawable.driverappbarfinal);
+        // init notification view
+        notificatinImageButton = findViewById(R.id.driverNotificationImageBtn);
+        mNotificationBadge      = findViewById(R.id.notificationBadge);
+        countNotification = 4;
+        mNotificationBadge.setNumber(countNotification);
 
     }
+
+   public void onClickNotification(View view){
+       view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+      // mNotificationBadge.setBackgroundColor(Color.TRANSPARENT);
+       mNotificationBadge.setNumber(0);
+      // notificatinImageButton.setVisibility(View.GONE);
+       Toast.makeText(this,"Notification",Toast.LENGTH_SHORT).show();
+       Intent mIntent = new Intent(this,MyNotificationsActivity.class);
+       startActivity(mIntent);
+
+
+
+    }
+
 
     @Override
     protected void onResume() {
@@ -166,6 +204,9 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeFragment.
 
     private void initViews() {
 
+
+
+        onlineOffLine_status = findViewById(R.id.status_txv);
         pager = (ViewPager) findViewById(R.id.pager_home);
         tabLayout = (TabLayout) findViewById(R.id.tab_layout_home);
 
@@ -177,8 +218,8 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeFragment.
         customTab.setBackgroundResource(R.drawable.btn_click_app_rectangle_with_semicircle_edge);
         tabLayout.addTab(tabLayout.newTab()
                 .setText(R.string.btn_home)
-                //                .setIcon(R.drawable.ic_action_popular)
-                .setCustomView(customTab));
+               .setIcon(R.drawable.ic_home_white_24dp)
+               .setCustomView(customTab));
 
         customTab = (CustomTextView) inflater.inflate(R.layout.custom_tab, null);
         customTab.setText(R.string.btn_earnings);
@@ -209,7 +250,7 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeFragment.
 //        tab_layout.addTab(tab_layout.newTab()/*.setText("Stream")*/.setIcon(R.drawable.ic_action_stream));
 
 
-        tabLayout.setTabGravity(Gravity.BOTTOM);
+      //  tabLayout.setTabGravity(Gravity.BOTTOM);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
 
         pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -409,10 +450,15 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeFragment.
         if (switchOnline != null) {
             if (switchOnline.isChecked()) {
                 Config.getInstance().setOnline(true);
-                getSupportActionBar().setTitle(R.string.label_online);
+               // getSupportActionBar().setTitle(R.string.label_online);
+                onlineOffLine_status.setText(R.string.label_online);
+                onlineOffLine_status.setTextColor(Color.GREEN);
+
             } else {
                 Config.getInstance().setOnline(false);
-                getSupportActionBar().setTitle(R.string.label_offline);
+               // getSupportActionBar().setTitle(R.string.label_offline);
+                onlineOffLine_status.setText(R.string.label_offline);
+                onlineOffLine_status.setTextColor(Color.RED);
             }
         }
     }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
-    android:visibility="gone"
+    android:visibility="visible"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="@dimen/drawer_width"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_splash"
+    android:background="@color/white"
     android:minWidth="@dimen/drawer_width"
     android:orientation="vertical">
 
@@ -17,6 +17,7 @@
 
 
         <LinearLayout
+            android:background="@color/white"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:minWidth="300dp"
@@ -24,6 +25,7 @@
             android:paddingLeft="40dp">
 
             <FrameLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginTop="20dp"
@@ -55,6 +57,22 @@
             </FrameLayout>
 
             <ride.happyy.driver.widgets.CustomTextView
+                android:layout_marginTop="30dp"
+                android:visibility="visible"
+                android:id="@+id/txt_drawer_notification"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:minHeight="40dp"
+                android:text="@string/label_notification"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/carbon"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+
+            <ride.happyy.driver.widgets.CustomTextView
+                android:visibility="gone"
                 android:id="@+id/txt_drawer_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -67,6 +85,7 @@
                 android:textStyle="bold"/>
 
             <ride.happyy.driver.widgets.CustomTextView
+                android:visibility="gone"
                 android:id="@+id/txt_drawer_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -78,6 +97,7 @@
                 android:textSize="18sp"/>
 
             <ride.happyy.driver.widgets.CustomTextView
+                android:visibility="gone"
                 android:id="@+id/txt_drawer_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -217,19 +237,23 @@
                 app:srcCompat="@drawable/ic_drawer_settings"/>-->
 
             <LinearLayout
-                android:background="@color/text_hint"
+                android:visibility="visible"
+                android:background="@color/white"
                 android:layout_marginTop="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <TextView
-                    android:textColor="@color/white"
-                    android:textSize="25dp"
+
+                <ListView
+                    android:id="@+id/notificationListView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Notification"/>
+                    android:layout_height="wrap_content">
+
+                </ListView>
+
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_marginTop="8dp"
                 android:background="@color/text_hint"
                 android:layout_width="match_parent"

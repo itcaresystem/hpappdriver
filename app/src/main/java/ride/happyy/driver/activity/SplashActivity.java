@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
@@ -42,7 +43,12 @@ public class SplashActivity extends BaseAppCompatNoDrawerActivity {
         App.getInstance().setDemo(false);
         swipeView.setPadding(0, 0, 0, 0);
         getSupportActionBar().hide();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.black));
+        }
         lytBase.setFitsSystemWindows(false);
+
 
 
         if (getIntent().getExtras() != null) {

@@ -168,6 +168,8 @@ public class LeaderBordFragmentNew extends BaseFragment {
         driverArrayList.add(driver9);
         driverArrayList.add(driver10);
 
+
+
       //  ArrayAdapter arrayAdapter = new ArrayAdapter();
 
         //textViewEarn

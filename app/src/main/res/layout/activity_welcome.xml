@@ -10,6 +10,7 @@
     tools:context="ride.happyy.driver.activity.WelcomeActivity">
 
     <LinearLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -27,22 +28,21 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:gravity="center"
-                android:minHeight="200dp"
-                android:background="@color/bg_fab"
+                android:minHeight="190dp"
                 android:orientation="vertical">
 
                 <ride.happyy.driver.widgets.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Join"
-                    android:textColor="#f9f9f9"
+                    android:textColor="#000"
                     android:textSize="23sp"/>
 
                 <ride.happyy.driver.widgets.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="HAPPYY RIDE"
-                    android:textColor="#f9f9f9"
+                    android:text="HAPPYY DRIVE"
+                    android:textColor="#000"
                     android:textSize="27sp"
                     android:textStyle="bold"/>
 
@@ -50,7 +50,7 @@
                     android:layout_width="45dp"
                     android:layout_height="5dp"
                     android:layout_marginTop="20dp"
-                    android:background="@drawable/btn_click_app_rectangle_with_semicircle_edge"/>
+                    android:background="@drawable/btn_click_black_rectangle_with_semicircle_edge"/>
 
             </LinearLayout>
 
@@ -60,25 +60,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/ll_welcome_header"
-            android:layout_marginBottom="60dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="50dp"
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:layout_gravity="center"
                 android:scaleType="centerInside"
-                android:layout_marginTop="60dp"
-                android:src="@drawable/logo"/>
+                android:layout_marginTop="5dp"
+                android:visibility="visible"
+                android:src="@drawable/logo_red_round_max"/>
 
             <Button
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="70dp"
-                android:background="@drawable/btn_click_white_rectangle_with_dark_semicircle_edge"
+                android:background="@drawable/btn_click_green_2_rectangle_with_semicircle_edge"
                 android:elevation="5dp"
                 android:onClick="onWelcomeActivitySignInClick"
+                android:textColor="@color/white"
                 android:text="@string/btn_sign_in"/>
 
             <Button
@@ -86,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
-                android:background="@drawable/btn_click_app_rectangle_with_semicircle_edge"
+                android:background="@drawable/btn_click_black_rectangle_with_semicircle_edge"
                 android:elevation="5dp"
                 android:onClick="onWelcomeActivityRegisterClick"
                 android:text="@string/btn_register"

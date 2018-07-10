@@ -17,7 +17,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="130dp"
-            android:background="@drawable/bg_welcome_header"
             android:gravity="center_vertical|start"
             android:orientation="vertical"
             android:padding="20dp">
@@ -29,13 +28,15 @@
                 android:textColor="@color/white"
                 android:textSize="30sp"
                 android:textStyle="bold"
+                android:visibility="gone"
                 app:textAllCaps="true"/>
 
             <ride.happyy.driver.widgets.CustomTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="HAPPYY RIDE"
-                android:textColor="@color/white"
+                android:text="HAPPYY DRIVE"
+                android:gravity="center"
+                android:textColor="@color/black"
                 android:textSize="22sp"
                 app:textAllCaps="true"/>
 
@@ -52,13 +53,11 @@
 
             <ImageView
                 android:id="@+id/iv_registration_mobile_country_flag"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
                 android:layout_gravity="left|center_vertical"
-                android:background="@drawable/circle_gray"
                 android:padding="2dp"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/ic_nation_america"/>
+                app:srcCompat="@drawable/bd"/>
 
 
             <Spinner
@@ -67,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorPrimary"
                 android:gravity="center_vertical"
-                android:minHeight="45dp"
+                android:minHeight="35dp"
                 android:minWidth="60dp"
                 android:theme="@style/SpinnerStyle"/>
 
@@ -205,7 +204,7 @@
     <android.support.design.widget.FloatingActionButton
         style="@style/RegistrationFAB"
         android:onClick="onRegistrationMobileNumberSubmitClick"
-        app:backgroundTint="@color/bg_fab"
+        app:backgroundTint="@color/red"
         app:fabSize="normal"
         app:srcCompat="@drawable/ic_arrow"/>
 

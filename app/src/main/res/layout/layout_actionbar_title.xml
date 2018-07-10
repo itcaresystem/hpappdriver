@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="?actionBarSize"
+    >
+
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_marginRight="@dimen/notification_margin_right"
+    android:layout_gravity="center"
+    >
+
+    <ImageButton
+        android:id="@+id/driverNotificationImageBtn"
+        android:background="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="60dp"
+        android:minHeight="45dp"
+        android:gravity="left|center"
+        android:onClick="onClickNotification"
+        android:src="@drawable/ic_message_group_icon"/>
+      <com.nex3z.notificationbadge.NotificationBadge
+          android:id="@+id/notificationBadge"
+          layout_toRightof="@+id/driverNotificationImageBtn"
+          layout_alignTopof="@+id/driverNotificationImageBtn"
+          android:layout_marginLeft="-32dp"
+          android:layout_marginTop="5dp"
+          android:layout_width="25dp"
+          android:layout_height="25dp"
+          app:maxTextLength="2"
+          app:background="@drawable/notification_count_resource">
+      </com.nex3z.notificationbadge.NotificationBadge>
+
+</LinearLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="2dp"
+        android:paddingTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        >
+
+    <ride.happyy.driver.widgets.CustomTextView
+        android:padding="2dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="right|center"
+        android:text="HAPPYY"
+        android:textColor="@color/red"
+        android:layout_marginLeft="0dp"
+        android:id="@+id/happyy"
+        android:typeface="serif"
+        android:textStyle="bold"
+        android:textSize="20sp" />
+
+        <ride.happyy.driver.widgets.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="DRIVE"
+            android:textColor="#000"
+            android:id="@+id/mytextDrive"
+            android:typeface="sans"
+            android:textStyle="bold"
+            android:textSize="20sp" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -4,12 +4,10 @@
 
     <item
         android:id="@+id/action_profile_edit"
-        android:icon="@drawable/ic_create_black_24dp"
         android:title="@string/action_edit_account"
         app:showAsAction="always"/>
     <item
         android:id="@+id/action_profile_save"
-        android:icon="@drawable/ic_check_black_24dp"
         android:visible="false"
         android:title="@string/btn_save"
         app:showAsAction="always"/>

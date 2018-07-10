@@ -24,8 +24,26 @@
 
     </LinearLayout>
 
+
     <View
         style="@style/MenuItemDottedUnderline"/>
+
+    <LinearLayout
+        style="@style/MenuItemParent"
+        android:background="?selectableItemBackground"
+        android:onClick="onSettingsResetPasswordClick">
+
+        <ride.happyy.driver.widgets.CustomTextView
+            style="@style/MenuItemLabel"
+            android:paddingLeft="0dp"
+            android:text="@string/label_reset_password"/>
+
+        <ImageView
+            style="@style/MenuItemArrow"
+            app:srcCompat="@drawable/ic_toolbar_back"/>
+
+    </LinearLayout>
+
 
     <ride.happyy.driver.widgets.CustomTextView
         android:layout_width="match_parent"

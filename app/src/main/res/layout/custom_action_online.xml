@@ -5,8 +5,8 @@
     android:id="@+id/switch_action_online"
     android:layout_width="wrap_content"
     android:layout_height="?actionBarSize"
-    app:switchMinWidth="50dp"
-    android:paddingLeft="10dp"
+    app:switchMinWidth="30dp"
+    android:paddingLeft="2dp"
     android:checked="false"
-    android:paddingRight="10dp"
+    android:paddingRight="1dp"
     app:theme="@style/MySwitch"/>

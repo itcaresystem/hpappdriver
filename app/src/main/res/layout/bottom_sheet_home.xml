@@ -15,6 +15,7 @@
     app:cardCornerRadius="4dp"
     app:cardElevation="4dp"
     app:cardUseCompatPadding="true"
+    android:visibility="gone"
     app:layout_behavior="@string/bottom_sheet_behavior">
 
     <LinearLayout

@@ -33,7 +33,7 @@
     <android.support.design.widget.FloatingActionButton
         style="@style/RegistrationFAB"
         android:onClick="onRegistrationNameSubmitClick"
-        app:backgroundTint="@color/bg_fab"
+        app:backgroundTint="@color/red"
         app:fabSize="normal"
         app:srcCompat="@drawable/ic_arrow"/>
 

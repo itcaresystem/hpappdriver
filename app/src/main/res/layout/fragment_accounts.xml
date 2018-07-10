@@ -13,16 +13,86 @@
         android:orientation="vertical"
         android:paddingTop="10dp">
 
-
         <LinearLayout
             android:background="@color/gray_light"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:padding="10dp">
 
-            <FrameLayout
+    <FrameLayout
+        android:background="@color/white"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/iv_accounts_profile_photo"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="left|center"
+            android:background="@drawable/circle_carbon_transparent"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/ic_profile_photo_default"/>
+
+        <ImageButton
+            android:id="@+id/ib_accounts_edit_account"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:layout_gravity="right|center"
+            android:layout_marginLeft="35dp"
+            android:padding="5dp"
+            android:background="@color/white"
+            android:elevation="4dp"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/ic_keyboard_arrow_right_black_24dp"/>
+
+        <ride.happyy.driver.widgets.CustomTextView
+            android:id="@+id/txt_accounts_driver_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="center|top"
+            android:layout_gravity="center"
+            android:minHeight="20dp"
+            android:text="@string/sample_name"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/text_4"
+            android:textStyle="bold"/>
+        <ride.happyy.driver.widgets.CustomTextView
+            android:id="@+id/txt_accounts_driver_mobile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center|top"
+            android:layout_gravity="center"
+            android:minHeight="20dp"
+            android:text="01623473041"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/text_5"
+            android:textStyle="bold"/>
+        <ride.happyy.driver.widgets.CustomTextView
+            android:id="@+id/activeInactiveTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Inactive"
+            android:background="@drawable/btn_click_black_rectangle_with_semicircle_edge"
+            android:textColor="@color/white"
+            android:layout_gravity="bottom|left"/>
+
+    </FrameLayout>
+
+</LinearLayout>
+        <LinearLayout
+            android:background="@color/gray_light"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="5dp"
+            android:padding="10dp">
+
+           <!-- <FrameLayout
                 android:background="@color/white"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -69,6 +139,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/line_dotted_gray_vertical"/>
+                -->
 
             <FrameLayout
                 android:background="@color/white"
@@ -80,34 +151,52 @@
                     android:id="@+id/iv_accounts_driver_car_photo"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:layout_gravity="center_horizontal|top"
+                    android:layout_gravity="left|center"
                     android:background="@drawable/circle_carbon_transparent"
                     android:scaleType="centerCrop"
                     app:srcCompat="@drawable/ic_vehicle_dummy"/>
 
                 <ImageButton
                     android:id="@+id/ib_accounts_edit_car_details"
-                    android:layout_width="30dp"
-                    android:visibility="gone"
-                    android:layout_height="30dp"
-                    android:layout_gravity="top|center_horizontal"
+                    android:layout_width="40dp"
+                    android:visibility="visible"
+                    android:layout_height="50dp"
+                    android:layout_gravity="right|center"
                     android:layout_marginLeft="35dp"
-                    android:background="@drawable/btn_click_circle_red_1"
                     android:elevation="4dp"
                     android:padding="5dp"
+                    android:background="@color/white"
                     android:scaleType="centerInside"
-                    app:srcCompat="@drawable/ic_edit"/>
+                    app:srcCompat="@drawable/ic_keyboard_arrow_right_black_24dp"/>
 
                 <ride.happyy.driver.widgets.CustomTextView
                     android:id="@+id/txt_accounts_vehicle_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="110dp"
+                    android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:minHeight="30dp"
-                    android:text="Account"
+                    android:text="Car"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/text_4"/>
+                <ride.happyy.driver.widgets.CustomTextView
+                    android:id="@+id/txt_accounts_vehicle_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center"
+                    android:minHeight="30dp"
+                    android:text="DM-HA-24-6210"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/text_3"/>
+                <ride.happyy.driver.widgets.CustomTextView
+                    android:id="@+id/vehicle_brand_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Noah"
+                    android:background="@drawable/btn_click_app_dark_rectangle_with_semicircle_edge"
+                    android:textColor="@color/white"
+                    android:layout_gravity="bottom|left"/>
 
             </FrameLayout>
 
@@ -126,19 +215,67 @@
         android:paddingLeft="10dp">
 
         <LinearLayout
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <TextView
+                android:paddingTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/gray"
+                android:textSize="20dp"
+                android:textStyle="normal"
+                android:typeface="sans"
+                android:text="COMMISSION RATE"/>
+            <!--    <ride.happyy.driver.widgets.CustomTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="22dp"
+                android:text=":"/> -->
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <ride.happyy.driver.widgets.CustomTextView
+                android:id="@+id/accounCommRateTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="20dp"
+                android:paddingBottom="5dp"
+                android:textColor="@color/green"
+                android:text="85"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="3dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:padding="3dp"
+            android:padding="10dp"
             >
         <ride.happyy.driver.widgets.CustomTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="left"
-            android:textColor="@color/black"
-            android:textSize="22dp"
-            android:text="Total Earn"/>
+            android:textColor="@color/gray"
+            android:textSize="20dp"
+            android:text="TOTAL EARN"/>
         <!--    <ride.happyy.driver.widgets.CustomTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -153,15 +290,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:textSize="22dp"
-                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:textColor="@color/gray"
                 android:text="৳ 5000"/>
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_margin="2dp"
-            android:padding="3dp"
+            android:layout_marginTop="3dp"
+            android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white">
@@ -171,9 +308,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="left"
-                android:textColor="@color/black"
-                android:textSize="22dp"
-                android:text="Total Trip"/>
+                android:textColor="@color/gray"
+                android:textSize="20dp"
+                android:text="TOTAL TRIPS"/>
             <!--    <ride.happyy.driver.widgets.CustomTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -188,16 +325,16 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:textSize="22dp"
-                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:textColor="@color/gray"
                 android:text="20"/>
 
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_margin="2dp"
-            android:padding="3dp"
+            android:layout_marginTop="3dp"
+            android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white">
@@ -207,9 +344,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="left"
-                android:textColor="@color/black"
-                android:textSize="22dp"
-                android:text="Ref. Bonus"/>
+                android:textColor="@color/gray"
+                android:textSize="20dp"
+                android:text="REF. BONUS"/>
             <!--    <ride.happyy.driver.widgets.CustomTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -224,16 +361,16 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:textSize="22dp"
-                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:textColor="@color/gray"
                 android:text="৳ 0"/>
 
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_margin="2dp"
-            android:padding="3dp"
+            android:layout_marginTop="3dp"
+            android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white">
@@ -243,9 +380,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="left"
-                android:textSize="22dp"
-                android:textColor="@color/red"
-                android:text="Total Due"/>
+                android:textSize="20dp"
+                android:textColor="@color/gray"
+                android:text="TOTAL DUE "/>
             <!--    <ride.happyy.driver.widgets.CustomTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -260,15 +397,17 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:textSize="22dp"
+                android:textSize="20dp"
                 android:textColor="@color/red"
                 android:text="৳ 500"/>
 
 
         </LinearLayout>
+
         <LinearLayout
-            android:layout_margin="2dp"
-            android:padding="3dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white">
@@ -278,44 +417,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="left"
-                android:textColor="@color/green"
-                android:textSize="22dp"
-                android:text="Com. Rate"/>
-            <!--    <ride.happyy.driver.widgets.CustomTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="22dp"
-                android:text=":"/> -->
-            <ride.happyy.driver.widgets.CustomTextView
-                android:id="@+id/accounCommRateTv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:textSize="22dp"
-                android:textColor="@color/black"
-                android:text="80"/>
-
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_margin="2dp"
-            android:padding="3dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white">
-
-            <ride.happyy.driver.widgets.CustomTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="left"
-                android:textColor="@color/blue"
-                android:textSize="22dp"
-                android:text="Your Ratting"/>
+                android:textColor="@color/gray"
+                android:textSize="20dp"
+                android:text="YOUR RATING"/>
             <!--    <ride.happyy.driver.widgets.CustomTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -330,7 +434,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:textSize="22dp"
+                android:textSize="20dp"
                 android:textColor="@color/blue"
                 android:text="85%"/>
 
@@ -349,7 +453,7 @@
             android:background="@color/white"
             android:orientation="vertical"
             android:paddingBottom="5dp"
-            android:paddingTop="5dp">
+            android:paddingTop="1dp">
 
 
             <LinearLayout
@@ -458,22 +562,64 @@
                     style="@style/MenuItemArrow"
                     app:srcCompat="@drawable/ic_toolbar_back"/>
             </LinearLayout>
+            <View
+                style="@style/MenuItemUnderline"/>
+
+
+            <LinearLayout
+                android:id="@+id/ll_share_invite"
+                style="@style/MenuItemParent"
+                android:background="?selectableItemBackground">
+
+                <ImageView
+                    style="@style/MenuItemImage"
+                    app:srcCompat="@drawable/ic_share_black_24dp"/>
+
+                <ride.happyy.driver.widgets.CustomTextView
+                    style="@style/MenuItemLabel"
+                    android:text="@string/label_share"/>
+
+                <ImageView
+                    style="@style/MenuItemArrow"
+                    app:srcCompat="@drawable/ic_toolbar_back"/>
+            </LinearLayout>
+            <View
+                style="@style/MenuItemUnderline"/>
+
+
+            <LinearLayout
+                android:id="@+id/ll_logout"
+                style="@style/MenuItemParent"
+                android:background="?selectableItemBackground">
+
+                <ImageView
+                    style="@style/MenuItemImage"
+                    app:srcCompat="@drawable/ic_log_out_new_whit_24dp"/>
+
+                <ride.happyy.driver.widgets.CustomTextView
+                    style="@style/MenuItemLabel"
+                    android:textColor="@color/red"
+                    android:text="@string/btn_sign_out"/>
+
+            </LinearLayout>
 
             <View
                 style="@style/MenuItemUnderline"/>
 
 
             <Button
+                android:visibility="gone"
                 android:id="@+id/btn_accounts_logout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/btn_click_app_rectangle_with_semicircle_edge"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/btn_click_black_rectangle_with_semicircle_edge"
                 android:minHeight="40dp"
                 android:minWidth="100dp"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
+                android:layout_marginBottom="150dp"
                 android:text="@string/btn_sign_out"
                 android:textColor="@color/white"/>
 

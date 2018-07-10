@@ -89,6 +89,7 @@
             android:layout_marginTop="10dp"
             android:minHeight="110dp"
             android:onClick="onDriverLicenceTypeNonDrivingPartnerClick"
+            android:visibility="gone"
             android:padding="15dp">
 
             <ride.happyy.driver.widgets.CustomTextView

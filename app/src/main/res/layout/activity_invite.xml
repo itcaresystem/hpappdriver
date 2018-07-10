@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="ride.happyy.driver.activity.InviteActivity">
+
+    <LinearLayout
+        android:id="@+id/ll_about_software_licences"
+        style="@style/MenuItemParent"
+        android:layout_marginTop="10dp"
+        android:background="?selectableItemBackground"
+        >
+
+        <ride.happyy.driver.widgets.CustomTextView
+            style="@style/MenuItemLabel"
+            android:layout_margin="10dp"
+            android:paddingTop="30dp"
+            android:gravity="center"
+            android:textSize="24dp"
+            android:text="@string/label_share_invite_code"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_about_map_licences"
+        style="@style/MenuItemParent"
+        android:background="?selectableItemBackground"
+        >
+
+        <ride.happyy.driver.widgets.CustomTextView
+            android:id="@+id/code_tv"
+            style="@style/MenuItemLabel"
+            android:gravity="center"
+            android:padding="50dp"
+            android:textSize="30dp"
+            android:textColor="@color/blue"
+            android:text="@string/label_sample_code"/>
+
+
+
+    </LinearLayout>
+
+   <LinearLayout
+       style="@style/MenuItemParent">
+       <ride.happyy.driver.widgets.CustomTextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:paddingLeft="20dp"
+           android:paddingRight="20dp"
+           android:layout_marginTop="10dp"
+           android:gravity="left"
+           android:textColor="@color/text_5"
+           android:text="@string/label_share_message"
+           android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+   </LinearLayout>
+
+    <LinearLayout
+        style="@style/MenuItemParent"
+        android:layout_marginTop="30dp">
+
+        <Button
+            android:id="@+id/btn_invite_friends"
+            android:padding="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="INVITE FRIENDS"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_click_black_rectangle_with_semicircle_edge"/>
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

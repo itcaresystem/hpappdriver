@@ -23,13 +23,14 @@
             android:layout_height="80dp"
             android:layout_marginBottom="10dp"
             android:scaleType="centerInside"
+            android:visibility="gone"
             android:src="@drawable/logo"/>
 
         <ride.happyy.driver.widgets.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="@string/label_la_taxi"
+            android:text="@string/label_happyy_ride"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/text_5"
             android:textStyle="bold"/>
@@ -72,7 +73,7 @@
             android:layout_height="40dp"
             android:layout_gravity="center"
             android:layout_marginBottom="50dp"
-            android:background="@drawable/btn_click_app_rectangle_with_semicircle_edge"
+            android:background="@drawable/btn_click_black_rectangle_with_semicircle_edge"
             android:onClick="onLoginSubmitClick"
             android:text="@string/btn_log_in"
             android:textAppearance="?android:attr/textAppearanceMedium"

@@ -32,6 +32,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -48,15 +49,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
 import ride.happyy.driver.R;
+import ride.happyy.driver.adapter.DriverListAdapterTrip;
+import ride.happyy.driver.adapter.NotificationAddapter;
 import ride.happyy.driver.app.App;
 import ride.happyy.driver.config.Config;
 import ride.happyy.driver.listeners.BasicListener;
 import ride.happyy.driver.listeners.ProfileListener;
 import ride.happyy.driver.model.BasicBean;
+import ride.happyy.driver.model.MyNotification;
 import ride.happyy.driver.model.ProfileBean;
 import ride.happyy.driver.net.DataManager;
 import ride.happyy.driver.widgets.CustomTextView;
@@ -108,6 +113,8 @@ public class BaseAppCompatActivity extends BaseActivity implements
     private CustomTextView txtName;
     private CustomTextView txtPhone;
     private CustomTextView txtEmail;
+
+    private ListView notificationListView;
 
 
     private GoogleApiClient mGoogleApiClient;
@@ -403,6 +410,17 @@ public class BaseAppCompatActivity extends BaseActivity implements
         LayoutInflater inflater = getLayoutInflater();
         lytDrawer = inflater.inflate(R.layout.layout_drawer, null);
 //        leftDrawer.addView(lytDrawer);
+        notificationListView =  lytDrawer.findViewById(R.id.notificationListView);
+
+        MyNotification myNotification1 = new MyNotification("Welcome to Happyy Drive ! Earn with Happyy Drive. It is the most oowerfull ride sharing apps.");
+        MyNotification myNotification2 = new MyNotification("Earn With Happyy Drive");
+        ArrayList<MyNotification> myNotificationArrayList = new ArrayList<>();
+        myNotificationArrayList.add(myNotification1);
+        myNotificationArrayList.add(myNotification2);
+
+        NotificationAddapter notificationAddapter = new NotificationAddapter(this, R.layout.adapter_notification, myNotificationArrayList);
+        notificationListView.setAdapter(notificationAddapter);
+
 
         ivUserDP = (ImageView) lytDrawer.findViewById(R.id.iv_drawer_profile_photo);
         txtName = (CustomTextView) lytDrawer.findViewById(R.id.txt_drawer_name);

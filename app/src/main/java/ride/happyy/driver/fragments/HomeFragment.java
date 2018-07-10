@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -39,6 +40,7 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -47,6 +49,7 @@ import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -73,6 +76,8 @@ import ride.happyy.driver.model.TripListBean;
 import ride.happyy.driver.net.DataManager;
 import ride.happyy.driver.util.AppConstants;
 
+import static ride.happyy.driver.app.App.getStatusBarHeight;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -93,7 +98,7 @@ public class HomeFragment extends BaseFragment implements
     private static final LocationRequest mLocationRequest = LocationRequest.create()
             .setInterval(5000)         // 5 seconds
             .setFastestInterval(16)    // 16ms = 60fps
-            .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+            .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
 
 
     private static GoogleMapOptions options = new GoogleMapOptions()
@@ -137,7 +142,7 @@ public class HomeFragment extends BaseFragment implements
     private boolean isOnline;
     private TripListBean tripListBean;
     private TextView txtNoTrips;
-
+    private boolean isCameraMoved;
     private RecyclerView rvTodayTrips;
     private LinearLayoutManager linearLayoutManager;
     private HomeTripHistoryRecyclerAdapter adapter;
@@ -148,6 +153,7 @@ public class HomeFragment extends BaseFragment implements
     private View.OnClickListener snackBarRefreshOnClickListener;
     private Button btnTripHistory;
     private boolean isDriverLocationUpdated;
+    private Marker CurrentMarker;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -167,7 +173,13 @@ public class HomeFragment extends BaseFragment implements
             mapBean = (MapBean) getArguments().getSerializable("mapBean");*/
 
         intiView(rootView);
-        initMap(rootView);
+
+       // before
+      //  initMap(rootView);
+
+
+        //after
+        initMap1(rootView);
 
 //        mGoogleApiClient = App.getInstance().getGoogleApiClient();
        /* mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
@@ -351,12 +363,15 @@ public class HomeFragment extends BaseFragment implements
             public void onClick(View view) {
                 view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
                 //mVibrator.vibrate(25);
+               moveToCurrentLocation();
 
                 if (mGoogleApiClient == null || mGoogleApiClient.isConnected() || !mGoogleApiClient.isConnecting()) {
                     getCurrentLocation();
+
                 } else {
                     mGoogleApiClient.connect();
                 }
+
             }
         });
 
@@ -372,6 +387,91 @@ public class HomeFragment extends BaseFragment implements
 
     }
 
+    //from ride app init map
+
+    private void initMap1(View view) {
+        myMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.fragment_map);
+
+
+        myMapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                mMap = googleMap;
+                mMap.setPadding(0,0/*(int) ((100 * px) + mActionBarHeight + getStatusBarHeight())*/, 0, (int) (100 * px));
+
+                initMapLoad1();
+
+
+            }
+        });
+    }
+
+    private void initMapLoad1() {
+
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+
+                if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED || bottomSheetBehavior.getPeekHeight() == 100 * px) {
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                }
+            }
+        });
+
+        mMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
+
+            @Override
+            public void onCameraMove() {
+
+                /*if (sourceBean != null & destinationBean != null) {
+                    fetchTotalfare();
+                    txtFare.setText(fareBean.getTotalFare());
+                }*/
+                if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED || bottomSheetBehavior.getPeekHeight() == 100 * px) {
+                    bottomSheetBehavior.setPeekHeight(0);
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                }
+
+
+                    mMap.getUiSettings().setScrollGesturesEnabled(true);
+                    mMap.setMaxZoomPreference(18f);
+                    // framePickup.setVisibility(View.INVISIBLE);
+
+
+               isCameraMoved = true;
+                }
+
+        });
+
+        mMap.setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener() {
+            @Override
+            public void onCameraIdle() {
+
+
+
+
+
+                    CameraPosition postion = mMap.getCameraPosition();
+                    LatLng center = postion.target;
+
+                    // framePickup.setVisibility(View.VISIBLE);
+
+
+                    if (bottomSheetBehavior.getPeekHeight() == 0) {
+                        bottomSheetBehavior.setPeekHeight((int) (100 * px));
+                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+//                        llLandingBottomBar.animate().translationY(00*px).setDuration(1000).start();
+                    }
+
+                    Log.i(TAG, "onCameraIdle: GetLocationName Called : " + center);
+
+                    isCameraMoved = false;
+                }
+
+        });
+    }
+
+
     private void initMap(View rootView) {
 
         plotList = new ArrayList<>();
@@ -382,7 +482,7 @@ public class HomeFragment extends BaseFragment implements
         mapPinRed = BitmapFactory.decodeResource(getResources(), R.drawable.ic_hunt_red);
 */
 
-        mapPin = BitmapFactory.decodeResource(getResources(), R.drawable.circle_app);
+        mapPin = BitmapFactory.decodeResource(getResources(), R.drawable.car_logo_for_curren_location);
 
 
         myFragmentManager = getChildFragmentManager();
@@ -466,9 +566,27 @@ public class HomeFragment extends BaseFragment implements
             dLatitude = mapBean.getPlaces().get(0).getDLatitude();
             dLongitude = mapBean.getPlaces().get(0).getDLongitude();
 
+            /*
+             if(CurrentMarker != null){
+        CurrentMarker.remove();
+    }
+
+    LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
+    MarkerOptions markerOption = new MarkerOptions();
+    markerOption.position(latLng);
+    markerOption.title("Current Position");
+    markerOption.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+    CurrentMarker = mMap.addMarker(markerOption);
+    Toast.makeText(this,"Location changed",Toast.LENGTH_SHORT).show();
+    CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng).zoom(13).build();
+    mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+             */
+
+
             newLatLng = new LatLng(dLatitude, dLongitude);
             if (dLatitude != 0.0 && dLongitude != 0.0)
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(newLatLng, 16));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(newLatLng, 15));
         }
         center = mMap.getCameraPosition().target;
 
@@ -679,8 +797,11 @@ public class HomeFragment extends BaseFragment implements
                     && Config.getInstance().getCurrentLongitude() != null && !Config.getInstance().getCurrentLongitude().equals("")) {
                 dLatitude = Double.parseDouble(Config.getInstance().getCurrentLatitude());
                 dLongitude = Double.parseDouble(Config.getInstance().getCurrentLongitude());
+
+                FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getContext());
+             //   double lat = fusedLocationProviderClient.
                 current = new LatLng(dLatitude, dLongitude);
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(current, 18));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(current, 15));
 
             }
         } catch (Exception e) {
@@ -777,7 +898,8 @@ public class HomeFragment extends BaseFragment implements
             marker = mMap.addMarker(new MarkerOptions()
                     .position(bean.getLatLng())
                     .title(bean.getName())
-                    .icon(BitmapDescriptorFactory.fromBitmap(mapPin)));
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_source)));
+                   // .icon(BitmapDescriptorFactory.fromBitmap(mapPin)));
 
             //					combineImages(frame, thumb);
             markerMap.put(marker.getId(), bean.getId());
@@ -978,7 +1100,7 @@ public class HomeFragment extends BaseFragment implements
             }
         }*/
     }
-
+int onece =0;
     @Override
     public void onLocationChanged(Location location) {
 /*        if ((Config.getInstance().getCurrentLatitude() == null || Config.getInstance().getCurrentLongitude() == null)
@@ -992,11 +1114,28 @@ public class HomeFragment extends BaseFragment implements
             }
         }*/
 
+        if(CurrentMarker!=null){
+            CurrentMarker.remove();
+        }
+
+        LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
+        MarkerOptions markerOption = new MarkerOptions();
+        markerOption.position(latLng);
+        markerOption.title("Current Position");
+       // markerOption.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+
+        markerOption.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_source));
+        CurrentMarker = mMap.addMarker(markerOption);
+        if(onece==0) {
+            CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng).zoom(15).build();
+            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+            onece = 1;
+        }
 
         Log.i(TAG, "onLocationChanged: LATITUDE : " + location.getLatitude());
         Log.i(TAG, "onLocationChanged: LONGITUDE : " + location.getLongitude());
 
-        moveToCurrentLocation();
+        // moveToCurrentLocation();
 /*
         if (Config.getInstance().isOnline()) {
             performDriverLocationUpdate(location);

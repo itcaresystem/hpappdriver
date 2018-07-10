@@ -27,6 +27,7 @@ import ride.happyy.driver.activity.AboutActivity;
 import ride.happyy.driver.activity.DocumentsActivity;
 import ride.happyy.driver.activity.EditVehicleDetailsActivity;
 import ride.happyy.driver.activity.HelpListActivity;
+import ride.happyy.driver.activity.InviteActivity;
 import ride.happyy.driver.activity.ProfileActivity;
 import ride.happyy.driver.activity.SettingsActivity;
 import ride.happyy.driver.activity.SplashActivity;
@@ -44,7 +45,7 @@ public class AccountsFragment extends BaseFragment {
     private LinearLayout llWayBill;
     private LinearLayout llDocuments;
     private LinearLayout llSettings;
-    private LinearLayout llAbout;
+    private LinearLayout llAbout, invite, logOut;
     private ImageButton ibEditProfile;
     private ImageButton ibEditVehicle;
     private Button btnLogout;
@@ -114,6 +115,8 @@ public class AccountsFragment extends BaseFragment {
         llDocuments = (LinearLayout) rootView.findViewById(R.id.ll_accounts_documents);
         llSettings = (LinearLayout) rootView.findViewById(R.id.ll_accounts_settings);
         llAbout = (LinearLayout) rootView.findViewById(R.id.ll_accounts_about);
+        invite = rootView.findViewById(R.id.ll_share_invite);
+        logOut    = rootView.findViewById(R.id.ll_logout);
 
         txtName = (TextView) rootView.findViewById(R.id.txt_accounts_driver_name);
         txtVehicle = (TextView) rootView.findViewById(R.id.txt_accounts_vehicle_name);
@@ -125,6 +128,7 @@ public class AccountsFragment extends BaseFragment {
         ibEditVehicle = (ImageButton) rootView.findViewById(R.id.ib_accounts_edit_car_details);
 
         btnLogout = (Button) rootView.findViewById(R.id.btn_accounts_logout);
+
 
         btnLogout.setTypeface(typeface);
 
@@ -216,6 +220,35 @@ public class AccountsFragment extends BaseFragment {
                 //mVibrator.vibrate(25);
 
                 startActivity(new Intent(getActivity(), AboutActivity.class));
+            }
+        });
+
+        invite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+
+                Intent mIntent = new Intent(getActivity(), InviteActivity.class);
+                mIntent.putExtra("code","hrin1");
+
+                startActivity(mIntent);
+
+            }
+        });
+
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+
+                if (getActivity() != null) {
+                    App.logout();
+                    startActivity(new Intent(getActivity(), SplashActivity.class)
+                            .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                    getActivity().finish();
+                }
+
+
             }
         });
 
