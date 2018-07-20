@@ -98,6 +98,7 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeFragment.
         getSupportActionBar().setCustomView(R.layout.layout_actionbar_title);
 
 
+
       // getSupportActionBar().setIcon(R.drawable.driverappbarfinal);
         // init notification view
         notificatinImageButton = findViewById(R.id.driverNotificationImageBtn);

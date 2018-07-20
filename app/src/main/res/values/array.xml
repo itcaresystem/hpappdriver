@@ -6,4 +6,13 @@
         <item>Female</item>
         <item>Other</item>
     </string-array>
+
+    <string-array name="car_brand">
+        <item>Select Brand</item>
+        <item>PREMIO</item>
+        <item>NOAH</item>
+        <item>HIACE</item>
+    </string-array>
+
+
 </resources>
