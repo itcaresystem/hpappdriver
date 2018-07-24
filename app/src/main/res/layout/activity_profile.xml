@@ -81,6 +81,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:gravity="center"
             android:text="@string/label_profile"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/text_red_3"
@@ -125,7 +126,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="DOB"
+            android:text="Date Of Birth"
             android:textColor="@color/text_red_3"/>
 
 

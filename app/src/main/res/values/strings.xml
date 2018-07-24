@@ -134,7 +134,7 @@
     <string name="label_driver_cum_owner_option">Choose this option if you own the vehicle and plan to drive yourself too</string>
     <string name="label_driver_documents">Driver Documents</string>
     <string name="label_driver_licence_with_badge_number">Driver Licence with Badge Number</string>
-    <string name="label_driver_license">Driver License</string>
+    <string name="label_driver_license">NID/Driver License</string>
     <string name="label_drop_off">- \tDrop Off</string>
     <string name="label_duration">Duration</string>
     <string name="label_earn_more">Earn More</string>

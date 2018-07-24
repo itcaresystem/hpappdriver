@@ -7,10 +7,12 @@
     android:orientation="vertical">
 
     <ride.happyy.driver.widgets.CustomTextView
+        android:paddingBottom="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
         android:text="@string/label_choose_an_action"
+        android:gravity="center"
+        android:layout_gravity="top|center"
         android:textColor="@color/black"
         android:textSize="18sp"/>
 

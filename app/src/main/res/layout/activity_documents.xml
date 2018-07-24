@@ -74,7 +74,7 @@
 
                 <ride.happyy.driver.widgets.CustomTextView
                     style="@style/DocumentItemLabel"
-                    android:text="@string/label_bank_passbook"/>
+                    android:text="@string/label_vehicle_registration"/>
 
                 <ride.happyy.driver.widgets.CustomTextView
                     android:id="@+id/txt_documents_bank_passbook_status"
@@ -94,6 +94,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             style="@style/DocumentItemParent"
             android:background="?selectableItemBackground"
             android:onClick="onDocumentsItemClick"
@@ -124,6 +125,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             style="@style/DocumentItemParent"
             android:background="?selectableItemBackground"
             android:onClick="onDocumentsItemClick"
@@ -154,6 +156,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             style="@style/DocumentItemParent"
             android:background="?selectableItemBackground"
             android:onClick="onDocumentsItemClick"
@@ -184,6 +187,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             style="@style/DocumentItemParent"
             android:background="?selectableItemBackground"
             android:onClick="onDocumentsItemClick"
@@ -215,6 +219,7 @@
 
 
         <ride.happyy.driver.widgets.CustomTextView
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -236,6 +241,7 @@
 
 
         <LinearLayout
+            android:visibility="gone"
             style="@style/DocumentItemParent"
             android:background="?selectableItemBackground"
             android:onClick="onDocumentsItemClick"
@@ -266,6 +272,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             style="@style/DocumentItemParent"
             android:background="?selectableItemBackground"
             android:onClick="onDocumentsItemClick"
@@ -296,6 +303,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             style="@style/DocumentItemParent"
             android:background="?selectableItemBackground"
             android:onClick="onDocumentsItemClick"
@@ -326,6 +334,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             style="@style/DocumentItemParent"
             android:background="?selectableItemBackground"
             android:onClick="onDocumentsItemClick"
@@ -356,6 +365,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             style="@style/DocumentItemParent"
             android:background="?selectableItemBackground"
             android:onClick="onDocumentsItemClick"
@@ -386,6 +396,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             style="@style/DocumentItemParent"
             android:background="?selectableItemBackground"
             android:onClick="onDocumentsItemClick"

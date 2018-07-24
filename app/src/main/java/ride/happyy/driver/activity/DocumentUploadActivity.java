@@ -129,7 +129,7 @@ public class DocumentUploadActivity extends BaseAppCompatNoDrawerActivity {
                 return getString(R.string.label_tax_receipt);
 
             case AppConstants.DOCUMENT_TYPE_PASS_BOOK:
-                return getString(R.string.label_pass_book);
+                return getString(R.string.label_vehicle_registration);
 
             case AppConstants.DOCUMENT_TYPE_DRIVER_LICENCE_WITH_BADGE_NUMBER:
                 return getString(R.string.label_driver_licence_with_badge_number);

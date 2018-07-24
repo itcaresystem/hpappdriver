@@ -65,7 +65,7 @@ public class LeaderBordFragmentNew extends BaseFragment {
     private TextView lifetimeEarnTv, lifetimeTripTv, accountReferralBonusTv, accountTotalDueTv, accountRatingTv, accountCommissionRateTv;
     private ListView topTenEarneLv, topTenTripsLv;
     private Button topEarnerBtn, topTripBtn;
-    private LinearLayout topEarnLinearLayout, topTripLinearLayout;
+    private LinearLayout topEarnLinearLayout, topTripLinearLayout, topEarnerTitleLinearLayout, topTripsTitleLinearLayout;
     public LeaderBordFragmentNew() {
         // Required empty public constructor
     }
@@ -97,7 +97,7 @@ public class LeaderBordFragmentNew extends BaseFragment {
         super.onResume();
 
         if (App.isNetworkAvailable()) {
-           // fetchProfile();
+            // fetchProfile();
         }
 
     }
@@ -105,7 +105,8 @@ public class LeaderBordFragmentNew extends BaseFragment {
     private void intiView(View rootView) {
         topEarnLinearLayout = rootView.findViewById(R.id.earnLinearLayout);
         topTripLinearLayout = rootView.findViewById(R.id.tripLinearLayout);
-
+        topEarnerTitleLinearLayout = rootView.findViewById(R.id.dailyTopEarnersTitleLL);
+        topTripsTitleLinearLayout = rootView.findViewById(R.id.dailytripsHeadingLL);
         topEarnerBtn = rootView.findViewById(R.id.topEarnerBtn);
         topTripBtn = rootView.findViewById(R.id.topTripBtn);
 
@@ -170,7 +171,7 @@ public class LeaderBordFragmentNew extends BaseFragment {
 
 
 
-      //  ArrayAdapter arrayAdapter = new ArrayAdapter();
+        //  ArrayAdapter arrayAdapter = new ArrayAdapter();
 
         //textViewEarn
 //Context mContext = getContext();
@@ -188,7 +189,7 @@ public class LeaderBordFragmentNew extends BaseFragment {
             public void onClick(View v) {
                 v.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
 //                mVibrator.vibrate(25);
-              //  fetchProfile();
+                //  fetchProfile();
             }
         };
 
@@ -197,10 +198,12 @@ public class LeaderBordFragmentNew extends BaseFragment {
             @Override
             public void onClick(View view) {
                 topEarnLinearLayout.setVisibility(View.VISIBLE);
+                topEarnerTitleLinearLayout.setVisibility(View.VISIBLE);
                 topTripLinearLayout.setVisibility(View.GONE);
+                topTripsTitleLinearLayout.setVisibility(View.GONE);
                 //#CCCCCC
-               // topEarnerBtn.setBackgroundColor(Color.GRAY);
-               // topTripBtn.setBackgroundColor(Color.RED);
+                // topEarnerBtn.setBackgroundColor(Color.GRAY);
+                // topTripBtn.setBackgroundColor(Color.RED);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                     topEarnerBtn.setBackground(getResources().getDrawable(R.drawable.bg_black_rectangle_with_semicircle_edge));
                 }
@@ -216,10 +219,12 @@ public class LeaderBordFragmentNew extends BaseFragment {
             @Override
             public void onClick(View view) {
                 topEarnLinearLayout.setVisibility(View.GONE);
+                topEarnerTitleLinearLayout.setVisibility(View.GONE);
                 topTripLinearLayout.setVisibility(View.VISIBLE);
+                topTripsTitleLinearLayout.setVisibility(View.VISIBLE);
                 //#CCCCCC
-               // topTripBtn.setBackgroundColor(Color.GRAY);
-               // topEarnerBtn.setBackgroundColor(Color.RED);
+                // topTripBtn.setBackgroundColor(Color.GRAY);
+                // topEarnerBtn.setBackgroundColor(Color.RED);
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                     topEarnerBtn.setBackground(getResources().getDrawable(R.drawable.btn_click_app_rectangle_with_semicircle_edge));

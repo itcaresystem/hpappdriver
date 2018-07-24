@@ -139,6 +139,7 @@ public class HelpActivity extends BaseAppCompatNoDrawerActivity {
             txtContent.setText(Html.fromHtml(helpBean.getContent(), Html.FROM_HTML_OPTION_USE_CSS_COLORS));
         } else {
             txtContent.setText(Html.fromHtml(helpBean.getContent()));
+            txtContent.setText("Help Content for "+helpBean.getTitle());
         }
 
         swipeView.setRefreshing(false);

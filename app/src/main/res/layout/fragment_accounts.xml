@@ -73,6 +73,7 @@
             android:textColor="@color/text_5"
             android:textStyle="bold"/>
         <ride.happyy.driver.widgets.CustomTextView
+            android:padding="4dp"
             android:id="@+id/activeInactiveTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -190,10 +191,11 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/text_3"/>
                 <ride.happyy.driver.widgets.CustomTextView
+                    android:padding="3dp"
                     android:id="@+id/vehicle_brand_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Noah"
+                    android:text="CAR"
                     android:background="@drawable/btn_click_app_dark_rectangle_with_semicircle_edge"
                     android:textColor="@color/white"
                     android:layout_gravity="bottom|left"/>

@@ -56,6 +56,65 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/dailyTopEarnersTitleLL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#000"
+        >
+        <ride.happyy.driver.widgets.CustomTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="35dp"
+            android:text="Name"
+            android:textAlignment="inherit"
+            android:textColor="@color/white"
+            android:textSize="16dp"/>
+
+        <ride.happyy.driver.widgets.CustomTextView
+            android:id="@+id/accountLifeTimeEarningTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:paddingRight="15dp"
+            android:text="Earning(Tk)"
+            android:textColor="@color/white"
+            android:textSize="16dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dailytripsHeadingLL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#000"
+        android:visibility="gone"
+        >
+        <ride.happyy.driver.widgets.CustomTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="start"
+            android:paddingLeft="35dp"
+            android:text="Name"
+            android:textColor="@color/white"
+            android:textSize="16dp"/>
+
+        <ride.happyy.driver.widgets.CustomTextView
+            android:id="@+id/topTripTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:paddingRight="15dp"
+            android:text="Trips"
+            android:textColor="@color/white"
+            android:textSize="16dp"/>
+
+    </LinearLayout>
+
 
     <android.support.v4.widget.NestedScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -84,35 +143,6 @@
                 android:orientation="vertical"
                 android:visibility="visible"
                 >
-
-                <LinearLayout
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#000"
-                    >
-                    <ride.happyy.driver.widgets.CustomTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingLeft="35dp"
-                        android:text="Name"
-                        android:textAlignment="inherit"
-                        android:textColor="@color/white"
-                        android:textSize="16dp"/>
-
-                    <ride.happyy.driver.widgets.CustomTextView
-                        android:id="@+id/accountLifeTimeEarningTv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="end"
-                        android:paddingRight="15dp"
-                        android:text="Earning(Tk)"
-                        android:textColor="@color/white"
-                        android:textSize="16dp"/>
-
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -145,33 +175,7 @@
                 android:visibility="gone"
                 >
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#000"
-                    >
-                    <ride.happyy.driver.widgets.CustomTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="start"
-                        android:paddingLeft="35dp"
-                        android:text="Name"
-                        android:textColor="@color/white"
-                        android:textSize="16dp"/>
 
-                    <ride.happyy.driver.widgets.CustomTextView
-                        android:id="@+id/topTripTv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="end"
-                        android:paddingRight="15dp"
-                        android:text="Trips"
-                        android:textColor="@color/white"
-                        android:textSize="16dp"/>
-
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
