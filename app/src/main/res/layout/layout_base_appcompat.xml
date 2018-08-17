@@ -62,7 +62,7 @@
             android:id="@+id/swipe_base_appcompat"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="?attr/actionBarSize">
+            android:paddingTop="0dp">
 
             <FrameLayout
                 android:id="@+id/lyt_frame_appcompat"
@@ -143,8 +143,7 @@
         android:layout_width="320dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:minWidth="300dp"
-
+        android:minWidth="330dp"
         app:itemIconTint="@color/colorPrimary"
         app:itemTextColor="@color/colorPrimary"
         app:menu="@menu/menu_navigation_drawer"/>

@@ -6,7 +6,7 @@
 	android:useLevel="false">
 
 	<corners android:radius="2dp" />
-	<solid android:color="@color/colorAccent" />
+	<solid android:color="@color/red" />
 
 
 </shape>

@@ -75,6 +75,7 @@
     <string name="hint_country">Country</string>
     <string name="hint_email">rajib@example.com</string>
     <string name="hint_dob">05/06/1990</string>
+    <string name="pick_date">Pick Date</string>
     <string name="hint_email_address"><i>Email Address</i></string>
     <string name="hint_enter_your_city">Enter your City</string>
     <string name="hint_enter_your_name_here">Enter your name here</string>
@@ -97,6 +98,7 @@
     <string name="hint_verification_code">Verification Code</string>
 
     <string name="label_about">About</string>
+    <string name="label_selectvehicle">Select Vehicle</string>
     <string name="label_vehicle_info">Vehicle Information</string>
     <string name="label_share">Invite</string>
     <string name="label_notification">Notifications</string>

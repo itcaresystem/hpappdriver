@@ -1,8 +1,11 @@
 package ride.happyy.driver.activity;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,12 +13,15 @@ import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.content.FileProvider;
+import android.util.Log;
 import android.view.HapticFeedbackConstants;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -32,12 +38,16 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 import ride.happyy.driver.R;
 import ride.happyy.driver.app.App;
 import ride.happyy.driver.config.Config;
+import ride.happyy.driver.fragments.DatePickerFragment;
 import ride.happyy.driver.listeners.BasicListener;
 import ride.happyy.driver.listeners.ProfileListener;
 import ride.happyy.driver.model.BasicBean;
@@ -52,7 +62,7 @@ import com.digits.sdk.android.Digits;
 import com.digits.sdk.android.DigitsException;
 import com.digits.sdk.android.DigitsSession;*/
 
-public class ProfileActivity extends BaseAppCompatNoDrawerActivity {
+public class ProfileActivity extends BaseAppCompatNoDrawerActivity  {
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_IMAGE_GALLERY = 3;
@@ -69,7 +79,7 @@ public class ProfileActivity extends BaseAppCompatNoDrawerActivity {
     private TextInputEditText etxtState;
     private TextInputEditText etxtPostalCode;
     private EditText etxtName;
-    private EditText dob;
+   // private EditText dob;
     private EditText etxtEmail;
     private TextView txtPhone;
     private View.OnClickListener snackBarRefreshOnClickListener;
@@ -82,8 +92,10 @@ public class ProfileActivity extends BaseAppCompatNoDrawerActivity {
 //    private AuthConfig authConfig;
     Spinner genderSpiner;
     private String gender;
+    private DatePickerDialog.OnDateSetListener mDateSetListener;
+    private TextView mDisplayDate;
 
-
+    private static final String TAG = "ProfileActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,7 +109,39 @@ public class ProfileActivity extends BaseAppCompatNoDrawerActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
 
+        mDisplayDate = (TextView) findViewById(R.id.tvDate);
+
+        mDisplayDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(
+                        ProfileActivity.this,
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        mDateSetListener,
+                        year,month,day);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+
+        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
+                Log.d(TAG, "onDateSet: mm/dd/yyy: " + month + "/" + day + "/" + year);
+
+                String date = day + "/" + month + "/" + year;
+                mDisplayDate.setText(date);
+            }
+        };
+
     }
+
 
     @Override
     protected void onResume() {
@@ -126,6 +170,11 @@ public class ProfileActivity extends BaseAppCompatNoDrawerActivity {
         }
 
     }
+
+
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -255,7 +304,6 @@ public class ProfileActivity extends BaseAppCompatNoDrawerActivity {
         ivProfilePhoto = (ImageView) findViewById(R.id.iv_profile_display_photo);
 
          genderSpiner = findViewById(R.id.genderSpiner);
-         dob = findViewById(R.id.etxt_profile_dob);
 
         tilAddress1 = (TextInputLayout) findViewById(R.id.til_profile_address_1);
         tilCity = (TextInputLayout) findViewById(R.id.til_profile_city);
@@ -326,7 +374,7 @@ public class ProfileActivity extends BaseAppCompatNoDrawerActivity {
 
         etxtName.setEnabled(isEditing);
         genderSpiner.setEnabled(isEditing);
-        dob.setEnabled(isEditing);
+        mDisplayDate.setEnabled(isEditing);
         etxtEmail.setEnabled(isEditing);
         txtPhone.setEnabled(isEditing);
         etxtCity.setEnabled(isEditing);
@@ -372,7 +420,7 @@ public class ProfileActivity extends BaseAppCompatNoDrawerActivity {
 
 
         etxtName.setText(profileBean.getName());
-        dob.setText(profileBean.getDOB());
+        mDisplayDate.setText(profileBean.getDOB());
         etxtEmail.setText(profileBean.getEmail());
         txtPhone.setText(profileBean.getPhone());
         etxtAddress1.setText(profileBean.getAddress());
@@ -419,7 +467,7 @@ public class ProfileActivity extends BaseAppCompatNoDrawerActivity {
 
         editProfileBean = new ProfileBean();
         editProfileBean.setGender(gender);
-        editProfileBean.setDOB(dob.getText().toString());
+        editProfileBean.setDOB(mDisplayDate.getText().toString());
 
 
 

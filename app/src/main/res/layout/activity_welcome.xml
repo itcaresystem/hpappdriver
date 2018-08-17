@@ -7,10 +7,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/black"
     tools:context="ride.happyy.driver.activity.WelcomeActivity">
 
     <LinearLayout
-        android:background="@color/white"
+        android:background="@color/transparent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -23,26 +24,27 @@
 
 
             <LinearLayout
+                android:layout_marginTop="70dp"
                 android:id="@+id/ll_welcome_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:gravity="center"
-                android:minHeight="190dp"
+                android:minHeight="0dp"
                 android:orientation="vertical">
 
                 <ride.happyy.driver.widgets.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Join"
-                    android:textColor="#000"
+                    android:textColor="#ffff"
                     android:textSize="23sp"/>
 
                 <ride.happyy.driver.widgets.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="HAPPYY DRIVE"
-                    android:textColor="#000"
+                    android:textColor="#ffff"
                     android:textSize="27sp"
                     android:textStyle="bold"/>
 

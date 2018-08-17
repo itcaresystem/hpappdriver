@@ -6,27 +6,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:weightSum="100"
     tools:context="ride.happyy.driver.activity.HomeActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="31">
+    <include layout="@layout/layout_actionbar_title"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_weight="1"
-        android:background="@color/gray_light"
+        android:layout_height="match_parent"
+        android:layout_weight="31"
 
+        android:background="@color/gray_light"
         >
 
         <ride.happyy.driver.widgets.CustomTextView
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"
             android:background="@color/white"
             android:id="@+id/status_txv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="Online"
             android:textSize="24dp"
             android:layout_gravity="center"
             android:textColor="@color/green"
             android:gravity="center"
-            android:padding="8dp"
+            android:padding="2dp"
             />
 
     </LinearLayout>
@@ -34,8 +43,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_weight="1"
+        android:layout_weight="7"
         >
 
         <android.support.v4.view.ViewPager
@@ -49,15 +57,14 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-
+        android:layout_height="match_parent"
+        android:layout_weight="31"
         >
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_layout_home"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="match_parent"
             android:background="@color/black"
             android:gravity="center"
             android:paddingLeft="20dp"

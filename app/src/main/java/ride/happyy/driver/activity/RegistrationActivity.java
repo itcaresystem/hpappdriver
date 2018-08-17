@@ -99,12 +99,27 @@ public class RegistrationActivity extends BaseAppCompatNoDrawerActivity {
 
         if (getIntent().hasExtra("Car")) {
             vehicleType = getIntent().getStringExtra("Car");
-           // registrationBean.setPhone(phone);
+           registrationBean.setVehicletype(vehicleType);
 //            etxtPhone.setText(phone);
         }
 
         if (getIntent().hasExtra("Bike")) {
             vehicleType = getIntent().getStringExtra("Bike");
+            registrationBean.setVehicletype(vehicleType);
+            // registrationBean.setPhone(phone);
+//            etxtPhone.setText(phone);
+        }
+
+        if (getIntent().hasExtra("CNG")) {
+            vehicleType = getIntent().getStringExtra("CNG");
+            registrationBean.setVehicletype(vehicleType);
+            // registrationBean.setPhone(phone);
+//            etxtPhone.setText(phone);
+        }
+
+        if (getIntent().hasExtra("Ambulance")) {
+            vehicleType = getIntent().getStringExtra("Ambulance");
+            registrationBean.setVehicletype(vehicleType);
             // registrationBean.setPhone(phone);
 //            etxtPhone.setText(phone);
         }

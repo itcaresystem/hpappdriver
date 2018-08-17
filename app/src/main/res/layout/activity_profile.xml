@@ -120,6 +120,7 @@
             android:id="@+id/genderSpiner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginRight="80dp"
             android:entries="@array/gender_arry"/>
 
         <ride.happyy.driver.widgets.CustomTextView
@@ -127,20 +128,19 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="Date Of Birth"
+
             android:textColor="@color/text_red_3"/>
 
-
-        <EditText
-            android:id="@+id/etxt_profile_dob"
-            android:layout_width="match_parent"
+        <ride.happyy.driver.widgets.CustomTextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:lines="1"
-            android:backgroundTint="@color/gray_transparent_70"
-            android:maxLines="1"
-            android:minHeight="40dp"
-            android:text="@string/hint_dob"
-            android:textColor="@color/text_2"/>
+            android:hint="05/06/1990"
+            android:id="@+id/tvDate"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            />
+
+
 
 
         <ride.happyy.driver.widgets.CustomTextView
@@ -177,7 +177,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:minHeight="35dp"
-            android:gravity="bottom"
             android:background="?selectableItemBackground"
             android:onClick="onProfileMobileClick"
             android:text="@string/sample_phone"
@@ -268,6 +267,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:gravity="center"
             app:hintTextAppearance="@style/HintAppearance">
 
             <android.support.design.widget.TextInputEditText

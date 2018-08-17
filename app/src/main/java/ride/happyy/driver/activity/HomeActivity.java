@@ -1,6 +1,7 @@
 package ride.happyy.driver.activity;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -65,7 +66,7 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeFragment.
     private LayoutInflater inflater;
     private HomePagerAdapter adapterPager;
     private MenuItem menuOnlineSwitchItem;
-    private SwitchCompat switchOnline;
+    private SwitchCompat switchOnline,mySwitchOnlineNew;
     private CustomTextView customTab;
     private String requestID;
     private TextView onlineOffLine_status;
@@ -83,6 +84,42 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeFragment.
             getReadWritePermissions();
         }
 
+      //  getSupportActionBar().setHomeButtonEnabled(true);
+        // getSupportActionBar().setTitle("HAPPYY DRIVE");
+      //  getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+     //   Configuration config = getResources().getConfiguration();
+
+       // if(config.screenWidthDp <= 380) {
+        //    getSupportActionBar().setCustomView(R.layout.layout_actionbar_title_extra_w);
+          //  getSupportActionBar().setCustomView(R.layout.layout_actionbar_title);
+
+      //  }else {
+        ///    getSupportActionBar().setCustomView(R.layout.layout_actionbar_title);
+
+       // }
+      //  toolbar.setVisibility(View.GONE);
+
+        getSupportActionBar().hide();
+        mySwitchOnlineNew = (SwitchCompat) findViewById(R.id.settings_online_offline_switchHome);
+
+        mySwitchOnlineNew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+                //mVibrator.vibrate(25);
+
+                setDriverTitle();
+                if (App.isNetworkAvailable()) {
+                    performDriverStatusChange();
+                } else {
+                    switchOnline.setChecked(!switchOnline.isChecked());
+                    Snackbar.make(coordinatorLayout, AppConstants.NO_NETWORK_AVAILABLE, Snackbar.LENGTH_LONG)
+                            .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
+                }
+
+            }
+        });
+
         initViews();
         initFCM();
 
@@ -92,33 +129,25 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeFragment.
         //getSupportActionBar().setDisplayShowTitleEnabled(true);
 
        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-       // getSupportActionBar().setTitle("HAPPYY DRIVE");
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.layout_actionbar_title);
-
 
 
       // getSupportActionBar().setIcon(R.drawable.driverappbarfinal);
         // init notification view
-        notificatinImageButton = findViewById(R.id.driverNotificationImageBtn);
+       notificatinImageButton = findViewById(R.id.driverNotificationImageBtn);
         mNotificationBadge      = findViewById(R.id.notificationBadge);
         countNotification = 4;
-        mNotificationBadge.setNumber(countNotification);
+       mNotificationBadge.setNumber(countNotification);
 
     }
 
    public void onClickNotification(View view){
        view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
       // mNotificationBadge.setBackgroundColor(Color.TRANSPARENT);
-       mNotificationBadge.setNumber(0);
+       mNotificationBadge.setNumber(1);
       // notificatinImageButton.setVisibility(View.GONE);
        Toast.makeText(this,"Notification",Toast.LENGTH_SHORT).show();
        Intent mIntent = new Intent(this,MyNotificationsActivity.class);
        startActivity(mIntent);
-
-
-
     }
 
 
@@ -168,6 +197,8 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeFragment.
         return true;
     }
 
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -204,16 +235,11 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeFragment.
     }
 
     private void initViews() {
-
-
-
         onlineOffLine_status = findViewById(R.id.status_txv);
         pager = (ViewPager) findViewById(R.id.pager_home);
         tabLayout = (TabLayout) findViewById(R.id.tab_layout_home);
-
         if (inflater == null)
             inflater = getLayoutInflater();
-
         customTab = (CustomTextView) inflater.inflate(R.layout.custom_tab, null);
         customTab.setText(R.string.btn_home);
         customTab.setBackgroundResource(R.drawable.btn_click_app_rectangle_with_semicircle_edge);
@@ -458,6 +484,21 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeFragment.
             } else {
                 Config.getInstance().setOnline(false);
                // getSupportActionBar().setTitle(R.string.label_offline);
+                onlineOffLine_status.setText(R.string.label_offline);
+                onlineOffLine_status.setTextColor(Color.RED);
+            }
+        }
+
+        if (mySwitchOnlineNew != null) {
+            if (mySwitchOnlineNew.isChecked()) {
+                Config.getInstance().setOnline(true);
+                // getSupportActionBar().setTitle(R.string.label_online);
+                onlineOffLine_status.setText(R.string.label_online);
+                onlineOffLine_status.setTextColor(Color.GREEN);
+
+            } else {
+                Config.getInstance().setOnline(false);
+                // getSupportActionBar().setTitle(R.string.label_offline);
                 onlineOffLine_status.setText(R.string.label_offline);
                 onlineOffLine_status.setTextColor(Color.RED);
             }
