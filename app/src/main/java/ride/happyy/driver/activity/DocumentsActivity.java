@@ -10,6 +10,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+
 import java.util.HashMap;
 
 import ride.happyy.driver.R;
@@ -69,6 +72,8 @@ public class DocumentsActivity extends BaseAppCompatNoDrawerActivity {
     private TextView txtPanCardStatus;
     private TextView txtNoObjectionCeritificateStatus;
 
+    private ImageView nidordrivinglicense_photo,vehicle_certificate_photo,driving_license_photo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +97,10 @@ public class DocumentsActivity extends BaseAppCompatNoDrawerActivity {
         if (requestCode == REQUEST_DOCUMENT_UPLOAD && resultCode == RESULT_OK) {
 
             int type = data.getExtras().getInt("type");
-            updateDocuments(type, AppConstants.DOCUMENT_STATUS_PENDING_APPROVAL);
+            String documentUrl = data.getExtras().getString("imagepath");
+
+
+            updateDocuments(type, AppConstants.DOCUMENT_STATUS_PENDING_APPROVAL,documentUrl);
         }
     }
 
@@ -129,6 +137,13 @@ public class DocumentsActivity extends BaseAppCompatNoDrawerActivity {
                 getData(false);
             }
         };
+
+
+
+        nidordrivinglicense_photo = findViewById(R.id.nidordrivinglicense_photo);
+        vehicle_certificate_photo = findViewById(R.id.vehicle_certificate_photo);
+        driving_license_photo =findViewById(R.id.driving_license_photo);
+
 
         ivDriverLicenceError = (ImageView) findViewById(R.id.iv_documents_driver_licence_error);
         ivDriverLicenceAccepted = (ImageView) findViewById(R.id.iv_documents_driver_licence_accepted);
@@ -180,7 +195,7 @@ public class DocumentsActivity extends BaseAppCompatNoDrawerActivity {
         txtNoObjectionCeritificateStatus = (TextView) findViewById(R.id.txt_documents_no_objection_certificate_status);
     }
 
-    private void updateDocuments(int type, int status) {
+    private void updateDocuments(int type, int status, String documentURL) {
 
         switch (type) {
             case AppConstants.DOCUMENT_TYPE_DRIVER_LICENCE:
@@ -188,12 +203,29 @@ public class DocumentsActivity extends BaseAppCompatNoDrawerActivity {
                 ivDriverLicenceAccepted.setVisibility(getVisibility(TYPE_ACCEPTED, status));
                 txtDriverLicenceStatus.setText(getDocumentStatus(status));
                 txtDriverLicenceStatus.setTextColor(ContextCompat.getColor(getApplicationContext(), documentColor[status]));
+                Glide.with(getApplicationContext())
+                        .load(documentURL)
+                        .apply(new RequestOptions()
+                                .error(R.drawable.ic_profile_photo_default)
+                                .fallback(R.drawable.ic_profile_photo_default)
+                                .centerCrop()
+                                .circleCrop())
+                        .into(nidordrivinglicense_photo);
                 break;
             case AppConstants.DOCUMENT_TYPE_POLICE_CLEARANCE_CERTIFICATE:
                 ivPoliceClearanceCertificateError.setVisibility(getVisibility(TYPE_ERROR, status));
                 ivPoliceClearanceCertificateAccepted.setVisibility(getVisibility(TYPE_ACCEPTED, status));
                 txtPoliceClearanceCertificateStatus.setText(getDocumentStatus(status));
                 txtPoliceClearanceCertificateStatus.setTextColor(ContextCompat.getColor(getApplicationContext(), documentColor[status]));
+                Glide.with(getApplicationContext())
+                        .load(documentURL)
+                        .apply(new RequestOptions()
+                                .error(R.drawable.ic_profile_photo_default)
+                                .fallback(R.drawable.ic_profile_photo_default)
+                                .centerCrop()
+                                .circleCrop())
+                        .into(driving_license_photo);
+
                 break;
             case AppConstants.DOCUMENT_TYPE_FITNESS_CERTIFICATE:
                 ivFitnessCertificateError.setVisibility(getVisibility(TYPE_ERROR, status));
@@ -230,6 +262,14 @@ public class DocumentsActivity extends BaseAppCompatNoDrawerActivity {
                 ivBankPassbookAccepted.setVisibility(getVisibility(TYPE_ACCEPTED, status));
                 txtBankPassbookStatus.setText(getDocumentStatus(status));
                 txtBankPassbookStatus.setTextColor(ContextCompat.getColor(getApplicationContext(), documentColor[status]));
+                Glide.with(getApplicationContext())
+                        .load(documentURL)
+                        .apply(new RequestOptions()
+                                .error(R.drawable.ic_profile_photo_default)
+                                .fallback(R.drawable.ic_profile_photo_default)
+                                .centerCrop()
+                                .circleCrop())
+                        .into(vehicle_certificate_photo);
                 break;
             case AppConstants.DOCUMENT_TYPE_DRIVER_LICENCE_WITH_BADGE_NUMBER:
                 ivDriverLicenceWithBadgeError.setVisibility(getVisibility(TYPE_ERROR, status));
@@ -324,7 +364,7 @@ public class DocumentsActivity extends BaseAppCompatNoDrawerActivity {
     private void fetchDocumentStatus() {
 
         HashMap<String, String> urlParams = new HashMap<>();
-        urlParams.put("auth_token", Config.getInstance().getAuthToken());
+        urlParams.put("phone", Config.getInstance().getPhone());
 
         DataManager.fetchDocumentStatus(urlParams, new DocumentStatusListener() {
             @Override
@@ -351,7 +391,8 @@ public class DocumentsActivity extends BaseAppCompatNoDrawerActivity {
     private void populateDocumentStatus() {
 
         for (DocumentBean bean : documentStatusBean.getDocuments()) {
-            updateDocuments(bean.getType(), bean.getDocumentStatus());
+
+            updateDocuments(bean.getType(), bean.getDocumentStatus(), bean.getDocumentURL());
         }
 
         swipeView.setRefreshing(false);

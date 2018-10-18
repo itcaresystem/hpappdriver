@@ -239,6 +239,7 @@ public class ProfileActivity extends BaseAppCompatNoDrawerActivity  {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             documentPath = imagePath;
+          
             //    setBannerPic(tempImagePath);
             setProfilePhotoImage(imagePath);
             if (dialog != null)
@@ -386,13 +387,14 @@ public class ProfileActivity extends BaseAppCompatNoDrawerActivity  {
     private void fetchProfile() {
 
         HashMap<String, String> urlParams = new HashMap<>();
-        urlParams.put("auth_token", Config.getInstance().getAuthToken());
+        urlParams.put("phone", Config.getInstance().getPhone());
+        JSONObject postData =getJsonData();
 
 /*        if (isLoadMore) {
             urlParams.put("page", String.valueOf(currentPage + 1));
         }*/
 
-        DataManager.fetchProfile(urlParams, new ProfileListener() {
+        DataManager.fetchProfile(postData, new ProfileListener() {
             @Override
             public void onLoadCompleted(ProfileBean profileBeanWS) {
 
@@ -414,6 +416,16 @@ public class ProfileActivity extends BaseAppCompatNoDrawerActivity  {
             }
         });
 
+    }
+
+    public JSONObject getJsonData() {
+        JSONObject jsonData= new JSONObject();
+        try {
+            jsonData.put("phone",Config.getInstance().getPhone());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonData;
     }
 
     private void populateProfile() {
@@ -599,7 +611,7 @@ public class ProfileActivity extends BaseAppCompatNoDrawerActivity  {
         }
 
     }
-
+/*
     public void onProfileMobileClick(View view) {
         view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
         //mVibrator.vibrate(25);
@@ -611,6 +623,7 @@ public class ProfileActivity extends BaseAppCompatNoDrawerActivity  {
         startActivityForResult(new Intent(this, MobileVerificationActivity.class)
                 , REQ_MOBILE_VERIFICATION);
     }
+    */
 
     private void performProfileUpdate() {
 
@@ -657,6 +670,9 @@ public class ProfileActivity extends BaseAppCompatNoDrawerActivity  {
             editProfileBean = new ProfileBean();
 
         try {
+            postData.put("image",getFileList());
+            postData.put("phone",Config.getInstance().getPhone());
+
 //            postData.put("auth_token", Config.getInstance().getAuthToken());
             postData.put("name", editProfileBean.getName() != null && !editProfileBean.getName().equalsIgnoreCase("")
                     ? editProfileBean.getName() : profileBean.getName());
@@ -666,9 +682,11 @@ public class ProfileActivity extends BaseAppCompatNoDrawerActivity  {
                 postData.put("gender", editProfileBean.getGender());
                 postData.put("dob", editProfileBean.getDOB());
 
-            if (editProfileBean.getPhone() != null && !editProfileBean.getPhone().equalsIgnoreCase("")
+           /* if (editProfileBean.getPhone() != null && !editProfileBean.getPhone().equalsIgnoreCase("")
                     && !editProfileBean.getPhone().equalsIgnoreCase(profileBean.getPhone()))
                 postData.put("phone", editProfileBean.getPhone());
+
+                */
 
             postData.put("address", editProfileBean.getAddress() != null && !editProfileBean.getAddress().equalsIgnoreCase("")
                     ? editProfileBean.getAddress() : profileBean.getAddress());
@@ -684,4 +702,6 @@ public class ProfileActivity extends BaseAppCompatNoDrawerActivity  {
 
         return postData;
     }
+
+
 }

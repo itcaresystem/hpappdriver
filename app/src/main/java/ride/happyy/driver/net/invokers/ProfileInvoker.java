@@ -24,14 +24,14 @@ public class ProfileInvoker extends BaseInvoker {
     }
 
     public ProfileBean invokeProfileWS() {
-
+        System.out.println("POSTDATA>>>>>>>" + postData);
         WebConnector webConnector;
+        webConnector = new WebConnector(new StringBuilder(ServiceNames.PROFILE), WSConstants.PROTOCOL_HTTP, null, postData);
 
-        webConnector = new WebConnector(new StringBuilder(ServiceNames.PROFILE), WSConstants.PROTOCOL_HTTP, urlParams, null);
 
         //webConnector= new WebConnector(new StringBuilder(ServiceNames.MODELS), WSConstants.PROTOCOL_HTTP, null);
 //    String wsResponseString=webConnector.connectToPOST_service();
-        String wsResponseString = webConnector.connectToGET_service();
+        String wsResponseString = webConnector.connectToPOST_service();
         System.out.println(">>>>>>>>>>> response: " + wsResponseString);
         ProfileBean profileBean = null;
         if (wsResponseString.equals("")) {

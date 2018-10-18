@@ -1,6 +1,9 @@
 package ride.happyy.driver.activity;
 
 import android.Manifest;
+import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -25,6 +28,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -127,13 +133,14 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
     private TextView txtBeforeTripCustomerName;
     private BottomSheetBehavior<LinearLayout> bottomSheetBehavior;
     private LinearLayout llCompleteTrip;
-    private LinearLayout llConfirmArrival;
+    private LinearLayout llConfirmArrival,llContactPhone;
     private LinearLayout llStartTrip;
     private TripBean tripBean;
     private Calendar calStart;
     private Calendar calEnd;
     private ArrayList<PathBean> pathList;
     private Handler mHandler = new Handler();
+    private String customer_confirmaion_code ="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -204,6 +211,7 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
 
         llCompleteTrip = (LinearLayout) lytBottomSheet.findViewById(R.id.ll_on_trip_complete_trip);
         llConfirmArrival = (LinearLayout) findViewById(R.id.ll_on_trip_before_trip_confirm_arrival);
+        llContactPhone = (LinearLayout) findViewById(R.id.ll_on_trip_before_trip_contact);
         llStartTrip = (LinearLayout) findViewById(R.id.ll_on_trip_before_trip_start);
 
 
@@ -211,6 +219,7 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
         lytBeforeTrip.setVisibility(View.VISIBLE);
 
         llConfirmArrival.setVisibility(View.VISIBLE);
+        llContactPhone.setVisibility(View.VISIBLE);
         llStartTrip.setVisibility(View.GONE);
         ivBottomSheetProfilePhoto.setVisibility(View.GONE);
 
@@ -358,7 +367,6 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
     }
 
     private void populateTrip() {
-
         txtDestination.setText(tripBean.getDestinationLocation());
         txtBeforeTripCustomerName.setText(tripBean.getCustomerName());
         txtBottomSheetCustomerName.setText(tripBean.getCustomerName());
@@ -390,6 +398,7 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
         switch (driverStatus) {
             case AppConstants.DRIVER_STATUS_ACCEPTED:
                 llConfirmArrival.setVisibility(View.VISIBLE);
+                llContactPhone.setVisibility(View.VISIBLE);
                 llStartTrip.setVisibility(View.GONE);
                 lytBeforeTrip.setVisibility(View.VISIBLE);
                 lytBottomSheet.setVisibility(View.GONE);
@@ -397,6 +406,7 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
                 break;
             case AppConstants.DRIVER_STATUS_ARRIVED:
                 llConfirmArrival.setVisibility(View.GONE);
+                llContactPhone.setVisibility(View.GONE);
                 llStartTrip.setVisibility(View.VISIBLE);
                 lytBeforeTrip.setVisibility(View.VISIBLE);
                 lytBottomSheet.setVisibility(View.GONE);
@@ -404,12 +414,14 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
                 break;
             case AppConstants.DRIVER_STATUS_STARTED:
                 llConfirmArrival.setVisibility(View.GONE);
+                llContactPhone.setVisibility(View.GONE);
                 llStartTrip.setVisibility(View.VISIBLE);
                 lytBeforeTrip.setVisibility(View.GONE);
                 lytBottomSheet.setVisibility(View.VISIBLE);
                 ivBottomSheetProfilePhoto.setVisibility(View.VISIBLE);
                 break;
             case AppConstants.DRIVER_STATUS_ENDED:
+                mHandler.removeCallbacks(checkAppStatusTask);
                 startActivity(new Intent(OnTripActivity.this, TripSummaryActivity.class)
                         .putExtra("trip_id", tripBean.getId()));
                 finish();
@@ -452,6 +464,32 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
 
     }
 
+    public void onContactClick(View view) {
+        view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+        //mVibrator.vibrate(25);
+
+        if (checkForCallPermissions()) {
+            performCall(tripBean.getCustomerPhone());
+        } else {
+            getCallPermissions();
+        }
+
+    }
+
+    public void performCall(String phone) {
+        String url = "tel:" + phone;
+        Log.i(TAG, "performCall:  PHONE : " + phone);
+        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(url));
+        try {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            startActivity(intent);
+        } catch (Exception ignored) {
+        }
+    }
+
+
     public void onOnTripConfirmArrivalClick(View view) {
         view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
         //mVibrator.vibrate(25);
@@ -468,13 +506,63 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
     public void onOnTripStartTripClick(View view) {
         view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
         //mVibrator.vibrate(25);
+        verifyCustomerCode();
+        /*
+        if(!customer_confirmaion_code.equals("")) {
 
-        if (App.isNetworkAvailable()) {
-            performTripStart();
-        } else {
-            Snackbar.make(coordinatorLayout, AppConstants.NO_NETWORK_AVAILABLE, Snackbar.LENGTH_LONG)
+            if (App.isNetworkAvailable()) {
+
+                performTripStart();
+            } else {
+                Snackbar.make(coordinatorLayout, AppConstants.NO_NETWORK_AVAILABLE, Snackbar.LENGTH_LONG)
+                        .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
+            }
+        }else{
+            Snackbar.make(coordinatorLayout, "Customer code invalid or null!!", Snackbar.LENGTH_LONG)
                     .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
         }
+        */
+
+    }
+
+    public boolean verifyCustomerCode(){
+         final Dialog dialog;
+         final EditText customer_given_code;
+         Button registration;
+
+            dialog = new Dialog(OnTripActivity.this);
+            dialog.setTitle("Customer Confirmation Code");
+          //  dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setCancelable(false);
+            dialog.setContentView(R.layout.create_account_layout);
+            customer_given_code = dialog.findViewById(R.id.customer_code_ET);
+            registration = dialog.findViewById(R.id.registration);
+            registration.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(customer_given_code.getText().toString().length()==4) {
+                        customer_confirmaion_code = customer_given_code.getText().toString();
+                        if (App.isNetworkAvailable() && !customer_given_code.equals("")) {
+
+                            performTripStart();
+                        } else {
+                            Snackbar.make(coordinatorLayout, AppConstants.NO_NETWORK_AVAILABLE, Snackbar.LENGTH_LONG)
+                                    .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
+                        }
+                        dialog.dismiss();
+
+                    }else{
+                        Toast.makeText(getBaseContext(),"Please give 4 digit code from customer",Toast.LENGTH_LONG).show();
+                    }
+
+
+                }
+            });
+
+            dialog.show();
+            Window window = dialog.getWindow();
+            window.setLayout(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT);
+        return true;
 
     }
 
@@ -512,8 +600,10 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
     private void fetchAppStatus() {
 
         HashMap<String, String> urlParams = new HashMap<>();
+        JSONObject postData =getJsonPostData();
 
-        DataManager.fetchAppStatus(urlParams, new AppStatusListener() {
+
+        DataManager.fetchAppStatus(postData, new AppStatusListener() {
             @Override
             public void onLoadCompleted(AppStatusBean appStatusBeanWS) {
 
@@ -523,7 +613,7 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
                 } else {
                     mHandler.removeCallbacks(checkAppStatusTask);
                     startActivity(new Intent(OnTripActivity.this, TripDetailsActivity.class)
-                            .putExtra("trip_id", tripBean.getId())
+                            .putExtra("trip_id", tripBean.getTripId())
                             .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
                     finish();
                 }
@@ -537,24 +627,66 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
         });
     }
 
+    public JSONObject getJsonPostData() {
+        JSONObject jsonObjectPostData=new JSONObject();
+        String driver_id ="";
+        if(!Config.getInstance().getUserID().equals("")){
+            driver_id=Config.getInstance().getUserID();
+        }else driver_id="123456";
+        try {
+            jsonObjectPostData.put("driver_id",driver_id);
+            jsonObjectPostData.put("phone",Config.getInstance().getPhone());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonObjectPostData;
+    }
+
     Runnable checkAppStatusTask = new Runnable() {
         @Override
         public void run() {
             fetchAppStatus();
+            performCarLocationUpade();
             mHandler.postDelayed(checkAppStatusTask, 5000);
         }
     };
 
+    public void performCarLocationUpade(){
+        JSONObject postData = new JSONObject();
+        try {
+            postData.put("car_lat",Config.getInstance().getCurrentLatitude());
+            postData.put("car_long",Config.getInstance().getCurrentLongitude());
+            postData.put("phone",Config.getInstance().getPhone());
+            postData.put("trip_id",tripBean.getTripId());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        DataManager.performUpdateDriverLocation(postData, new BasicListener() {
+            @Override
+            public void onLoadCompleted(BasicBean basicBean) {
+
+            }
+
+            @Override
+            public void onLoadFailed(String error) {
+
+            }
+        });
+    }
+
 
     private TripBean setTripBean(AppStatusBean appStatusBean) {
         TripBean tripBean = new TripBean();
-        tripBean.setId(appStatusBean.getId());
+        tripBean.setId(appStatusBean.getTripId());
+        tripBean.setTripId(appStatusBean.getTripId());
         tripBean.setTripStatus(appStatusBean.getTripStatus());
         tripBean.setDriverID(appStatusBean.getDriverID());
         tripBean.setDriverName(appStatusBean.getDriverName());
         tripBean.setDriverPhoto(appStatusBean.getDriverPhoto());
         tripBean.setDriverStatus(appStatusBean.getDriverStatus());
         tripBean.setCustomerID(appStatusBean.getCustomerID());
+        tripBean.setCustomerPhone(appStatusBean.getCustomerPhone());
         tripBean.setCustomerName(appStatusBean.getCustomerName());
         tripBean.setCustomerPhoto(appStatusBean.getCustomerPhoto());
         tripBean.setSourceLocation(appStatusBean.getSourceLocation());
@@ -616,6 +748,8 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
 
         try {
             postData.put("trip_id", tripBean.getId());
+            postData.put("phone", Config.getInstance().getPhone());
+            postData.put("customer_code", customer_confirmaion_code);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -636,6 +770,7 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
                         .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
 
                 llConfirmArrival.setVisibility(View.GONE);
+                llContactPhone.setVisibility(View.GONE);
                 llStartTrip.setVisibility(View.VISIBLE);
                 isArrived = true;
 
@@ -688,7 +823,6 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
             @Override
             public void onLoadCompleted(TripBean tripBean) {
                 swipeView.setRefreshing(false);
-
                 Toast.makeText(OnTripActivity.this, R.string.message_trip_ended_please_collect_cash, Toast.LENGTH_LONG).show();
                 startActivity(new Intent(OnTripActivity.this, TripSummaryActivity.class)
                         .putExtra("trip_id", tripBean.getId()));
@@ -731,6 +865,7 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
             }
 
             postData.put("path", pathArray);
+            postData.put("phone", Config.getInstance().getPhone());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -857,7 +992,7 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
 
             polyLineOptions.addAll(points);
             polyLineOptions.width(8);
-            polyLineOptions.color(ContextCompat.getColor(getApplicationContext(), R.color.map_path));
+            polyLineOptions.color(ContextCompat.getColor(getApplicationContext(), R.color.black));
 
         }
 

@@ -8,9 +8,7 @@ import okhttp3.OkHttpClient;
 public class Config {
 
     private static Config instance;
-
     private OkHttpClient okHttpClient;
-
     private String authToken;
     private String fcmID;
     private String password;

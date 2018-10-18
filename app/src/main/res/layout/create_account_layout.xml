@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:visibility="visible"
+        android:id="@+id/loginLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="5dp">
+
+           <ImageView
+               android:layout_width="40dp"
+               android:layout_height="40dp"
+               app:srcCompat="@drawable/ic_format_list_numbered_red_24dp"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight=".03"
+                android:layout_height="0dp"/>
+            <EditText
+                android:id="@+id/customer_code_ET"
+                android:layout_width="0dp"
+                android:layout_weight=".8"
+                android:paddingLeft="5dp"
+                android:inputType="number"
+                android:layout_height="wrap_content"
+                android:hint="4 Digit Code"/>
+        </LinearLayout>
+<!--
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="5dp">
+            <ImageView
+                android:layout_width="40dp"
+                android:background="@drawable/password"
+                android:layout_height="40dp" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight=".03"
+                android:layout_height="0dp"/>
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="0dp"
+                android:layout_weight=".8"
+                android:paddingLeft="5dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="5dp">
+            <ImageView
+                android:layout_width="40dp"
+                android:background="@drawable/password"
+                android:layout_height="40dp" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight=".03"
+                android:layout_height="0dp"/>
+            <EditText
+                android:id="@+id/re_try_password"
+                android:layout_width="0dp"
+                android:layout_weight=".8"
+                android:paddingLeft="5dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/re_try_password"/>
+        </LinearLayout>
+        -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:padding="5dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight=".4"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"/>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight=".3"
+                android:layout_height="wrap_content"
+                android:id="@+id/registration"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:background="@drawable/btn_click_green_2_rectangle_with_semicircle_edge"
+                android:text="@string/btn_submit"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

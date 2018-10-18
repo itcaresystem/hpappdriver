@@ -129,6 +129,17 @@ public class RequestDetailsParser {
                     if (dataObj.has("customer_longitude")) {
                         requestDetailsBean.setCustomerLongitude(dataObj.optString("customer_longitude"));
                     }
+                    //destination location_Info
+                    if (dataObj.has("destination_location")) {
+                        requestDetailsBean.setDestination_location(dataObj.optString("destination_location"));
+                    }
+
+                    if (dataObj.has("destination_latitude")) {
+                        requestDetailsBean.setRequest_destination_latitude(dataObj.optString("destination_latitude"));
+                    }
+                    if (dataObj.has("destination_longitude")) {
+                        requestDetailsBean.setRequest_destination_longitude(dataObj.optString("destination_longitude"));
+                    }
 
 
                 }

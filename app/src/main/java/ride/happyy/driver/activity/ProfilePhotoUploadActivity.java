@@ -190,7 +190,12 @@ public class ProfilePhotoUploadActivity extends BaseAppCompatNoDrawerActivity {
         JSONObject postData = new JSONObject();
 
         try {
-            postData.put("auth_token", Config.getInstance().getAuthToken());
+
+            postData.put("phone", Config.getInstance().getPhone());
+          //  postData.put("image", imagePath);
+            postData.put("image", getFileList());
+            postData.put("tags", "Profile Photo!!!");
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

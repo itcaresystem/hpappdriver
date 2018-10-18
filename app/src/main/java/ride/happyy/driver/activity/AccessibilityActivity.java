@@ -14,6 +14,7 @@ import java.util.HashMap;
 
 import ride.happyy.driver.R;
 import ride.happyy.driver.app.App;
+import ride.happyy.driver.config.Config;
 import ride.happyy.driver.listeners.AccessibilityListener;
 import ride.happyy.driver.listeners.BasicListener;
 import ride.happyy.driver.model.AccessibilityBean;
@@ -107,7 +108,7 @@ public class AccessibilityActivity extends BaseAppCompatNoDrawerActivity {
 //        swipeView.setRefreshing(true);
 
         HashMap<String, String> urlParams = new HashMap<>();
-
+        urlParams.put("phone", Config.getInstance().getPhone());
         DataManager.fetchDriverAccessibility(urlParams, new AccessibilityListener() {
 
             @Override

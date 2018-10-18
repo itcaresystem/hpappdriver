@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/black"
+    android:background="@color/white"
     tools:context="ride.happyy.driver.activity.WelcomeActivity">
 
     <LinearLayout
@@ -37,14 +37,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Join"
-                    android:textColor="#ffff"
+                    android:textColor="#000"
                     android:textSize="23sp"/>
 
                 <ride.happyy.driver.widgets.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="HAPPYY DRIVE"
-                    android:textColor="#ffff"
+                    android:textColor="#000"
                     android:textSize="27sp"
                     android:textStyle="bold"/>
 

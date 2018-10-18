@@ -115,9 +115,9 @@ public class DataManager {
         tripDetailsTask.execute();
     }
 
-    public static void fetchDriverStatus(HashMap<String, String> urlParams, final BasicListener listener) {
+    public static void fetchDriverStatus(JSONObject postData, final BasicListener listener) {
 
-        DriverStatusTask driverStatusTask = new DriverStatusTask(urlParams);
+        DriverStatusTask driverStatusTask = new DriverStatusTask(postData);
         driverStatusTask.setDriverStatusTaskListener(new DriverStatusTask.DriverStatusTaskListener() {
             @Override
             public void dataDownloadedSuccessfully(BasicBean basicBean) {
@@ -169,9 +169,9 @@ public class DataManager {
         helpPageReviewTask.execute();
     }
 
-    public static void fetchAppStatus(HashMap<String, String> urlParams, final AppStatusListener listener) {
+    public static void fetchAppStatus(JSONObject postData, final AppStatusListener listener) {
 
-        AppStatusTask appStatusTask = new AppStatusTask(urlParams);
+        AppStatusTask appStatusTask = new AppStatusTask(postData);
         appStatusTask.setAppStatusTaskListener(new AppStatusTask.AppStatusTaskListener() {
             @Override
             public void dataDownloadedSuccessfully(AppStatusBean appStatusBean) {
@@ -332,9 +332,9 @@ public class DataManager {
         tripAcceptTask.execute();
     }
 
-    public static void fetchRequestDetails(HashMap<String, String> urlParams, final RequestDetailsListener listener) {
+    public static void fetchRequestDetails(JSONObject postData, final RequestDetailsListener listener) {
 
-        RequestDetailsTask requestDetailsTask = new RequestDetailsTask(urlParams);
+        RequestDetailsTask requestDetailsTask = new RequestDetailsTask(postData);
         requestDetailsTask.setRequestDetailsTaskListener(new RequestDetailsTask.RequestDetailsTaskListener() {
             @Override
             public void dataDownloadedSuccessfully(RequestDetailsBean requestDetailsBean) {
@@ -367,21 +367,21 @@ public class DataManager {
                     @Override
                     public void dataDownloadedSuccessfully(BasicBean basicBean) {
                         if (basicBean == null)
-                            listener.onLoadFailed(AppConstants.WEB_ERROR_MSG);
+                            listener.onLoadFailed(AppConstants.WEB_ERROR_BASEBEAN_NULL);
                         else {
                             if (basicBean.getStatus().equalsIgnoreCase("Success")) {
                                 listener.onLoadCompleted(basicBean);
                             } else if (basicBean.getStatus().equalsIgnoreCase("Error")) {
                                 listener.onLoadFailed(basicBean.getErrorMsg());
                             } else {
-                                listener.onLoadFailed(AppConstants.WEB_ERROR_MSG);
+                                listener.onLoadFailed(AppConstants.WEB_ERROR_BASEBEAN_LOAD_FAIL);
                             }
                         }
                     }
 
                     @Override
                     public void dataDownloadFailed() {
-                        listener.onLoadFailed(AppConstants.WEB_ERROR_MSG);
+                        listener.onLoadFailed(AppConstants.WEB_ERROR_BASEBEAN_DOWNLOAD_FAIL);
                     }
                 });
         mobileAvailabilityCheckTask.execute();
@@ -846,9 +846,9 @@ public class DataManager {
         registrationTask.execute();
     }
 
-    public static void fetchProfile(HashMap<String, String> urlParams, final ProfileListener listener) {
+    public static void fetchProfile(JSONObject postData, final ProfileListener listener) {
 
-        ProfileTask profileTask = new ProfileTask(urlParams);
+        ProfileTask profileTask = new ProfileTask(postData);
         profileTask.setProfileTaskListener(new ProfileTask.ProfileTaskListener() {
             @Override
             public void dataDownloadedSuccessfully(ProfileBean profileBean) {
@@ -1073,21 +1073,21 @@ public class DataManager {
             @Override
             public void dataDownloadedSuccessfully(BasicBean basicBean) {
                 if (basicBean == null)
-                    listener.onLoadFailed(AppConstants.WEB_ERROR_MSG);
+                    listener.onLoadFailed(AppConstants.WEB_ERROR_BASEBEAN_NULL);
                 else {
                     if (basicBean.getStatus().equalsIgnoreCase("Success")) {
                         listener.onLoadCompleted(basicBean);
                     } else if (basicBean.getStatus().equalsIgnoreCase("Error")) {
                         listener.onLoadFailed(basicBean.getErrorMsg());
                     } else {
-                        listener.onLoadFailed(AppConstants.WEB_ERROR_MSG);
+                        listener.onLoadFailed(AppConstants.WEB_ERROR_BASEBEAN_LOAD_FAIL);
                     }
                 }
             }
 
             @Override
             public void dataDownloadFailed() {
-                listener.onLoadFailed(AppConstants.WEB_ERROR_MSG);
+                listener.onLoadFailed(AppConstants.WEB_ERROR_BASEBEAN_DOWNLOAD_FAIL);
             }
         });
         profilePhotoSaveTask.execute();

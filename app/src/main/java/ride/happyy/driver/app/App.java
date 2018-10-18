@@ -697,13 +697,13 @@ public class App extends Application {
         String DOB = prfs.getString(AppConstants.PREFERENCE_KEY_SESSION_DOB, "");
         String locale = prfs.getString(AppConstants.PREFERENCE_KEY_SESSION_LOCALE, Locale.getDefault().getLanguage());
 //        boolean isFirstTime = prfs.getBoolean(AppConstants.PREFERENCE_KEY_SESSION_IS_FIRST_TIME, true);
-        boolean isPhoneVerified = prfs.getBoolean(AppConstants.PREFERENCE_KEY_SESSION_IS_PHONE_VERIFIED, false);
+        boolean isPhoneVerified = prfs.getBoolean(AppConstants.PREFERENCE_KEY_SESSION_IS_PHONE_VERIFIED, true);
 //        boolean isPremiumMember = prfs.getBoolean(AppConstants.PREFERENCE_KEY_SESSION_IS_PREMIUM_MEMBER, false);
       /*  boolean isEmailVerified = prfs.getBoolean(AppConstants.PREFERENCE_IS_EMAIL_VERIFIED, false);
         boolean isRegistrationCompleted = prfs.getBoolean(AppConstants.PREFERENCE_IS_REGISTRATION_COMPLETED, false);
 */
         Log.i(TAG, "checkForToken: " + prfs.getAll());
-        if (!"".equals(token)) {
+        if (!"".equals(phone)) {
             Config.getInstance().setAuthToken(token);
             Config.getInstance().setUserID(userID);
             Config.getInstance().setFcmID(fcmID);

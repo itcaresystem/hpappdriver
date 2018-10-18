@@ -9,11 +9,13 @@ class TripBean : BaseBean(), Comparable<TripBean> {
 
     var id: String = ""
     var tripStatus: String = ""
+    var tripId: String = ""
     var driverID: String = ""
     var driverName: String = ""
     var driverPhoto: String = ""
     var driverStatus: Int = 0
     var customerID: String = ""
+    var customerPhone: String = ""
     var customerName: String = ""
     var customerPhoto: String = ""
     var sourceLocation: String = ""
@@ -47,7 +49,7 @@ class TripBean : BaseBean(), Comparable<TripBean> {
         get() {
             try {
                 return java.lang.Double.parseDouble(sourceLatitude)
-            } catch (e: NumberFormatException) {
+            } catch (e:NumberFormatException) {
                 e.printStackTrace()
                 return 0.0
             }

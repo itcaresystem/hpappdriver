@@ -164,6 +164,16 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeFragment.
                 switchOnline.setChecked(false);
             }
         }
+
+        if (mySwitchOnlineNew != null) {
+            ((HomeFragment) adapterPager.getItem(0)).setDriverStatus(mySwitchOnlineNew.isChecked());
+
+            if (Config.getInstance().isOnline()) {
+                mySwitchOnlineNew.setChecked(true);
+            } else {
+                mySwitchOnlineNew.setChecked(false);
+            }
+        }
         onRefresh();
     }
 
@@ -390,6 +400,7 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeFragment.
 
         try {
             postData.put("fcm_token", fcmToken);
+            postData.put("phone", Config.getInstance().getPhone());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -400,8 +411,15 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeFragment.
     private void fetchDriverStatus() {
 
         HashMap<String, String> urlParams = new HashMap<>();
+        JSONObject postData = new JSONObject();
+        try {
+            postData.put("phone",Config.getInstance().getPhone());
+            postData.put("driver_id",Config.getInstance().getUserID());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-        DataManager.fetchDriverStatus(urlParams, new BasicListener() {
+        DataManager.fetchDriverStatus(postData, new BasicListener() {
             @Override
             public void onLoadCompleted(BasicBean basicBean) {
                 setDriverStatus(basicBean.isDriverOnline());
@@ -420,6 +438,10 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeFragment.
         if (switchOnline!=null) {
             switchOnline.setChecked(isOnline);
         }
+        if (mySwitchOnlineNew!=null) {
+            mySwitchOnlineNew.setChecked(isOnline);
+        }
+
         setDriverTitle();
     }
 
@@ -433,7 +455,7 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeFragment.
             public void onLoadCompleted(BasicBean basicBean) {
                 swipeView.setRefreshing(false);
                 setDriverTitle();
-                if (switchOnline.isChecked()) {
+                if (mySwitchOnlineNew.isChecked()) {
 
                     Snackbar.make(coordinatorLayout, R.string.message_you_are_online, Snackbar.LENGTH_LONG)
                             .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
@@ -441,7 +463,7 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeFragment.
                     Snackbar.make(coordinatorLayout, R.string.message_you_are_offline_now, Snackbar.LENGTH_LONG)
                             .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
                 }
-                ((HomeFragment) adapterPager.getItem(0)).setDriverStatus(switchOnline.isChecked());
+                ((HomeFragment) adapterPager.getItem(0)).setDriverStatus(mySwitchOnlineNew.isChecked());
             }
 
             @Override
@@ -463,9 +485,10 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeFragment.
 
     private JSONObject getDriverStatusChangeJSObj() {
         JSONObject postData = new JSONObject();
-
         try {
-            postData.put("driver_status", switchOnline.isChecked());
+           // postData.put("driver_status", switchOnline.isChecked());
+            postData.put("phone",Config.getInstance().getPhone());
+            postData.put("is_online",mySwitchOnlineNew.isChecked());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -474,6 +497,7 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeFragment.
     }
 
     private void setDriverTitle() {
+        /*
         if (switchOnline != null) {
             if (switchOnline.isChecked()) {
                 Config.getInstance().setOnline(true);
@@ -488,6 +512,7 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeFragment.
                 onlineOffLine_status.setTextColor(Color.RED);
             }
         }
+        */
 
         if (mySwitchOnlineNew != null) {
             if (mySwitchOnlineNew.isChecked()) {

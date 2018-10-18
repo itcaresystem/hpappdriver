@@ -27,6 +27,7 @@ public class ProfileUpdateInvoker extends BaseInvoker {
     public BasicBean invokeProfileUpdateWS(ArrayList<String> fileList) {
 
         System.out.println("POSTDATA>>>>>>>" + postData);
+        //System.out.println("POSTDATA>>>>>>>" + fileList);
 
         WebConnector webConnector;
 

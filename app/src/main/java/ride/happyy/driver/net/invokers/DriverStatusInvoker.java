@@ -27,11 +27,11 @@ public class DriverStatusInvoker extends BaseInvoker {
 
         WebConnector webConnector;
 
-        webConnector = new WebConnector(new StringBuilder(ServiceNames.DRIVER_STATUS), WSConstants.PROTOCOL_HTTP, urlParams, null);
+        webConnector = new WebConnector(new StringBuilder(ServiceNames.DRIVER_STATUS), WSConstants.PROTOCOL_HTTP, null, postData);
 
         //webConnector= new WebConnector(new StringBuilder(ServiceNames.MODELS), WSConstants.PROTOCOL_HTTP, null);
 //    String wsResponseString=webConnector.connectToPOST_service();
-        String wsResponseString = webConnector.connectToGET_service();
+        String wsResponseString = webConnector.connectToPOST_service();
         System.out.println(">>>>>>>>>>> response: " + wsResponseString);
         BasicBean basicBean = null;
         if (wsResponseString.equals("")) {

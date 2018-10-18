@@ -24,13 +24,9 @@ public class UpdateFCMTokenInvoker extends BaseInvoker {
     }
 
     public BasicBean invokeUpdateFCMTokenWS() {
-
         System.out.println("POSTDATA>>>>>>>" + postData);
-
         WebConnector webConnector;
-
         webConnector = new WebConnector(new StringBuilder(ServiceNames.FCM_UPDATE), WSConstants.PROTOCOL_HTTP, null, postData);
-
         //		webConnector= new WebConnector(new StringBuilder(ServiceNames.AUTH_EMAIL), WSConstants.PROTOCOL_HTTP, postData,null);
         //webConnector= new WebConnector(new StringBuilder(ServiceNames.MODELS), WSConstants.PROTOCOL_HTTP, null);
         String wsResponseString = webConnector.connectToPOST_service();

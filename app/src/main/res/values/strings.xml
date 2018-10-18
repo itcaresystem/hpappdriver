@@ -28,7 +28,7 @@
     <string name="btn_dismiss">Dismiss</string>
     <string name="btn_earnings">EARNING</string>
     <string name="btn_leaderbord">LEADERBORD</string>
-    <string name="btn_forgot_password">Forgot Password</string>
+    <string name="btn_forgot_password">Forgot Password?</string>
     <string name="btn_gallery">Gallery</string>
     <string name="btn_home">HOME</string>
     <string name="btn_issues">Issues</string>
@@ -64,7 +64,7 @@
     <string name="btn_submit">Submit</string>
     <string name="btn_take_a_photo">Take A Photo</string>
     <string name="btn_take_photo">Take Photo</string>
-    <string name="btn_tap_to_confirm">Tap to Confirm</string>
+    <string name="btn_tap_to_confirm"> Confirm </string>
     <string name="btn_time">Time</string>
     <string name="btn_trip_history">Trip History</string>
     <string name="btn_upload">Upload</string>
@@ -136,7 +136,7 @@
     <string name="label_driver_cum_owner_option">Choose this option if you own the vehicle and plan to drive yourself too</string>
     <string name="label_driver_documents">Driver Documents</string>
     <string name="label_driver_licence_with_badge_number">Driver Licence with Badge Number</string>
-    <string name="label_driver_license">NID/Driver License</string>
+    <string name="label_driver_license">NID Driver License</string>
     <string name="label_drop_off">- \tDrop Off</string>
     <string name="label_duration">Duration</string>
     <string name="label_earn_more">Earn More</string>
@@ -199,7 +199,7 @@
     <string name="label_please_select_a_date_from_future">Please select a date from future.</string>
     <string name="label_please_take_a_clear_photo_of_your_face">Please take a clear photo of your face for \nyour account</string>
     <string name="label_please_upload_your_documents">Please Upload your personal Documents and Vehicle Documents</string>
-    <string name="label_police_clearance_certificate">Police Clearance Certificate</string>
+    <string name="label_police_clearance_certificate">Driving Lincense</string>
     <string name="label_pro_Tips">Pro Tips</string>
     <string name="label_profile">Profile</string>
     <string name="label_profile_photo">Profile Photo</string>
@@ -270,7 +270,7 @@
     <string name="sample_distance">20.02 km</string>
     <string name="sample_duration">18 Min</string>
     <string name="sample_email">abcde@abcde.com</string>
-    <string name="sample_fare">৳ 6500</string>
+    <string name="sample_fare">৳ 000</string>
     <string name="sample_issue">Issue</string>
     <string name="sample_last_backup">Last Backup : 01 May, 2018</string>
     <string name="sample_location">Place</string>

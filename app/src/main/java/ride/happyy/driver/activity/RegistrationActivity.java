@@ -97,14 +97,11 @@ public class RegistrationActivity extends BaseAppCompatNoDrawerActivity {
 
         initViews();
 
-        if (getIntent().hasExtra("Car")) {
-            vehicleType = getIntent().getStringExtra("Car");
-           registrationBean.setVehicletype(vehicleType);
-//            etxtPhone.setText(phone);
-        }
+
 
         if (getIntent().hasExtra("Bike")) {
-            vehicleType = getIntent().getStringExtra("Bike");
+           // vehicleType = getIntent().getStringExtra("Bike");
+            vehicleType = "1";
             registrationBean.setVehicletype(vehicleType);
             // registrationBean.setPhone(phone);
 //            etxtPhone.setText(phone);
@@ -112,13 +109,22 @@ public class RegistrationActivity extends BaseAppCompatNoDrawerActivity {
 
         if (getIntent().hasExtra("CNG")) {
             vehicleType = getIntent().getStringExtra("CNG");
+            vehicleType = "2";
             registrationBean.setVehicletype(vehicleType);
             // registrationBean.setPhone(phone);
 //            etxtPhone.setText(phone);
         }
 
+        if (getIntent().hasExtra("Car")) {
+            // vehicleType = getIntent().getStringExtra("Car");
+            vehicleType = "3";
+            registrationBean.setVehicletype(vehicleType);
+//            etxtPhone.setText(phone);
+        }
+
         if (getIntent().hasExtra("Ambulance")) {
             vehicleType = getIntent().getStringExtra("Ambulance");
+            vehicleType = "4";
             registrationBean.setVehicletype(vehicleType);
             // registrationBean.setPhone(phone);
 //            etxtPhone.setText(phone);
@@ -649,6 +655,7 @@ public class RegistrationActivity extends BaseAppCompatNoDrawerActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+
                             swipeView.setRefreshing(false);
                             // Sign in success, update UI with the signed-in user's information
                             Log.i(TAG, "signInWithCredential:success");
@@ -738,6 +745,19 @@ public class RegistrationActivity extends BaseAppCompatNoDrawerActivity {
                 swipeView.setRefreshing(false);
 //                setProgressScreenVisibility(false, false);
 
+                if (getIntent().hasExtra("forgetpass")) {
+
+                    if (!basicBean.isPhoneAvailable()) {
+                       // initiatePhoneVerification();
+                        Intent intentforgetPassword = new Intent(getBaseContext(),ForgotPasswordActivity.class);
+                        intentforgetPassword.putExtra("phone",registrationBean.getPhone());
+                        startActivity(intentforgetPassword);
+                    } else {
+                        Snackbar.make(coordinatorLayout, phone + "This Number is not Registered!!", Snackbar.LENGTH_LONG)
+                                .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
+                    }
+
+                }
                 if (basicBean.isPhoneAvailable()) {
                     initiatePhoneVerification();
                 } else {
@@ -944,9 +964,14 @@ public class RegistrationActivity extends BaseAppCompatNoDrawerActivity {
             public void onLoadCompleted(AuthBean authBean) {
                 swipeView.setRefreshing(false);
                 App.saveToken(authBean);
+                if(registrationBean.getVehicletype()!=""&&registrationBean.getVehicletype()=="3") {
 
-                startActivity(new Intent(RegistrationActivity.this, DriverLicenceTypeActivity.class));
-                finish();
+                    startActivity(new Intent(RegistrationActivity.this, HomeActivity.class));
+                    finish();
+                }else {
+                    startActivity(new Intent(RegistrationActivity.this, HomeActivity.class));
+                    finish();
+                }
             }
 
             @Override
@@ -988,6 +1013,7 @@ public class RegistrationActivity extends BaseAppCompatNoDrawerActivity {
             postData.put("email", registrationBean.getEmail());
             postData.put("password", registrationBean.getPassword());
             postData.put("city", registrationBean.getLocation());
+            postData.put("vehicle_type",registrationBean.getVehicletype());
 //            postData.put("", registrationBean.get());
 
         } catch (JSONException e) {

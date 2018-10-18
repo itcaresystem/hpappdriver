@@ -7,6 +7,7 @@ import com.google.android.gms.maps.model.LatLng
 class AppStatusBean : BaseBean() {
 
     var id: String = ""
+    var tripId: String = ""
     var appStatus: Int = 0
     var tripStatus: String = ""
     var driverID: String = ""
@@ -14,11 +15,13 @@ class AppStatusBean : BaseBean() {
     var driverPhoto: String = ""
     var driverStatus: Int = 0
     var customerID: String = ""
+    var customerPhone: String=""
     var customerName: String = ""
     var customerPhoto: String = ""
     var sourceLocation: String = ""
     var sourceLatitude: String = ""
     var sourceLongitude: String = ""
+
 
     fun getSourceLatLng(): LatLng {
         return LatLng(dSourceLatitude, dSourceLongitude)

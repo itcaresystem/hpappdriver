@@ -16,7 +16,7 @@ import ride.happyy.driver.net.DataManager;
 
 
 public class HappyyRideDriverFirebaseInstanceIDService extends FirebaseInstanceIdService {
-    private static final String TAG = "LTFIService";
+    private static final String TAG = "HFIService";
 
     @Override
     public void onTokenRefresh() {
@@ -28,7 +28,7 @@ public class HappyyRideDriverFirebaseInstanceIDService extends FirebaseInstanceI
         // manage this apps subscriptions on the server side, send the
         // Instance ID token to your app server.
 
-        if (Config.getInstance().getAuthToken() != null && !Config.getInstance().getAuthToken().equalsIgnoreCase("")) {
+        if (Config.getInstance().getPhone() != null && !Config.getInstance().getPhone().equalsIgnoreCase("")) {
             JSONObject postData = getUpdateFCMTokenJSObj(refreshedToken);
 
             DataManager.performUpdateFCMToken(postData, new BasicListener() {
@@ -52,6 +52,7 @@ public class HappyyRideDriverFirebaseInstanceIDService extends FirebaseInstanceI
 
         try {
             postData.put("fcm_token", fcmToken);
+            postData.put("phone", Config.getInstance().getPhone());
         } catch (JSONException e) {
             e.printStackTrace();
         }

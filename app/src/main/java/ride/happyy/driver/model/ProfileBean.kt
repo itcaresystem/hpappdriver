@@ -4,6 +4,7 @@ package ride.happyy.driver.model
 
 class ProfileBean : BaseBean() {
 
+    var isPhoneVerified: Boolean = false
     var id: String = ""
     var username: String = ""
     var authToken: String = ""
@@ -24,5 +25,14 @@ class ProfileBean : BaseBean() {
     var state: String = ""
     var city: String = ""
     var postalCode: String = ""
-    var isPhoneVerified: Boolean = false
+    var vehicle_type: String =""
+    var is_active: String =""
+    var total_trips : Int =0
+    var total_earn : Int =0
+    var total_due : Int =0
+    var ref_bonus : Int =0
+    var driver_rating : Int =0
+    var commission_rate : Int =0
+    var vehicle_no : String =""
+
 }

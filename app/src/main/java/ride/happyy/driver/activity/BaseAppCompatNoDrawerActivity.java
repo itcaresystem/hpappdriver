@@ -151,8 +151,8 @@ public class BaseAppCompatNoDrawerActivity extends BaseActivity {
     }
 
     int getServerConnectionAvailableStatus(boolean isSnackbarEnabled) {
-        if (Config.getInstance().getAuthToken() == null || Config.getInstance().getAuthToken().equals("")) {
-            if (App.checkForToken() && !Config.getInstance().getAuthToken().equals("")) {
+        if (Config.getInstance().getPhone() == null || Config.getInstance().getPhone().equals("")) {
+            if (App.checkForToken() && !Config.getInstance().getPhone().equals("")) {
                 if (App.isNetworkAvailable()) {
                     return SERVER_CONNECTION_AVAILABLE;
                 } else {

@@ -333,7 +333,15 @@ public class BaseAppCompatActivity extends BaseActivity implements
         }
 
        */
+/*
         if (Config.getInstance().getAuthToken() != null && !Config.getInstance().getAuthToken().equals("")) {
+            if (App.isNetworkAvailable()) {
+                fetchProfile();
+            }
+        }
+*/
+
+        if (Config.getInstance().getPhone() != null && !Config.getInstance().getPhone().equals("")) {
             if (App.isNetworkAvailable()) {
                 fetchProfile();
             }
@@ -564,12 +572,13 @@ public class BaseAppCompatActivity extends BaseActivity implements
 
         HashMap<String, String> urlParams = new HashMap<>();
         //	postData.put("uid", id);
-        urlParams.put("auth_token", Config.getInstance().getAuthToken());
+      //  urlParams.put("auth_token", Config.getInstance().getAuthToken());
+        JSONObject postData = getArrivalConfirmationJSObj();
 
         Log.i(TAG, "fetchProfile: ID " + Config.getInstance().getUserID());
         Log.i(TAG, "fetchProfile: Name " + Config.getInstance().getFirstName() + " " + Config.getInstance().getLastName());
 
-        DataManager.fetchProfile(urlParams, new ProfileListener() {
+        DataManager.fetchProfile(postData, new ProfileListener() {
             @Override
             public void onLoadCompleted(ProfileBean profileBean) {
                 System.out.println("Successful  : ProfileBean : " + profileBean);
@@ -587,6 +596,17 @@ public class BaseAppCompatActivity extends BaseActivity implements
             }
         });
 
+    }
+    public JSONObject getArrivalConfirmationJSObj() {
+        JSONObject jsonObject =new JSONObject();
+        try {
+            jsonObject.put("phone",Config.getInstance().getPhone());
+            jsonObject.put("test","test");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return jsonObject;
     }
 
     private void populateProfile(ProfileBean profileBean) {
@@ -760,6 +780,7 @@ public class BaseAppCompatActivity extends BaseActivity implements
         JSONObject postData = new JSONObject();
 
         try {
+            postData.put("phone", Config.getInstance().getPhone());
             postData.put("latitude", location.getLatitude());
             postData.put("longitude", location.getLongitude());
         } catch (JSONException e) {
@@ -951,4 +972,6 @@ public class BaseAppCompatActivity extends BaseActivity implements
     public void onConnectionSuspended(int arg0) {
 
     }
+
+
 }

@@ -173,7 +173,7 @@ public class DriverDocumentsActivity extends BaseAppCompatNoDrawerActivity {
     private void fetchDocumentStatus() {
 
         HashMap<String, String> urlParams = new HashMap<>();
-        urlParams.put("auth_token", Config.getInstance().getAuthToken());
+        urlParams.put("phone", Config.getInstance().getPhone());
 
         DataManager.fetchDocumentStatus(urlParams, new DocumentStatusListener() {
             @Override

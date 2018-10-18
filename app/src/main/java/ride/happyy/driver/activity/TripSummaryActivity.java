@@ -139,7 +139,7 @@ public class TripSummaryActivity extends BaseAppCompatNoDrawerActivity {
 
     private void populateTripSummary() {
 
-        txtRiderPays.setText(tripSummaryBean.getTotalFare());
+        txtRiderPays.setText("৳"+tripSummaryBean.getTotalFare());
         txtBaseFare.setText(tripSummaryBean.getBaseFare());
         txtLaTaxiFare.setText(tripSummaryBean.getLaTaxiFee());
         txtTax.setText(tripSummaryBean.getTax());
@@ -174,6 +174,9 @@ public class TripSummaryActivity extends BaseAppCompatNoDrawerActivity {
 
                 Toast.makeText(TripSummaryActivity.this, R.string.message_trip_completed_successfully, Toast.LENGTH_SHORT).show();
                 viewFilpper.showNext();
+                Intent homeIntent = new Intent(getBaseContext(),HomeActivity.class);
+                startActivity(homeIntent);
+                finish();
 
             }
 

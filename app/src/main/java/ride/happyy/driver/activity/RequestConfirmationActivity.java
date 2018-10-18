@@ -9,7 +9,9 @@ import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.speech.tts.Voice;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
@@ -93,6 +95,7 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
     private TextView txtETA;
     private TextView txtDistance;
     private TextView txtCarType;
+    private TextView pickup_addressTV,destination_addressTV;
     private Button btnConfirm;
     private ImageView ivCarType;
     private HashMap markerMap;
@@ -109,6 +112,7 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
     private Polyline polyLine;
     private PolyPointBean polyPointBean;
     private boolean isInit;
+    public MediaPlayer voice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,6 +134,23 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
+        for(int i=0;i<3;i++) {
+            PlayVoice(this, R.raw.happyriderequesttone);
+        }
+
+    }
+    public  void PlayVoice(final Context context, int rawVoice) {
+
+        voice = MediaPlayer.create(context, rawVoice);
+        voice.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                if (voice != null) {
+                    voice.release();
+                }
+            }
+        });
+        voice.start();
 
     }
 
@@ -171,7 +192,8 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
         txtETA = (TextView) findViewById(R.id.txt_request_confirmation_eta);
         txtDistance = (TextView) findViewById(R.id.txt_request_confirmation_distance);
         txtCarType = (TextView) findViewById(R.id.txt_request_confirmation_car_type);
-
+        pickup_addressTV =findViewById(R.id.pick_addressTV);
+        destination_addressTV = findViewById(R.id.destination_addressTV);
         ivCarType = (ImageView) findViewById(R.id.iv_request_confirmation_car_type);
 
         btnConfirm = (Button) findViewById(R.id.btn_request_confirmation_confirm);
@@ -302,12 +324,34 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
 
     }
 
+
+    public void onRequestCancelBtnClick(View view) {
+        view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+
+        Toast.makeText(this,"Cancel is not acceptable.Please swich onto Offline",Toast.LENGTH_LONG).show();
+        //mVibrator.vibrate(25);
+/*
+        if (App.isNetworkAvailable()) {
+            performConfirmTrip();
+        }else{
+            Snackbar.make(coordinatorLayout, AppConstants.NO_NETWORK_AVAILABLE, Snackbar.LENGTH_LONG)
+                    .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
+        }
+*/
+    }
+
     public void fetchRequestDetails() {
 
         HashMap<String, String> urlParams = new HashMap<>();
         urlParams.put("request_id", requestID);
+        JSONObject postData = new JSONObject();
+        try {
+            postData.put("request_id" , requestID);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-        DataManager.fetchRequestDetails(urlParams, new RequestDetailsListener() {
+        DataManager.fetchRequestDetails(postData, new RequestDetailsListener() {
 
             @Override
             public void onLoadCompleted(RequestDetailsBean requestDetailsBeanWS) {
@@ -328,7 +372,8 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
     }
 
     private void populateRequestDetails() {
-
+        pickup_addressTV.setText(requestDetailsBean.getCustomerLocation());
+        destination_addressTV.setText(requestDetailsBean.getDestination_location());
         txtETA.setText(requestDetailsBean.getEta());
         txtCarType.setText(requestDetailsBean.getCarType());
         txtDistance.setText(requestDetailsBean.getDistance());
@@ -383,6 +428,10 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
 
         try {
             postData.put("request_id", requestID);
+            postData.put("phone", Config.getInstance().getPhone());
+            postData.put("driver_id", Config.getInstance().getUserID());
+            postData.put("driver_name", Config.getInstance().getName());
+            postData.put("driver_photo", Config.getInstance().getProfilePhoto());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -415,7 +464,7 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
 
             newLatLng = new LatLng(destinationLatitude, destinationLongitude);
 //            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newLatLng, 11));
-            mMap.addMarker(new MarkerOptions().position(newLatLng).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_pin_customer)));
+            mMap.addMarker(new MarkerOptions().position(newLatLng).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_pickup)));
 
         } catch (NumberFormatException e) {
             e.printStackTrace();
@@ -522,65 +571,6 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
         }
     }
 
-    public void getCurrentLocation() {
-        setUpLocationClientIfNeeded();
-        if (!mGoogleApiClient.isConnected()) {
-            mGoogleApiClient.connect();
-        }
-        if (ActivityCompat.checkSelfPermission(App.getInstance(),
-                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(App.getInstance(),
-                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            if (!checkForLocationPermissions()) {
-                getLocationPermissions();
-            }
-            checkLocationSettingsStatus();
-        } else {
-            if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
-
-                if (LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient) != null) {
-                    Config.getInstance().setCurrentLatitude(""
-                            + LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient).getLatitude());
-                    Config.getInstance().setCurrentLongitude(""
-                            + LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient).getLongitude());
-                }
-            /*else{
-                System.out.println("Last Location : " + mockLocation);
-				currentLatitude = ""+mockLocation.getLatitude();
-				currentLongitude = ""+mockLocation.getLongitude();
-			}*/
-            }
-        }
-
-        locationManager = (LocationManager) App.getInstance().getSystemService(Context.LOCATION_SERVICE);
-        if (hasLocationPermissions) {
-            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-            } else {
-                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
-            }
-        }
-       /* if ((Config.getInstance().getCurrentLatitude() == null
-                || Config.getInstance().getCurrentLongitude() == null)
-                || (Config.getInstance().getCurrentLatitude().equals("")
-                || Config.getInstance().getCurrentLatitude().equals(""))) {
-            //Toast.makeText(MapActivity.this, "Retrieving Current Location...", Toast.LENGTH_SHORT).show();
-            locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-            if (hasLocationPermissions) {
-                if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-                } else {
-                    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
-                }
-            }
-
-            //			mHandler.postDelayed(periodicTask, 3000);
-        } else {
-            if (mGoogleApiClient != null) {
-                mGoogleApiClient.disconnect();
-            }
-        }*/
-    }
 
     @Override
     public void onLocationChanged(Location location) {

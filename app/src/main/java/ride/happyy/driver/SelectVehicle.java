@@ -29,7 +29,7 @@ public class SelectVehicle extends BaseAppCompatNoDrawerActivity {
                 Intent loginIntent = new Intent(SelectVehicle.this,RegistrationActivity.class);
                 loginIntent.putExtra("Car","Car");
                 startActivity(loginIntent);
-                finish();
+              //  finish();
 
             }
         });
@@ -40,7 +40,7 @@ public class SelectVehicle extends BaseAppCompatNoDrawerActivity {
                 Intent loginIntent = new Intent(SelectVehicle.this,RegistrationActivity.class);
                 loginIntent.putExtra("Bike","Bike");
                 startActivity(loginIntent);
-                finish();
+             //   finish();
 
             }
         });
@@ -51,7 +51,7 @@ public class SelectVehicle extends BaseAppCompatNoDrawerActivity {
                 Intent loginIntent = new Intent(SelectVehicle.this,RegistrationActivity.class);
                 loginIntent.putExtra("CNG","CNG");
                 startActivity(loginIntent);
-                finish();
+              //  finish();
 
             }
         });
@@ -62,7 +62,7 @@ public class SelectVehicle extends BaseAppCompatNoDrawerActivity {
                 Intent loginIntent = new Intent(SelectVehicle.this,RegistrationActivity.class);
                 loginIntent.putExtra("Ambulance","Ambulance");
                 startActivity(loginIntent);
-                finish();
+             //   finish();
 
             }
         });

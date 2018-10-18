@@ -71,11 +71,15 @@ public class BasicParser {
                 if (dataObj != null) {
                     try {
 
+                        if (jsonObj.has("message")) {
+                            basicBean.setWebMessage(dataObj.optString("message"));
+                        }
+
                         if (dataObj.has("is_available")) {
                             basicBean.setPhoneAvailable(dataObj.optBoolean("is_available"));
                         }
-                        if (dataObj.has("driver_status")) {
-                            basicBean.setDriverOnline(dataObj.optBoolean("driver_status"));
+                        if (dataObj.has("is_online")) {
+                            basicBean.setDriverOnline(dataObj.optBoolean("is_online"));
                         }
                         if (dataObj.has("phone")) {
                             basicBean.setPhone(dataObj.optString("phone"));

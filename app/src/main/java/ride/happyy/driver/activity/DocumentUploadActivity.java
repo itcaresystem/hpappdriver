@@ -35,6 +35,7 @@ import ride.happyy.driver.model.BasicBean;
 import ride.happyy.driver.net.DataManager;
 import ride.happyy.driver.util.AppConstants;
 import ride.happyy.driver.util.FileOp;
+import ride.happyy.driver.util.ImageFilePath;
 
 public class DocumentUploadActivity extends BaseAppCompatNoDrawerActivity {
 
@@ -79,8 +80,23 @@ public class DocumentUploadActivity extends BaseAppCompatNoDrawerActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             documentPath = imagePath;
+
             //    setBannerPic(tempImagePath);
             setDocumentImage(imagePath);
+
+            Log.i(TAG, "onActivityResult: IMAGE PATH : " + imagePath);
+        }
+
+        if (requestCode == REQUEST_IMAGE_GALLERY && resultCode == RESULT_OK) {
+            documentPath = imagePath;
+
+            //    setBannerPic(tempImagePath);
+
+            String imageFilePath = ImageFilePath.getPath(getApplicationContext(), data.getData());
+            System.out.println(imageFilePath);
+
+            documentPath = imageFilePath;
+            setDocumentImage(imageFilePath);
 
             Log.i(TAG, "onActivityResult: IMAGE PATH : " + imagePath);
         }
@@ -108,7 +124,7 @@ public class DocumentUploadActivity extends BaseAppCompatNoDrawerActivity {
         switch (type) {
 
             case AppConstants.DOCUMENT_TYPE_DRIVER_LICENCE:
-                return getString(R.string.label_driver_license);
+                return getString(R.string.label_vehicle_registration);
 
             case AppConstants.DOCUMENT_TYPE_POLICE_CLEARANCE_CERTIFICATE:
                 return getString(R.string.label_police_clearance_certificate);
@@ -176,6 +192,7 @@ public class DocumentUploadActivity extends BaseAppCompatNoDrawerActivity {
     }
 
     public void onDocumentUploadTakePhotoClick(View view) {
+        dialog.dismiss();
 
         view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
         //mVibrator.vibrate(25);
@@ -212,6 +229,7 @@ public class DocumentUploadActivity extends BaseAppCompatNoDrawerActivity {
     }
 
     public void onAddProfilePhotoFromGallery(View view) {
+        dialog.dismiss();
 
         view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
 
@@ -223,7 +241,7 @@ public class DocumentUploadActivity extends BaseAppCompatNoDrawerActivity {
             intent.setType("image/*");
             startActivityForResult(intent, REQUEST_IMAGE_GALLERY);
 
-            dialog.dismiss();
+
         }
     }
 
@@ -259,6 +277,7 @@ public class DocumentUploadActivity extends BaseAppCompatNoDrawerActivity {
 
                 Intent intent = new Intent();
                 intent.putExtra("type", type);
+                intent.putExtra("imagepath",imagePath);
                 setResult(RESULT_OK, intent);
                 finish();
             }
@@ -282,7 +301,6 @@ public class DocumentUploadActivity extends BaseAppCompatNoDrawerActivity {
 
     private ArrayList<String> getFileList() {
         ArrayList<String> fileList = new ArrayList<>();
-
         if (documentPath != null && !documentPath.equals("")) {
             String tempPath = FileOp.getDocumentPhotoPath(getDocumentTitle(type));
             FileOp.writeBitmapToFile(documentPath, tempPath);
@@ -298,8 +316,9 @@ public class DocumentUploadActivity extends BaseAppCompatNoDrawerActivity {
         JSONObject postData = new JSONObject();
 
         try {
-            postData.put("auth_token", Config.getInstance().getAuthToken());
+            postData.put("phone", Config.getInstance().getPhone());
             postData.put("type", type);
+            postData.put("tags", "Document Photo");
 
         } catch (JSONException e) {
             e.printStackTrace();

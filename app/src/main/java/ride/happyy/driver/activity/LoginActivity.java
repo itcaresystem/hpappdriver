@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Patterns;
 import android.view.HapticFeedbackConstants;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,6 +15,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,9 +30,10 @@ import ride.happyy.driver.util.AppConstants;
 
 public class LoginActivity extends BaseAppCompatNoDrawerActivity {
 
-    private EditText etxtEmail;
+    private EditText etxtEmail,etxtPhone;
     private EditText etxtPassword;
     private String email;
+    private String phone;
     private String password;
 
     @Override
@@ -90,6 +93,7 @@ public class LoginActivity extends BaseAppCompatNoDrawerActivity {
     private void initViews() {
 
         etxtEmail = (EditText) findViewById(R.id.etxt_login_email);
+        etxtPhone = findViewById(R.id.etxt_login_phone);
         etxtPassword = (EditText) findViewById(R.id.etxt_login_password);
 
         Button btnLogin = (Button) findViewById(R.id.btn_login_submit);
@@ -99,6 +103,7 @@ public class LoginActivity extends BaseAppCompatNoDrawerActivity {
         btnForgotPassword.setTypeface(typefaceBold);
 
         etxtEmail.setTypeface(typeface);
+        etxtPhone.setTypeface(typeface);
         etxtPassword.setTypeface(typeface);
         etxtPassword.setTransformationMethod(new PasswordTransformationMethod());
 
@@ -124,6 +129,7 @@ public class LoginActivity extends BaseAppCompatNoDrawerActivity {
     }
 
     private boolean collectLoginData() {
+        /*
         if (!etxtEmail.getText().toString().equals("")) {
             email = etxtEmail.getText().toString();
             if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
@@ -136,6 +142,12 @@ public class LoginActivity extends BaseAppCompatNoDrawerActivity {
                     .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
             return false;
         }
+        */
+
+
+        phone = etxtPhone.getText().toString();
+
+
         if (!etxtPassword.getText().toString().equals(""))
             password = etxtPassword.getText().toString();
         else {
@@ -161,8 +173,10 @@ public class LoginActivity extends BaseAppCompatNoDrawerActivity {
                     startActivity(new Intent(LoginActivity.this, OtpVerificationActivity.class));
                     finish();
                 } else {
-                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-                    finish();
+                    Toast.makeText(getApplicationContext(),Config.getInstance().getPhone(),Toast.LENGTH_LONG).show();
+                  startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                  finish();
+
                 }
             }
 
@@ -185,7 +199,7 @@ public class LoginActivity extends BaseAppCompatNoDrawerActivity {
     private JSONObject getLoginJSObj() {
         JSONObject postData = new JSONObject();
         try {
-            postData.put("email", email);
+            postData.put("phone", "+88"+phone);
             postData.put("password", password);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -197,7 +211,9 @@ public class LoginActivity extends BaseAppCompatNoDrawerActivity {
     public void onLoginForgotPasswordClick(View view) {
         view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
         //mVibrator.vibrate(25);
+        Intent intentForgetPassword =new Intent(this,RegistrationActivity.class);
+        intentForgetPassword.putExtra("forgetpass", "forgetpass");
 
-        startActivity(new Intent(this, ForgotPasswordActivity.class));
+        startActivity(new Intent(intentForgetPassword));
     }
 }

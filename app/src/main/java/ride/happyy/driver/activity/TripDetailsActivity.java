@@ -429,6 +429,7 @@ public class TripDetailsActivity extends BaseAppCompatNoDrawerActivity {
 
         HashMap<String, String> urlParams = new HashMap<>();
         urlParams.put("trip_id", tripID);
+        urlParams.put("phone", tripID);
         /*if (isLoadMore) {
             urlParams.put("page", String.valueOf(currentPage + 1));
         }
@@ -470,13 +471,14 @@ public class TripDetailsActivity extends BaseAppCompatNoDrawerActivity {
             txtDate.setText(App.getDateFromUnix(App.DATE_FORMAT_1, true, false, tripBean.getStartTime()));
             txtTime.setText("at " + App.getTimeFromUnix(App.TIME_FORMAT_0, true, false, tripBean.getStartTime()));
             txtCustomerName.setText(tripBean.getCustomerName());
-            txtPayout.setText(tripBean.getEstimatedPayout());
+            txtPayout.setText("৳"+tripBean.getFare());
             txtDistance.setText(tripBean.getDistance());
             txtDuration.setText(tripBean.getDuration());
             txtFare.setText(tripBean.getFare());
             txtLaTaxiFee.setText(tripBean.getFee());
             txtTaxReturn.setText(tripBean.getTax());
-            txtEstimatedPayout.setText(tripBean.getEstimatedPayout());
+           // txtEstimatedPayout.setText(tripBean.getEstimatedPayout());
+            txtEstimatedPayout.setText(tripBean.getFare());
             txtSourceLocation.setText(tripBean.getSourceLocation());
             txtDestinationLocation.setText(tripBean.getDestinationLocation());
 

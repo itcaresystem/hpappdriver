@@ -81,6 +81,16 @@
             android:background="@drawable/btn_click_black_rectangle_with_semicircle_edge"
             android:textColor="@color/white"
             android:layout_gravity="bottom|left"/>
+        <ride.happyy.driver.widgets.CustomTextView
+            android:visibility="gone"
+            android:padding="4dp"
+            android:id="@+id/activeTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Active"
+            android:background="@drawable/btn_click_green_2_rectangle_with_semicircle_edge"
+            android:textColor="@color/white"
+            android:layout_gravity="bottom|left"/>
 
     </FrameLayout>
 
@@ -180,6 +190,7 @@
                     android:text="Car"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/text_4"/>
+
                 <ride.happyy.driver.widgets.CustomTextView
                     android:id="@+id/txt_accounts_vehicle_number"
                     android:layout_width="match_parent"
@@ -189,7 +200,7 @@
                     android:minHeight="30dp"
                     android:text="DM-HA-24-6210"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/text_3"/>
+                    android:textColor="@color/text_3" />
                 <ride.happyy.driver.widgets.CustomTextView
                     android:padding="3dp"
                     android:id="@+id/vehicle_brand_name"
@@ -294,7 +305,7 @@
                 android:gravity="right"
                 android:textSize="20dp"
                 android:textColor="@color/gray"
-                android:text="৳ 5000"/>
+                android:text="৳ 0000"/>
 
         </LinearLayout>
 
@@ -329,7 +340,7 @@
                 android:gravity="right"
                 android:textSize="20dp"
                 android:textColor="@color/gray"
-                android:text="20"/>
+                android:text="00"/>
 
 
         </LinearLayout>
@@ -401,7 +412,7 @@
                 android:gravity="right"
                 android:textSize="20dp"
                 android:textColor="@color/red"
-                android:text="৳ 500"/>
+                android:text="৳ 000"/>
 
 
         </LinearLayout>
@@ -438,7 +449,7 @@
                 android:gravity="right"
                 android:textSize="20dp"
                 android:textColor="@color/blue"
-                android:text="85%"/>
+                android:text="0%"/>
 
 
         </LinearLayout>

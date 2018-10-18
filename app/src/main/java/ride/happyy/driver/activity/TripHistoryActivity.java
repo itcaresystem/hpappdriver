@@ -17,6 +17,7 @@ import java.util.HashMap;
 import ride.happyy.driver.R;
 import ride.happyy.driver.adapter.TripListRecyclerAdapter;
 import ride.happyy.driver.app.App;
+import ride.happyy.driver.config.Config;
 import ride.happyy.driver.listeners.TripListListener;
 import ride.happyy.driver.model.TripBean;
 import ride.happyy.driver.model.TripListBean;
@@ -157,6 +158,8 @@ public class TripHistoryActivity extends BaseAppCompatNoDrawerActivity {
         if (isLoadMore) {
             urlParams.put("page", String.valueOf(currentPage + 1));
         }
+
+        urlParams.put("phone", Config.getInstance().getPhone());
 
         DataManager.fetchTripHistory(urlParams, new TripListListener() {
             @Override

@@ -160,7 +160,8 @@ public class SettingsActivity extends BaseAppCompatNoDrawerActivity {
         JSONObject postData = new JSONObject();
 
         try {
-            postData.put("driver_status", switchOnline.isChecked());
+            postData.put("is_online", switchOnline.isChecked());
+            postData.put("phone", Config.getInstance().getPhone());
         } catch (JSONException e) {
             e.printStackTrace();
         }

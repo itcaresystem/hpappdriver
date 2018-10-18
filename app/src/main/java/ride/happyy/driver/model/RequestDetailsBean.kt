@@ -17,6 +17,9 @@ class RequestDetailsBean : BaseBean() {
     var customerLocation: String = ""
     var customerLatitude: String = ""
     var customerLongitude: String = ""
+    var destination_location: String =""
+    var request_destination_latitude: String = ""
+    var request_destination_longitude: String = ""
 
 
     fun getDestinationLatLng(): LatLng {

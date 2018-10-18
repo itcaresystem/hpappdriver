@@ -11,5 +11,4 @@ open class BaseBean : Serializable {
     var errorMsg: String = ""
     var webMessage: String = ""
 
-
 }

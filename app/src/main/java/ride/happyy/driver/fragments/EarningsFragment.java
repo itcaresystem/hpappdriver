@@ -41,6 +41,7 @@ import java.util.HashMap;
 import ride.happyy.driver.R;
 import ride.happyy.driver.activity.TripHistoryActivity;
 import ride.happyy.driver.app.App;
+import ride.happyy.driver.config.Config;
 import ride.happyy.driver.listeners.WeeklyEarningsListener;
 import ride.happyy.driver.model.DailyEarningBean;
 import ride.happyy.driver.model.WeeklyEarningsBean;
@@ -311,9 +312,10 @@ public class EarningsFragment extends BaseFragment {
     private void fetchWeeklyEarnings() {
 
         HashMap<String, String> urlParams = new HashMap<>();
-        urlParams.put("week_of_year", String.valueOf(cal.get(Calendar.WEEK_OF_YEAR)));
+        urlParams.put("phone", Config.getInstance().getPhone());
+      //  urlParams.put("week_of_year", String.valueOf(cal.get(Calendar.WEEK_OF_YEAR)));
 //        urlParams.put("week_start", String.valueOf(cal.getFirstDayOfWeek()));
-        urlParams.put("year", String.valueOf(cal.get(Calendar.YEAR)));
+      //  urlParams.put("year", String.valueOf(cal.get(Calendar.YEAR)));
 
         DataManager.fetchWeeklyEarnings(urlParams, new WeeklyEarningsListener() {
 
@@ -385,9 +387,9 @@ public class EarningsFragment extends BaseFragment {
                 mChart.invalidate();
             }
 
-            String weeklyEarningT = weeklyEarningsBean.getTotalPayout().substring(1);
+         //   String weeklyEarningT = weeklyEarningsBean.getTotalPayout().substring(1);
 
-            txtTotalPayout.setText("৳"+weeklyEarningT);
+            txtTotalPayout.setText("৳"+weeklyEarningsBean.getTotalPayout());
         } else {
             txtTotalPayout.setText(R.string.label_not_available);
         }

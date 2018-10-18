@@ -19,10 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="31"
-
         android:background="@color/gray_light"
         >
-
         <ride.happyy.driver.widgets.CustomTextView
             android:layout_marginTop="1dp"
             android:layout_marginBottom="1dp"
@@ -30,10 +28,10 @@
             android:id="@+id/status_txv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Online"
+            android:text="Offline"
             android:textSize="24dp"
             android:layout_gravity="center"
-            android:textColor="@color/green"
+            android:textColor="@color/red"
             android:gravity="center"
             android:padding="2dp"
             />

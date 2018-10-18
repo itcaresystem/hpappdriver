@@ -29,7 +29,7 @@ public class LoginInvoker extends BaseInvoker {
 
         WebConnector webConnector;
 
-        webConnector = new WebConnector(new StringBuilder(ServiceNames.AUTH_EMAIL), WSConstants.PROTOCOL_HTTP, null, postData);
+        webConnector = new WebConnector(new StringBuilder(ServiceNames.AUTH_PHONE), WSConstants.PROTOCOL_HTTP, null, postData);
 
         //		webConnector= new WebConnector(new StringBuilder(ServiceNames.AUTH_EMAIL), WSConstants.PROTOCOL_HTTP, postData,null);
         //webConnector= new WebConnector(new StringBuilder(ServiceNames.MODELS), WSConstants.PROTOCOL_HTTP, null);

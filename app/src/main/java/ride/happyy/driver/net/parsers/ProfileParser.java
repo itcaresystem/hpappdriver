@@ -151,6 +151,43 @@ public class ProfileParser {
                         if (dataObj.has("is_phone_verified")) {
                             profileBean.setPhoneVerified(dataObj.optBoolean("is_phone_verified"));
                         }
+
+                        if (dataObj.has("vehicle_type")) {
+                            profileBean.setVehicle_type(dataObj.optString("vehicle_type"));
+                        }
+
+                        if (dataObj.has("vehicle_no")) {
+                            profileBean.setVehicle_no(dataObj.optString("vehicle_no"));
+                        }
+
+                        if (dataObj.has("is_active")) {
+                            profileBean.set_active(dataObj.optString("is_active"));
+                        }
+
+                        if (dataObj.has("total_trips")) {
+                            profileBean.setTotal_trips(dataObj.optInt("total_trips"));
+                        }
+
+                        if (dataObj.has("total_earn")) {
+                            profileBean.setTotal_earn(dataObj.optInt("total_earn"));
+                        }
+                        if (dataObj.has("total_due")) {
+                            profileBean.setTotal_due(dataObj.optInt("total_due"));
+                        }
+                        if (dataObj.has("ref_bonus")) {
+                            profileBean.setRef_bonus(dataObj.optInt("ref_bonus"));
+                        }
+
+                        if (dataObj.has("driver_rating")) {
+                            profileBean.setDriver_rating(dataObj.optInt("driver_rating"));
+                        }
+                        if (dataObj.has("commission_rate")) {
+                            profileBean.setCommission_rate(dataObj.optInt("commission_rate"));
+                        }
+
+
+
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

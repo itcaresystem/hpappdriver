@@ -13,6 +13,9 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 
 import ride.happyy.driver.R;
@@ -191,8 +194,9 @@ public class SplashActivity extends BaseAppCompatNoDrawerActivity {
     private void fetchAppStatus() {
 
         HashMap<String, String> urlParams = new HashMap<>();
+        JSONObject postata =getJsonObjectPostData();
 
-        DataManager.fetchAppStatus(urlParams, new AppStatusListener() {
+        DataManager.fetchAppStatus(postata, new AppStatusListener() {
             @Override
             public void onLoadCompleted(AppStatusBean appStatusBeanWS) {
                 appStatusBean = appStatusBeanWS;
@@ -219,6 +223,17 @@ public class SplashActivity extends BaseAppCompatNoDrawerActivity {
 
     }
 
+    public JSONObject getJsonObjectPostData() {
+        JSONObject jsonObjectPostData=new JSONObject();
+        try {
+            jsonObjectPostData.put("driver_id",Config.getInstance().getUserID());
+            jsonObjectPostData.put("phone",Config.getInstance().getPhone());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonObjectPostData;
+    }
+
     private void showErrorPopup(String error) {
         if (popupMessage == null)
             popupMessage = new PopupMessage(SplashActivity.this);
@@ -237,4 +252,6 @@ public class SplashActivity extends BaseAppCompatNoDrawerActivity {
         });
         popupMessage.show(error, 0, getString(R.string.btn_retry), getString(R.string.btn_cancel));
     }
+
+
 }

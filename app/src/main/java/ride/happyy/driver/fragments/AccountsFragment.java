@@ -20,6 +20,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 
 import ride.happyy.driver.R;
@@ -49,8 +52,8 @@ public class AccountsFragment extends BaseFragment {
     private ImageButton ibEditProfile;
     private ImageButton ibEditVehicle;
     private Button btnLogout;
-    private TextView txtName;
-    private TextView txtVehicle;
+    private TextView txtName,txtPhone,txtAcountInactive,txtAcountActive;
+    private TextView txtVehicle,txtVehicleTypeName,txt_accounts_vehicle_number;
     private ImageView ivVehicle;
     private ImageView ivProfilePhoto;
     private ProfileBean profileBean;
@@ -119,8 +122,13 @@ public class AccountsFragment extends BaseFragment {
         logOut    = rootView.findViewById(R.id.ll_logout);
 
         txtName = (TextView) rootView.findViewById(R.id.txt_accounts_driver_name);
+        txtPhone = rootView.findViewById(R.id.txt_accounts_driver_mobile);
+        txtAcountInactive = rootView.findViewById(R.id.activeInactiveTv);
+        txtAcountActive = rootView.findViewById(R.id.activeTv);
         txtVehicle = (TextView) rootView.findViewById(R.id.txt_accounts_vehicle_name);
+        txt_accounts_vehicle_number = (TextView) rootView.findViewById(R.id.txt_accounts_vehicle_number);
 
+        txtVehicleTypeName = rootView.findViewById(R.id.vehicle_brand_name);
         ivVehicle = (ImageView) rootView.findViewById(R.id.iv_accounts_driver_car_photo);
         ivProfilePhoto = (ImageView) rootView.findViewById(R.id.iv_accounts_profile_photo);
 
@@ -258,6 +266,69 @@ public class AccountsFragment extends BaseFragment {
     private void populateAccounts() {
 
         txtName.setText(profileBean != null ? profileBean.getName() : Config.getInstance().getName());
+        txtPhone.setText(profileBean != null ? profileBean.getPhone() : Config.getInstance().getPhone());
+        //Accout status define
+        if(profileBean.is_active().equals("1")) {
+            txtAcountActive.setVisibility(View.VISIBLE);
+            txtAcountInactive.setVisibility(View.GONE);
+        }else {
+            txtAcountActive.setVisibility(View.GONE);
+            txtAcountInactive.setVisibility(View.VISIBLE);
+        }
+        //init vehicle type and vehicle no
+        if(profileBean !=null && ! profileBean.getVehicle_no().equals("")) {
+            txt_accounts_vehicle_number.setText(profileBean.getVehicle_no().toString());
+        }
+        if(profileBean.getVehicle_type().equals("1")){
+            txtVehicle.setText("BIKE");
+            txtVehicleTypeName.setText("BIKE");
+            Glide.with(getActivity())
+                    .load(profileBean != null ? profileBean.getCoverPhoto() : Config.getInstance().getCoverPhoto())
+                    .apply(new RequestOptions()
+                            .error(R.drawable.bikeperfectlogoselected)
+                            .fallback(R.drawable.bikeperfectlogoselected)
+                            .centerCrop()
+                            .circleCrop())
+                    .into(ivVehicle);
+        }
+        if(profileBean.getVehicle_type().equals("2")){
+            txtVehicle.setText("CNG");
+            txtVehicleTypeName.setText("CNG");
+            Glide.with(getActivity())
+                    .load(profileBean != null ? profileBean.getCoverPhoto() : Config.getInstance().getCoverPhoto())
+                    .apply(new RequestOptions()
+                            .error(R.drawable.cng)
+                            .fallback(R.drawable.cng)
+                            .centerCrop()
+                            .circleCrop())
+                    .into(ivVehicle);
+        }
+        if(profileBean.getVehicle_type().equals("3")){
+            txtVehicle.setText("CAR");
+            txtVehicleTypeName.setText("CAR");
+            Glide.with(getActivity())
+                    .load(profileBean != null ? profileBean.getCoverPhoto() : Config.getInstance().getCoverPhoto())
+                    .apply(new RequestOptions()
+                            .error(R.drawable.ic_vehicle_dummy)
+                            .fallback(R.drawable.ic_vehicle_dummy)
+                            .centerCrop()
+                            .circleCrop())
+                    .into(ivVehicle);
+        }
+        if(profileBean.getVehicle_type().equals("4")){
+            txtVehicle.setText("Ambulance");
+            txtVehicleTypeName.setText("Ambulance");
+            Glide.with(getActivity())
+                    .load(profileBean != null ? profileBean.getCoverPhoto() : Config.getInstance().getCoverPhoto())
+                    .apply(new RequestOptions()
+                            .error(R.drawable.ambulancetestimagepng)
+                            .fallback(R.drawable.ambulancetestimagepng)
+                            .centerCrop()
+                            .circleCrop())
+                    .into(ivVehicle);
+        }
+
+
 
         Glide.with(getActivity())
                 .load(profileBean != null ? profileBean.getProfilePhoto() : Config.getInstance().getProfilePhoto())
@@ -267,6 +338,13 @@ public class AccountsFragment extends BaseFragment {
                         .centerCrop()
                         .circleCrop())
                 .into(ivProfilePhoto);
+        Integer totalEarnInt =profileBean.getTotal_earn();
+        String lifeTimeEarn =totalEarnInt.toString();
+        lifetimeEarnTv.setText(lifeTimeEarn);
+
+        Integer totalTripsInt =profileBean.getTotal_trips();
+        String lifeTimeTrips =totalTripsInt.toString();
+        lifetimeTripTv.setText(lifeTimeTrips);
 
     }
 
@@ -274,13 +352,15 @@ public class AccountsFragment extends BaseFragment {
     private void fetchProfile() {
 
         HashMap<String, String> urlParams = new HashMap<>();
-        urlParams.put("auth_token", Config.getInstance().getAuthToken());
+        urlParams.put("phone", Config.getInstance().getPhone());
+        JSONObject postData = getJsonObject();
+
 
 /*        if (isLoadMore) {
             urlParams.put("page", String.valueOf(currentPage + 1));
         }*/
 
-        DataManager.fetchProfile(urlParams, new ProfileListener() {
+        DataManager.fetchProfile(postData, new ProfileListener() {
             @Override
             public void onLoadCompleted(ProfileBean profileBeanWS) {
 
@@ -348,6 +428,17 @@ public class AccountsFragment extends BaseFragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    public JSONObject getJsonObject() {
+        JSONObject jsonData= new JSONObject();
+        try {
+            jsonData.put("phone",Config.getInstance().getPhone());
+            jsonData.put("test","test");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonData;
     }
 
     public interface AccountsFragmentListener {

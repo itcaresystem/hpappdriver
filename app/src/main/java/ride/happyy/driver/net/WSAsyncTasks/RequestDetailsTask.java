@@ -2,6 +2,8 @@ package ride.happyy.driver.net.WSAsyncTasks;
 
 import android.os.AsyncTask;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 
 import ride.happyy.driver.model.RequestDetailsBean;
@@ -14,16 +16,18 @@ public class RequestDetailsTask extends AsyncTask<String, Integer, RequestDetail
     private RequestDetailsTaskListener requestDetailsTaskListener;
 
     private HashMap<String, String> urlParams;
+    private JSONObject postData;
 
-    public RequestDetailsTask(HashMap<String, String> urlParams) {
+    public RequestDetailsTask(JSONObject postData) {
         super();
-        this.urlParams = urlParams;
+       // this.urlParams = urlParams;
+        this.postData = postData;
     }
 
     @Override
     protected RequestDetailsBean doInBackground(String... params) {
         System.out.println(">>>>>>>>>doInBackground");
-        RequestDetailsInvoker requestDetailsInvoker = new RequestDetailsInvoker(urlParams, null);
+        RequestDetailsInvoker requestDetailsInvoker = new RequestDetailsInvoker(null, postData);
         return requestDetailsInvoker.invokeRequestDetailsWS();
     }
 

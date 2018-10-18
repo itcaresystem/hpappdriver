@@ -7,99 +7,55 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import ride.happyy.driver.activity.RequestConfirmationActivity;
+import ride.happyy.driver.activity.SplashActivity;
 import ride.happyy.driver.activity.TripDetailsActivity;
+import ride.happyy.driver.config.Config;
 import ride.happyy.driver.model.BasicBean;
 import ride.happyy.driver.net.parsers.RequestParser;
 
 public class HappyyRideDriverFirebaseMessagingService extends FirebaseMessagingService {
 
-    private static final String TAG = "LFMService";
+    private static final String TAG = "HFMService";
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
+        String request_id="";
         // ...
 
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
         Log.i(TAG, "From: " + remoteMessage.getFrom());
 
         // Check if message contains a data payload.
+
         if (remoteMessage.getData().size() > 0) {
             Log.i(TAG, "Message data payload: " + remoteMessage.getData());
             Log.i(TAG, "Response: " + remoteMessage.getData().get("response"));
-
-
-            String body = remoteMessage.getData().get("response");
-            RequestParser requestParser = new RequestParser();
-            BasicBean basicBean = requestParser.parseBasicResponse(body);
-
-            if (basicBean == null)
-                stopSelf();
-            else {
-                if (basicBean.getStatus().equalsIgnoreCase("Success")) {
-//                    initiateDriverRatingService(basicBean.getId());
-                    if (basicBean.getRequestID() != null && !basicBean.getRequestID().equalsIgnoreCase("")) {
-                        initiateDriverRatingService(basicBean.getRequestID());
-                    } else if (basicBean.getTripID() != null && !basicBean.getTripID().equalsIgnoreCase("")){
-                        startActivity(new Intent(this, TripDetailsActivity.class)
-                                .putExtra("trip_id", basicBean.getTripID())
-                                .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
-                    }else{
-                        stopSelf();
-                    }
-                } else if (basicBean.getStatus().equalsIgnoreCase("Error")) {
-                    stopSelf();
-                } else {
-                    stopSelf();
-                }
-            }
-
-            if (/* Check if data needs to be processed by long running job */ true) {
-                // For long-running tasks (10 seconds or more) use Firebase Job Dispatcher.
-//                scheduleJob();
-            } else {
-                // Handle message within 10 seconds
-//                handleNow();
-            }
-
+//happyriderequesttone
+            request_id = remoteMessage.getData().get("request_id");
+            initiateDriverRatingService(request_id);
         }
-
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
             Log.i(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
             String body = remoteMessage.getNotification().getBody();
 
-            RequestParser requestParser = new RequestParser();
-            BasicBean basicBean = requestParser.parseBasicResponse(body);
 
-            if (basicBean == null)
-                stopSelf();
-            else {
-                if (basicBean.getStatus().equalsIgnoreCase("Success")) {
-//                    initiateDriverRatingService(basicBean.getId());
-                    initiateDriverRatingService(basicBean.getRequestID());
-                } else if (basicBean.getStatus().equalsIgnoreCase("Error")) {
-                    stopSelf();
-                } else {
-                    stopSelf();
-                }
-            }
-
+         //   initiateDriverRatingService ("123");
 
         }
 
-        // Also if you intend on generating your own notifications as a result of a received FCM
-        // message, here is where that should be initiated. See sendNotification method below.
+    }
+        public void initiateDriverRatingService (String requestID){
+
+
+            Log.i(TAG, "initiateDriverRatingService: >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> SERVICE STARTED>>>>>>>>>>>>>>>>>>>>>");
+
+            Intent intent = new Intent(this, RequestConfirmationActivity.class);
+            intent.putExtra("request_id", requestID);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+
+        }
     }
 
 
-    public void initiateDriverRatingService(String requestID) {
-
-        Log.i(TAG, "initiateDriverRatingService: >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> SERVICE STARTED>>>>>>>>>>>>>>>>>>>>>");
-
-        Intent intent = new Intent(this, RequestConfirmationActivity.class);
-        intent.putExtra("request_id", requestID);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-
-    }
-}

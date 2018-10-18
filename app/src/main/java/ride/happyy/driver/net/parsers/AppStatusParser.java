@@ -102,6 +102,10 @@ public class AppStatusParser {
                     if (dataObj.has("trip_id")) {
                         appStatusBean.setId(dataObj.optString("trip_id"));
                     }
+
+                    if (dataObj.has("trip_id")) {
+                        appStatusBean.setTripId(dataObj.optString("trip_id"));
+                    }
                     if (dataObj.has("trip_status")) {
                         appStatusBean.setTripStatus(dataObj.optString("trip_status"));
                     }
@@ -120,6 +124,11 @@ public class AppStatusParser {
                     if (dataObj.has("customer_id")) {
                         appStatusBean.setCustomerID(dataObj.optString("customer_id"));
                     }
+                    //customerPhone
+                    if (dataObj.has("customer_phone")) {
+                        appStatusBean.setCustomerPhone(dataObj.optString("customer_phone"));
+                    }
+
                     if (dataObj.has("customer_name")) {
                         appStatusBean.setCustomerName(dataObj.optString("customer_name"));
                     }

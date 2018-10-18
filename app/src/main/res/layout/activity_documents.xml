@@ -42,9 +42,17 @@
             <LinearLayout
                 style="@style/DocumentItemLabelParent">
 
+
                 <ride.happyy.driver.widgets.CustomTextView
                     style="@style/DocumentItemLabel"
                     android:text="@string/label_driver_license"/>
+                <ImageView
+                    android:id="@+id/nidordrivinglicense_photo"
+                    android:layout_width="250dp"
+                    android:layout_height="150dp"
+                    android:scaleType="center"
+                    android:src="@drawable/logo_red_round"
+                    />
 
                 <ride.happyy.driver.widgets.CustomTextView
                     android:id="@+id/txt_documents_driver_licence_status"
@@ -63,6 +71,8 @@
 
         </LinearLayout>
 
+
+
         <LinearLayout
             style="@style/DocumentItemParent"
             android:background="?selectableItemBackground"
@@ -75,6 +85,14 @@
                 <ride.happyy.driver.widgets.CustomTextView
                     style="@style/DocumentItemLabel"
                     android:text="@string/label_vehicle_registration"/>
+
+                <ImageView
+                    android:id="@+id/vehicle_certificate_photo"
+                    android:layout_width="250dp"
+                    android:layout_height="150dp"
+                    android:scaleType="center"
+                    android:src="@drawable/logo_red_round"
+                    />
 
                 <ride.happyy.driver.widgets.CustomTextView
                     android:id="@+id/txt_documents_bank_passbook_status"
@@ -94,7 +112,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:visibility="gone"
+            android:visibility="visible"
             style="@style/DocumentItemParent"
             android:background="?selectableItemBackground"
             android:onClick="onDocumentsItemClick"
@@ -105,7 +123,15 @@
 
                 <ride.happyy.driver.widgets.CustomTextView
                     style="@style/DocumentItemLabel"
-                    android:text="@string/label_police_clearance_certificate"/>
+                    android:text="DRIVING LICENSE"/>
+
+                <ImageView
+                    android:id="@+id/driving_license_photo"
+                    android:layout_width="250dp"
+                    android:layout_height="150dp"
+                    android:scaleType="center"
+                    android:src="@drawable/logo_red_round"
+                    />
 
                 <ride.happyy.driver.widgets.CustomTextView
                     android:id="@+id/txt_documents_police_clearance_certificate_status"

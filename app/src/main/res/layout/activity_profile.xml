@@ -178,7 +178,6 @@
             android:layout_marginTop="5dp"
             android:minHeight="35dp"
             android:background="?selectableItemBackground"
-            android:onClick="onProfileMobileClick"
             android:text="@string/sample_phone"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/text_2"/>

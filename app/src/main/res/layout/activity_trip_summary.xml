@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@drawable/btn_click_app_dark_rectangle_with_semicircle_edge"
+                android:background="@drawable/btn_click_green_2_rectangle_with_semicircle_edge"
                 android:gravity="center"
                 android:minHeight="50dp"
                 android:minWidth="200dp"

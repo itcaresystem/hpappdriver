@@ -57,6 +57,10 @@ public class AppConstants {
 
 
     public static String WEB_ERROR_MSG = App.getInstance().getResources().getString(R.string.message_web_error);
+    public static String WEB_ERROR_BASEBEAN_NULL ="BASE BEAN NULL";
+    public static String WEB_ERROR_BASEBEAN_LOAD_FAIL ="LOAD FAIL";
+    public static String WEB_ERROR_BASEBEAN_DOWNLOAD_FAIL ="DOWNLOAD FAIL";
+
     public static String NO_NETWORK_AVAILABLE = App.getInstance().getResources().getString(R.string.message_no_network_available);
 
     public static String EXTRA_PROFILE_TO_IMAGE_MEDIA_LIST = "imageList";

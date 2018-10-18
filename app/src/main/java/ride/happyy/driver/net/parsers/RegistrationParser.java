@@ -94,8 +94,13 @@ public class RegistrationParser {
                                 if (userObj.has("auth_token")) {
                                     authBean.setAuthToken(userObj.optString("auth_token"));
                                 }
+                                /*
                                 if (userObj.has("user_id")) {
                                     authBean.setUserID(userObj.optString("user_id"));
+                                }
+                                */
+                                if (userObj.has("id")) {
+                                    authBean.setUserID(userObj.optString("id"));
                                 }
                                 if (userObj.has("name")) {
                                     authBean.setName(userObj.optString("name"));

@@ -148,8 +148,8 @@ public class TripListParser {
                                         if (tripObj.has("id")) {
                                             tripBean.setId(tripObj.optString("id"));
                                         }
-                                        if (tripObj.has("trip_status")) {
-                                            tripBean.setTripStatus(tripObj.optString("trip_status"));
+                                        if (tripObj.has("ride_status")) {
+                                            tripBean.setTripStatus(tripObj.optString("ride_status"));
                                         }
                                         if (tripObj.has("driver_id")) {
                                             tripBean.setDriverID(tripObj.optString("driver_id"));
@@ -211,8 +211,8 @@ public class TripListParser {
                                         if (tripObj.has("distance")) {
                                             tripBean.setDistance(tripObj.optString("distance"));
                                         }
-                                        if (tripObj.has("rating")) {
-                                            tripBean.setRating((float) tripObj.optDouble("rating"));
+                                        if (tripObj.has("rating_for_driver")) {
+                                            tripBean.setRating((float) tripObj.optDouble("rating_for_driver"));
                                         }
                                         tripList.add(tripBean);
                                     }

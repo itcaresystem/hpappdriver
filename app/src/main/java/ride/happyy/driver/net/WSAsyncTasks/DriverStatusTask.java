@@ -2,6 +2,8 @@ package ride.happyy.driver.net.WSAsyncTasks;
 
 import android.os.AsyncTask;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 
 import ride.happyy.driver.model.BasicBean;
@@ -14,16 +16,17 @@ public class DriverStatusTask extends AsyncTask<String, Integer, BasicBean> {
     private DriverStatusTaskListener driverStatusTaskListener;
 
     private HashMap<String, String> urlParams;
+    private JSONObject postData;
 
-    public DriverStatusTask(HashMap<String, String> urlParams) {
+    public DriverStatusTask(JSONObject postData) {
         super();
-        this.urlParams = urlParams;
+        this.postData = postData;
     }
 
     @Override
     protected BasicBean doInBackground(String... params) {
         System.out.println(">>>>>>>>>doInBackground");
-        DriverStatusInvoker driverStatusInvoker = new DriverStatusInvoker(urlParams, null);
+        DriverStatusInvoker driverStatusInvoker = new DriverStatusInvoker(null, postData);
         return driverStatusInvoker.invokeDriverStatusWS();
     }
 
