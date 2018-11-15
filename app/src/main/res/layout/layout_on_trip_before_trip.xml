@@ -14,25 +14,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
         android:background="@color/transparent"
         app:cardBackgroundColor="@color/transparent"
-        android:layout_marginTop="45dp"
-        android:minHeight="120dp"
+        android:layout_marginTop="10dp"
+        android:minHeight="0dp"
         app:cardElevation="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@color/transparent"
             android:gravity="center"
             android:orientation="vertical"
             android:paddingBottom="20dp"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="20dp"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:paddingTop="45dp"
+            android:paddingTop="30dp"
             android:visibility="visible">
 
 
@@ -40,11 +40,12 @@
                 android:id="@+id/txt_on_trip_before_trip_customer_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
                 android:text="@string/sample_name"
                 android:textAllCaps="true"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/red"
+                android:textColor="@color/black"
                 android:textStyle="bold"/>
 
             <LinearLayout
@@ -57,10 +58,9 @@
                 android:gravity="center"
                 android:minHeight="40dp"
                 android:onClick="onContactClick"
-                android:minWidth="200dp"
                 android:orientation="horizontal"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp">
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
 
                 <ride.happyy.driver.widgets.CustomTextView
                     android:layout_width="wrap_content"
@@ -73,6 +73,7 @@
                     android:textStyle="bold"/>
 
                 <ImageView
+                    android:visibility="gone"
                     android:layout_width="22dp"
                     android:layout_height="22dp"
                     android:scaleType="centerInside"
@@ -87,19 +88,19 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/btn_click_green_2_rectangle_with_semicircle_edge"
+                android:background="@drawable/btn_click_black_rectangle_with_semicircle_edge"
                 android:gravity="center"
                 android:minHeight="40dp"
                 android:onClick="onOnTripConfirmArrivalClick"
-                android:minWidth="200dp"
                 android:orientation="horizontal"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp">
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
 
                 <ride.happyy.driver.widgets.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
+                    app:textAllCaps="true"
                     android:text="@string/btn_confirm_you_have_arrived"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/white"
@@ -107,6 +108,7 @@
                     android:textStyle="bold"/>
 
                 <ImageView
+                    android:visibility="gone"
                     android:layout_width="22dp"
                     android:layout_height="22dp"
                     android:scaleType="centerInside"
@@ -126,11 +128,11 @@
                 android:background="@drawable/btn_click_green_2_rectangle_with_semicircle_edge"
                 android:gravity="center"
                 android:minHeight="40dp"
-                android:minWidth="200dp"
+                android:minWidth="0dp"
                 android:onClick="onOnTripStartTripClick"
                 android:orientation="horizontal"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp">
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
                 <ride.happyy.driver.widgets.CustomTextView
                     android:layout_width="wrap_content"
@@ -139,9 +141,11 @@
                     android:text="@string/btn_start_trip"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/white"
+                    app:textAllCaps="true"
                     android:textStyle="bold"/>
 
                 <ImageView
+                    android:visibility="gone"
                     android:layout_width="22dp"
                     android:layout_height="22dp"
                     android:scaleType="centerInside"
@@ -155,8 +159,8 @@
 
         <ImageView
             android:id="@+id/iv_on_trip_before_trip_profile_photo"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_marginBottom="35dp"
             android:layout_gravity="top|center_horizontal"
             android:background="@drawable/circle_carbon_transparent"

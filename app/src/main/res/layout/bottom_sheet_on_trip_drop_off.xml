@@ -5,12 +5,12 @@
     android:id="@+id/ll_bottom_sheet_on_trip"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
-    android:background="@color/white"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:background="@color/transparent"
     android:orientation="vertical"
     app:behavior_hideable="false"
-    app:behavior_peekHeight="80dp"
+    app:behavior_peekHeight="210dp"
     app:layout_behavior="@string/bottom_sheet_behavior">
 
 
@@ -19,50 +19,92 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:background="@color/white"
+        android:background="@color/white_transparent_70"
         android:onClick="onOnTripBottomSheetClick"
         android:gravity="center_vertical"
-        android:minHeight="60dp"
-        android:orientation="horizontal"
-        android:paddingLeft="100dp"
+        android:minHeight="100dp"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
         android:paddingRight="20dp">
-
-
-        <ride.happyy.driver.widgets.CustomTextView
-            android:id="@+id/txt_on_trip_customer_name"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:padding="10dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1.5"
-            android:gravity="center_vertical"
-            android:minHeight="30dp"
-            android:text="@string/label_name"
-            android:textAllCaps="true"
-            android:textColor="@color/black"
-            android:textStyle="bold"/>
+            android:gravity="center">
 
-        <ride.happyy.driver.widgets.CustomTextView
-            android:layout_width="0dp"
+        <ImageView
+            android:id="@+id/iv_on_trip_profile_photo"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_gravity="left"
+            android:background="@drawable/circle_carbon_transparent"
+            android:onClick="onOnTripBottomSheetClick"
+            android:src="@drawable/circle_white"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:padding="10dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:text="@string/label_drop_off"
-            android:textAllCaps="true"
-            android:textColor="@color/text_3"/>
+            android:gravity="center">
+            <ride.happyy.driver.widgets.CustomTextView
+                android:id="@+id/txt_on_trip_customer_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/label_name"
+                android:textAllCaps="true"
+                android:layout_gravity="right"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+        </LinearLayout>
 
+        <LinearLayout
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/adssad"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:gravity="center_vertical"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_arrow_top_red"/>
+            <Button
+                android:background="@drawable/btn_click_green_2_rectangle_with_semicircle_edge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:onClick="onOnTripCompleteTripClick"
+                android:padding="10dp"
+                android:text="@string/btn_complete_trip"/>
+        </LinearLayout>
 
     </LinearLayout>
 
 
+
+
+
+
     <LinearLayout
+
         android:id="@+id/ll_on_trip_detailed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/transparent"
         android:orientation="vertical"
         android:paddingBottom="20dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:paddingTop="10dp"
-        android:visibility="visible">
+        android:visibility="gone">
 
 
         <View
@@ -72,6 +114,7 @@
 
 
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -149,22 +192,37 @@
             </LinearLayout>
 
         </LinearLayout>
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ProgressBar
+                android:visibility="gone"
+                android:layout_marginTop="20dp"
+                android:id="@+id/simpleProgressBarTripEnd"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:max="100"
+                android:indeterminateTint="@color/red"
+                android:progress="50"
+                android:padding="10dp" style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:indeterminate="true"/>
+        </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/ll_on_trip_complete_trip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:background="@drawable/bg_green_2_rectangle_with_semicircle_edge"
+            android:background="@drawable/btn_click_black_rectangle_with_semicircle_edge"
             android:gravity="center"
             android:minHeight="40dp"
-            android:minWidth="200dp"
+            android:minWidth="0dp"
             android:onClick="onOnTripCompleteTripClick"
             android:orientation="horizontal"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp">
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
 
             <ride.happyy.driver.widgets.CustomTextView
                 android:layout_width="wrap_content"
@@ -177,6 +235,7 @@
                 android:textStyle="bold"/>
 
             <ImageView
+                android:visibility="gone"
                 android:layout_width="22dp"
                 android:layout_height="22dp"
                 android:scaleType="centerInside"

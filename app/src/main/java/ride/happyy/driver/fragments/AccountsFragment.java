@@ -340,11 +340,12 @@ public class AccountsFragment extends BaseFragment {
                 .into(ivProfilePhoto);
         Integer totalEarnInt =profileBean.getTotal_earn();
         String lifeTimeEarn =totalEarnInt.toString();
-        lifetimeEarnTv.setText(lifeTimeEarn);
-
         Integer totalTripsInt =profileBean.getTotal_trips();
         String lifeTimeTrips =totalTripsInt.toString();
         lifetimeTripTv.setText(lifeTimeTrips);
+        lifetimeEarnTv.setText("৳ "+lifeTimeEarn);
+        accountTotalDueTv.setText("৳ "+String.valueOf(profileBean.getTotal_due()));
+
 
     }
 

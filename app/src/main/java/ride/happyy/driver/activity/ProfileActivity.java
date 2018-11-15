@@ -670,8 +670,27 @@ public class ProfileActivity extends BaseAppCompatNoDrawerActivity  {
             editProfileBean = new ProfileBean();
 
         try {
+
+
+            etxtName.setEnabled(isEditing);
+            genderSpiner.setEnabled(isEditing);
+            mDisplayDate.setEnabled(isEditing);
+            etxtEmail.setEnabled(isEditing);
+            txtPhone.setEnabled(isEditing);
+            etxtCity.setEnabled(isEditing);
+            // etxtState.setEnabled(isEditing);
+            etxtAddress1.setEnabled(isEditing);
+            etxtPostalCode.setEnabled(isEditing);
+
             postData.put("image",getFileList());
             postData.put("phone",Config.getInstance().getPhone());
+            postData.put("name",etxtName.getText().toString());
+            postData.put("email",etxtEmail.getText().toString());
+            postData.put("gender",genderSpiner.getSelectedItem().toString());
+            postData.put("dob",mDisplayDate.getText().toString());
+            postData.put("postal_code",etxtPostalCode.getText().toString());
+            postData.put("address",etxtAddress1.getText().toString());
+             /*
 
 //            postData.put("auth_token", Config.getInstance().getAuthToken());
             postData.put("name", editProfileBean.getName() != null && !editProfileBean.getName().equalsIgnoreCase("")
@@ -682,11 +701,11 @@ public class ProfileActivity extends BaseAppCompatNoDrawerActivity  {
                 postData.put("gender", editProfileBean.getGender());
                 postData.put("dob", editProfileBean.getDOB());
 
-           /* if (editProfileBean.getPhone() != null && !editProfileBean.getPhone().equalsIgnoreCase("")
+           if (editProfileBean.getPhone() != null && !editProfileBean.getPhone().equalsIgnoreCase("")
                     && !editProfileBean.getPhone().equalsIgnoreCase(profileBean.getPhone()))
                 postData.put("phone", editProfileBean.getPhone());
 
-                */
+
 
             postData.put("address", editProfileBean.getAddress() != null && !editProfileBean.getAddress().equalsIgnoreCase("")
                     ? editProfileBean.getAddress() : profileBean.getAddress());
@@ -696,6 +715,8 @@ public class ProfileActivity extends BaseAppCompatNoDrawerActivity  {
                     ? editProfileBean.getState() : profileBean.getState());
             postData.put("postal_code", editProfileBean.getPostalCode() != null && !editProfileBean.getPostalCode().equalsIgnoreCase("")
                     ? editProfileBean.getPostalCode() : profileBean.getPostalCode());
+
+                    */
         } catch (JSONException e) {
             e.printStackTrace();
         }

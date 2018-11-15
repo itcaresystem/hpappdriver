@@ -166,6 +166,7 @@ public class AccessibilityActivity extends BaseAppCompatNoDrawerActivity {
 
             postData.put("is_deaf", cbAccessibilityDeaf.isChecked());
             postData.put("is_flash_required_for_requests", cbAccessibilityVision.isChecked());
+            postData.put("phone",Config.getInstance().getPhone());
 
         } catch (JSONException e) {
             e.printStackTrace();

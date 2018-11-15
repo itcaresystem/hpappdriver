@@ -4,7 +4,7 @@ package ride.happyy.driver.net;
 public class ServiceNames {
 
     /*Set BASE URL here*/
-   // private static final String PRODUCTION_API = "http://taxi.smarttamizhans.in";
+
     private static final String PRODUCTION_API = "http://happyyride.com";
   
     /* Set API VERSION here*/
@@ -122,7 +122,7 @@ public class ServiceNames {
     //public static final String DRIVER_ACCESSIBILITY_FETCH = API + "/fetch_accesibility_settings?";
     //public static final String DRIVER_ACCESSIBILITY_POST = API + "/update_accesibility_settings?";
 
-    public static final String DRIVER_ACCESSIBILITY_FETCH = API + "/fetch_accesibility_settings.php";
+    public static final String DRIVER_ACCESSIBILITY_FETCH = API + "/fetch_accesibility_settings.php?";
     public static final String DRIVER_ACCESSIBILITY_POST = API + "/update_accesibility_settings.php";
 
 

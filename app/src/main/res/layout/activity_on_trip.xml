@@ -14,18 +14,18 @@
         android:background="@color/colorPrimary"/>
 
     <include
-        layout="@layout/fragment_map"
+        layout="@layout/fragment_map_ontrip"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="top"
-        android:layout_marginTop="?actionBarSize"/>
+        android:layout_marginTop="2dp"/>
 
     <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
-        android:layout_margin="30dp"
-        android:minHeight="120dp">
+        android:layout_margin="10dp"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,13 +33,14 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="5dp">
 
 
             <ride.happyy.driver.widgets.CustomTextView
+                android:visibility="gone"
                 android:id="@+id/txt_on_trip_destination"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="14dp"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="@string/sample_location"
@@ -48,16 +49,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="2dp"
                 android:background="?selectableItemBackground"
                 android:gravity="center"
-                android:minHeight="35dp"
+                android:minHeight="10dp"
                 android:onClick="onOnTripNavigateClick"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
                     android:scaleType="centerInside"
                     android:tint="@color/red"
                     app:srcCompat="@drawable/ic_navigate"/>
@@ -66,7 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:minHeight="30dp"
+                    android:minHeight="10dp"
                     android:paddingLeft="10dp"
                     android:text="Navigate"
                     android:textAllCaps="true"
@@ -87,10 +88,12 @@
         android:visibility="gone"/>
 
     <ImageView
-        android:id="@+id/iv_on_trip_profile_photo"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginLeft="40dp"
+        android:visibility="gone"
+        android:id="@+id/iv_on_trip_profile_photo_old"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="80dp"
         android:background="@drawable/circle_carbon_transparent"
         android:onClick="onOnTripBottomSheetClick"
         android:src="@drawable/circle_white"

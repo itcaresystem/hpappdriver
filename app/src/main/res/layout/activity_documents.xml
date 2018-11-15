@@ -61,9 +61,17 @@
 
             </LinearLayout>
 
+            <ride.happyy.driver.widgets.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/marker_location_p"
+                android:textColor="@color/white"
+                android:padding="8dp"
+                android:text="Upload"/>
             <ImageView
                 android:id="@+id/iv_documents_driver_licence_error"
                 style="@style/DocumentItemError"/>
+
 
             <ImageView
                 android:id="@+id/iv_documents_driver_licence_accepted"
@@ -100,6 +108,13 @@
                     android:text="@string/label_missing"/>
 
             </LinearLayout>
+            <ride.happyy.driver.widgets.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/marker_location_p"
+                android:textColor="@color/white"
+                android:padding="8dp"
+                android:text="Upload"/>
 
             <ImageView
                 android:id="@+id/iv_documents_bank_passbook_error"
@@ -139,6 +154,13 @@
                     android:text="@string/label_missing"/>
 
             </LinearLayout>
+            <ride.happyy.driver.widgets.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/marker_location_p"
+                android:textColor="@color/white"
+                android:padding="8dp"
+                android:text="Upload"/>
 
             <ImageView
                 android:id="@+id/iv_documents_police_clearance_certificate_error"

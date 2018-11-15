@@ -472,8 +472,8 @@ public class TripDetailsActivity extends BaseAppCompatNoDrawerActivity {
             txtTime.setText("at " + App.getTimeFromUnix(App.TIME_FORMAT_0, true, false, tripBean.getStartTime()));
             txtCustomerName.setText(tripBean.getCustomerName());
             txtPayout.setText("৳"+tripBean.getFare());
-            txtDistance.setText(tripBean.getDistance());
-            txtDuration.setText(tripBean.getDuration());
+           // txtDistance.setText(tripBean.getDistance());
+           // txtDuration.setText(tripBean.getDuration());
             txtFare.setText(tripBean.getFare());
             txtLaTaxiFee.setText(tripBean.getFee());
             txtTaxReturn.setText(tripBean.getTax());
@@ -573,6 +573,8 @@ public class TripDetailsActivity extends BaseAppCompatNoDrawerActivity {
                 swipeView.setRefreshing(false);
 
                 polyPointBean = polyPointBeanWS;
+                txtDistance.setText(polyPointBean.getDistanceText());
+                txtDuration.setText(polyPointBean.getTimeText());
                 populatePath();
 
             }

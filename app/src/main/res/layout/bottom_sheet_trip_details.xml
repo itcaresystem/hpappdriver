@@ -51,6 +51,18 @@
                 android:textColor="@color/text_3"/>
 
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <ImageView
+                android:id="@+id/adssad"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:gravity="center_vertical"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_arrow_top_red"/>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -240,6 +252,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:minHeight="30dp"
             android:gravity="center_vertical"
@@ -281,7 +294,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textSize="12sp"
                 android:layout_weight="4"
-                android:text="@string/label_tax_return"
+                android:text="Others"
                 android:layout_height="wrap_content"/>
 
             <ride.happyy.driver.widgets.CustomTextView

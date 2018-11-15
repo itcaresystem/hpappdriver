@@ -73,6 +73,8 @@ dependencies {
     implementation 'com.nex3z:notification-badge:0.1.0'
     //implementation 'com.github.arturogutierrez:badges:1.0.5@aar'
     testImplementation 'junit:junit:4.12'
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

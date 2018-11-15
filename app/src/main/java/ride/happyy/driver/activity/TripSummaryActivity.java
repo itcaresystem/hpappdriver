@@ -18,6 +18,7 @@ import java.util.HashMap;
 
 import ride.happyy.driver.R;
 import ride.happyy.driver.app.App;
+import ride.happyy.driver.config.Config;
 import ride.happyy.driver.listeners.BasicListener;
 import ride.happyy.driver.listeners.TripSummaryListener;
 import ride.happyy.driver.model.BasicBean;
@@ -174,7 +175,7 @@ public class TripSummaryActivity extends BaseAppCompatNoDrawerActivity {
 
                 Toast.makeText(TripSummaryActivity.this, R.string.message_trip_completed_successfully, Toast.LENGTH_SHORT).show();
                 viewFilpper.showNext();
-                Intent homeIntent = new Intent(getBaseContext(),HomeActivity.class);
+                Intent homeIntent = new Intent(TripSummaryActivity.this,HomeActivity.class);
                 startActivity(homeIntent);
                 finish();
 
@@ -194,6 +195,7 @@ public class TripSummaryActivity extends BaseAppCompatNoDrawerActivity {
 
         try {
             postData.put("trip_id", tripID);
+            postData.put("phone", Config.getInstance().getPhone());
         } catch (JSONException e) {
             e.printStackTrace();
         }

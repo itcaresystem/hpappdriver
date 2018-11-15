@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
@@ -154,6 +155,7 @@ public class HomeFragment extends BaseFragment implements
     private Button btnTripHistory;
     private boolean isDriverLocationUpdated;
     private Marker CurrentMarker;
+    private Bitmap smallMarker;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -168,6 +170,10 @@ public class HomeFragment extends BaseFragment implements
 
         View rootView = inflater.inflate(R.layout.fragment_home, null);
         lytContent.addView(rootView);
+        BitmapDrawable bitmapDrawableIcon = (BitmapDrawable) getResources().getDrawable(R.drawable.marker_location_p);
+        Bitmap mylocIc = bitmapDrawableIcon.getBitmap();
+        smallMarker = Bitmap.createScaledBitmap(mylocIc, 25, 25, false);
+
 
        /* if (getArguments().containsKey("mapBean"))
             mapBean = (MapBean) getArguments().getSerializable("mapBean");*/
@@ -898,7 +904,7 @@ public class HomeFragment extends BaseFragment implements
             marker = mMap.addMarker(new MarkerOptions()
                     .position(bean.getLatLng())
                     .title(bean.getName())
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_source)));
+                    .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
                    // .icon(BitmapDescriptorFactory.fromBitmap(mapPin)));
 
             //					combineImages(frame, thumb);
@@ -1013,6 +1019,7 @@ public class HomeFragment extends BaseFragment implements
         try {
             postData.put("latitude", location.getLatitude());
             postData.put("longitude", location.getLongitude());
+            postData.put("phone",Config.getInstance().getPhone());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -1101,6 +1108,7 @@ public class HomeFragment extends BaseFragment implements
         }*/
     }
 int onece =0;
+
     @Override
     public void onLocationChanged(Location location) {
 /*        if ((Config.getInstance().getCurrentLatitude() == null || Config.getInstance().getCurrentLongitude() == null)
@@ -1118,13 +1126,14 @@ int onece =0;
             CurrentMarker.remove();
         }
 
+
         LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
         MarkerOptions markerOption = new MarkerOptions();
         markerOption.position(latLng);
         markerOption.title("Current Position");
        // markerOption.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
 
-        markerOption.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_source));
+        markerOption.icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
         CurrentMarker = mMap.addMarker(markerOption);
         if(onece==0) {
             CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng).zoom(15).build();

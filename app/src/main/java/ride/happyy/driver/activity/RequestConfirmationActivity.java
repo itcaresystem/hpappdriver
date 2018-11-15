@@ -6,20 +6,25 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.icu.util.TimeUnit;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.speech.tts.Voice;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -47,15 +52,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
 import ride.happyy.driver.R;
 import ride.happyy.driver.app.App;
 import ride.happyy.driver.config.Config;
+import ride.happyy.driver.listeners.BasicListener;
 import ride.happyy.driver.listeners.PolyPointListener;
 import ride.happyy.driver.listeners.RequestDetailsListener;
 import ride.happyy.driver.listeners.TripDetailsListener;
+import ride.happyy.driver.model.BasicBean;
 import ride.happyy.driver.model.PolyPointBean;
 import ride.happyy.driver.model.RequestDetailsBean;
 import ride.happyy.driver.model.TripBean;
@@ -113,24 +121,27 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
     private PolyPointBean polyPointBean;
     private boolean isInit;
     public MediaPlayer voice;
+   // private Handler mHandler=new Handler();
+    CountDownTimer cdt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_confirmation);
-
-
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+       // getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         getSupportActionBar().hide();
         swipeView.setPadding(0, 0, 0, 0);
 
         if (getIntent().hasExtra("request_id")) {
             requestID = getIntent().getStringExtra("request_id");
         }
-
-        initViews();
         initMap();
+        initViews();
+        timeCountDown();
 
-        getSupportActionBar().setTitle("");
+
+        getSupportActionBar().setTitle("Confirm Request");
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
@@ -152,7 +163,35 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
         });
         voice.start();
 
+
     }
+
+   public void timeCountDown(){
+
+        if(cdt!=null){
+            cdt.cancel();
+            cdt=null;
+
+        }
+
+
+       cdt = new CountDownTimer(20* 1000, 1000) {
+           @Override
+           public void onTick(long millisUntilFinished) {
+               Log.i(TAG, millisUntilFinished +" millis left");
+           }
+
+           @Override
+           public void onFinish() {
+               Log.i(TAG, "Timer finished");
+               if(App.isNetworkAvailable()) {
+                   requestCancelAction();
+               }
+           }
+       };
+
+       cdt.start();
+   }
 
     @Override
     protected void onResume() {
@@ -233,16 +272,82 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
 
                 mMap = mapTemp;
                 mMap.setPadding(0, 0/*(int) ((100 * px) + mActionBarHeight + getStatusBarHeight())*/, 0, (int) (60 * px));
-                initMapOnLoad();
-                if (Config.getInstance().getCurrentLatitude() != null
-                        && !Config.getInstance().getCurrentLatitude().equals("")
-                        && Config.getInstance().getCurrentLongitude() != null
-                        && !Config.getInstance().getCurrentLongitude().equals("")) {
-                    //	fetchMap();
+                if (ActivityCompat.checkSelfPermission(getApplicationContext(),
+                        Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                        && ActivityCompat.checkSelfPermission(getApplicationContext(),
+                        Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    if (!checkForLocationPermissions()) {
+                        getLocationPermissions();
+                    }
+                    checkLocationSettingsStatus();
+                } else {
+                    mMap.setMyLocationEnabled(true);
+                    getCurrentLocation();
                 }
+                initMapOnLoad();
+
             }
         });
 
+    }
+    public void getCurrentLocation() {
+        setUpLocationClientIfNeeded();
+        if (!mGoogleApiClient.isConnected()) {
+            mGoogleApiClient.connect();
+        }
+        if (ActivityCompat.checkSelfPermission(App.getInstance(),
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(App.getInstance(),
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (!checkForLocationPermissions()) {
+                getLocationPermissions();
+            }
+            checkLocationSettingsStatus();
+        } else {
+            if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
+
+                if (LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient) != null) {
+                    Config.getInstance().setCurrentLatitude(""
+                            + LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient).getLatitude());
+                    Config.getInstance().setCurrentLongitude(""
+                            + LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient).getLongitude());
+                }
+            /*else{
+                System.out.println("Last Location : " + mockLocation);
+				currentLatitude = ""+mockLocation.getLatitude();
+				currentLongitude = ""+mockLocation.getLongitude();
+			}*/
+            }
+        }
+
+        locationManager = (LocationManager) App.getInstance().getSystemService(Context.LOCATION_SERVICE);
+        if (hasLocationPermissions) {
+            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+            } else {
+                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+            }
+        }
+       /* if ((Config.getInstance().getCurrentLatitude() == null
+                || Config.getInstance().getCurrentLongitude() == null)
+                || (Config.getInstance().getCurrentLatitude().equals("")
+                || Config.getInstance().getCurrentLatitude().equals(""))) {
+            //Toast.makeText(MapActivity.this, "Retrieving Current Location...", Toast.LENGTH_SHORT).show();
+            locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+            if (hasLocationPermissions) {
+                if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+                } else {
+                    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+                }
+            }
+
+            //			mHandler.postDelayed(periodicTask, 3000);
+        } else {
+            if (mGoogleApiClient != null) {
+                mGoogleApiClient.disconnect();
+            }
+        }*/
     }
 
     private void initMapOnLoad() {
@@ -268,8 +373,8 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
         }
         mMap.setMyLocationEnabled(true);
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        mMap.getUiSettings().setMapToolbarEnabled(false);
-        mMap.getUiSettings().setMyLocationButtonEnabled(false);
+        mMap.getUiSettings().setMapToolbarEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(true);
 
         //myMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         //myMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
@@ -328,7 +433,16 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
     public void onRequestCancelBtnClick(View view) {
         view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
 
-        Toast.makeText(this,"Cancel is not acceptable.Please swich onto Offline",Toast.LENGTH_LONG).show();
+        if(App.isNetworkAvailable()){
+            requestCancelAction();
+        }
+/*
+        Toast.makeText(this,"Please swich onto Offline if don't accept the request!!!",Toast.LENGTH_LONG).show();
+        Intent intentHomePage = new Intent(RequestConfirmationActivity.this,HomeActivity.class);
+        startActivity(intentHomePage);
+        finish();
+        */
+
         //mVibrator.vibrate(25);
 /*
         if (App.isNetworkAvailable()) {
@@ -338,6 +452,69 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
                     .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
         }
 */
+    }
+/*
+    Runnable appStatusTask = new Runnable() {
+        @Override
+        public void run() {
+            if (App.isNetworkAvailable()) {
+                chechRequestInterval();
+                mHandler.postDelayed(appStatusTask,5000);
+            }
+
+        }
+
+    };
+
+    public void chechRequestInterval(){
+        if ((Calendar.getInstance().getTimeInMillis() - Config.getInstance().getLastUpdate()) > 5000) {
+            if(mHandler!=null) {
+                mHandler.removeCallbacks(appStatusTask);
+                requestCancelAction();
+            }
+
+        }
+
+    }
+    */
+
+    public void requestCancelAction(){
+        JSONObject postData = getDriverStatusChangeJSObj();
+        DataManager.performDriverStatusChange(postData, new BasicListener() {
+            @Override
+            public void onLoadCompleted(BasicBean basicBean) {
+                if(cdt!=null) {
+                    cdt.cancel();
+                }
+                if (voice!=null){
+                    voice.release();
+                }
+                Toast.makeText(RequestConfirmationActivity.this,"You are in Offline now !!",Toast.LENGTH_LONG).show();
+                Intent intentHomePage = new Intent(RequestConfirmationActivity.this,HomeActivity.class);
+                startActivity(intentHomePage);
+                finish();
+            }
+
+            @Override
+            public void onLoadFailed(String error) {
+
+            }
+        });
+
+    }
+
+    private JSONObject getDriverStatusChangeJSObj() {
+        JSONObject postData = new JSONObject();
+        try {
+            // postData.put("driver_status", switchOnline.isChecked());
+            postData.put("phone",Config.getInstance().getPhone());
+            postData.put("is_online", "false");
+            postData.put("req_ancel","cancel");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return postData;
     }
 
     public void fetchRequestDetails() {
@@ -374,9 +551,19 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
     private void populateRequestDetails() {
         pickup_addressTV.setText(requestDetailsBean.getCustomerLocation());
         destination_addressTV.setText(requestDetailsBean.getDestination_location());
-        txtETA.setText(requestDetailsBean.getEta());
+        int etatime=0;
+       if(!requestDetailsBean.getEta().equals("")){
+         //  long distance=Long.parseLong(requestDetailsBean.getDistance());
+        //  long eta =Long.parseLong(requestDetailsBean.getEta());
+           String numberEta=requestDetailsBean.getEta().toString().replace(".00","");
+          long minutesM= java.util.concurrent.TimeUnit.MILLISECONDS.toMinutes(Math.round(Long.parseLong(numberEta)));
+
+           txtETA.setText(String.valueOf(minutesM)+"minutes");
+
+       }
+        txtDistance.setText("");
         txtCarType.setText(requestDetailsBean.getCarType());
-        txtDistance.setText(requestDetailsBean.getDistance());
+
 
         Glide.with(getApplicationContext())
                 .load(requestDetailsBean.getCarTypeImage())
@@ -397,12 +584,19 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
 
     private void performConfirmTrip() {
 
+
         JSONObject postData = getTripAcceptJSObj();
 
         DataManager.performTripAccept(postData, new TripDetailsListener() {
 
             @Override
             public void onLoadCompleted(TripBean tripBean) {
+                if(cdt!=null) {
+                    cdt.cancel();
+                }
+                if (voice!=null){
+                    voice.release();
+                }
                 swipeView.setRefreshing(false);
                 Toast.makeText(RequestConfirmationActivity.this, R.string.message_trip_confirmed, Toast.LENGTH_SHORT).show();
 
@@ -432,6 +626,8 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
             postData.put("driver_id", Config.getInstance().getUserID());
             postData.put("driver_name", Config.getInstance().getName());
             postData.put("driver_photo", Config.getInstance().getProfilePhoto());
+            postData.put("carLat",Config.getInstance().getCurrentLatitude());
+            postData.put("carLong",Config.getInstance().getCurrentLongitude());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -479,12 +675,14 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
         builder.include(requestDetailsBean.getDestinationLatLng());
         LatLngBounds bounds = builder.build();
 //        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, (int) (50 * px)));
-        if (myMapFragment.getView().getHeight() > 150 * px)
-            mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, (int) (50 * px)));
-        else
-            mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, (int) (5 * px)));
 
-    }
+        if (myMapFragment.getView() != null) {
+            if (myMapFragment.getView().getHeight() > 150 * px)
+                mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, (int) (50 * px)));
+            else
+                mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, (int) (5 * px)));
+            }
+        }
 
     public void fetchPolyPoint() {
 
@@ -517,7 +715,7 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
 
     private void populatePath() {
 
-        txtDistance.setText(polyPointBean.getDistanceText());
+      txtDistance.setText(polyPointBean.getDistanceText());
         txtETA.setText(polyPointBean.getTimeText());
 
         ArrayList<List<HashMap<String, String>>> routes = polyPointBean.getRoutes();
@@ -542,8 +740,8 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
             }
 
             polyLineOptions.addAll(points);
-            polyLineOptions.width(8);
-            polyLineOptions.color(ContextCompat.getColor(getApplicationContext(), R.color.map_path));
+            polyLineOptions.width(6);
+            polyLineOptions.color(ContextCompat.getColor(getApplicationContext(), R.color.black));
 
         }
 

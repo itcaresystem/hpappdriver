@@ -148,6 +148,12 @@ public class TripListParser {
                                         if (tripObj.has("id")) {
                                             tripBean.setId(tripObj.optString("id"));
                                         }
+                                        if (tripObj.has("trip_id")) {
+                                            tripBean.setId(tripObj.optString("trip_id"));
+                                        }
+                                        if (tripObj.has("trip_id")) {
+                                            tripBean.setTripId(tripObj.optString("trip_id"));
+                                        }
                                         if (tripObj.has("ride_status")) {
                                             tripBean.setTripStatus(tripObj.optString("ride_status"));
                                         }

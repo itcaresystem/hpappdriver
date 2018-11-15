@@ -185,6 +185,7 @@ public class LoginActivity extends BaseAppCompatNoDrawerActivity {
                 swipeView.setRefreshing(false);
                 Snackbar.make(coordinatorLayout, error, Snackbar.LENGTH_INDEFINITE)
                         .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
+                Toast.makeText(getApplicationContext(),"Your password or phone number is not corect!!",Toast.LENGTH_LONG).show();
 
                    /* To Be Removed....*/
                 if (App.getInstance().isDemo()) {

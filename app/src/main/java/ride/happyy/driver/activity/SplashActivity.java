@@ -146,15 +146,17 @@ public class SplashActivity extends BaseAppCompatNoDrawerActivity {
 
                 if (requestID.equalsIgnoreCase("")) {
 
-                    if (appStatusBean.getAppStatus() == AppConstants.APP_STATUS_IDLE
-                            || appStatusBean.getTripStatus().equalsIgnoreCase(String.valueOf(AppConstants.TRIP_STATUS_CANCELLED))
-                            || appStatusBean.getTripStatus().equalsIgnoreCase(String.valueOf(AppConstants.TRIP_STATUS_COMPLETED))
-                            || appStatusBean.getTripStatus().equalsIgnoreCase(String.valueOf(AppConstants.TRIP_STATUS_PENDING))) {
+                    if (appStatusBean.getAppStatus() == AppConstants.APP_STATUS_IDLE) {
+                        /*
+                        || appStatusBean.getTripStatus().equalsIgnoreCase(String.valueOf(AppConstants.TRIP_STATUS_CANCELLED))
+                                || appStatusBean.getTripStatus().equalsIgnoreCase(String.valueOf(AppConstants.TRIP_STATUS_COMPLETED))
+                                || appStatusBean.getTripStatus().equalsIgnoreCase(String.valueOf(AppConstants.TRIP_STATUS_PENDING)) */
                         startActivity(new Intent(SplashActivity.this, HomeActivity.class));
 //                        startActivity(new Intent(SplashActivity.this, DriverDocumentsActivity.class));
                     } else {
                         TripBean tripBean = new TripBean();
                         tripBean.setId(appStatusBean.getId());
+                        tripBean.setTripId(appStatusBean.getTripId());
                         tripBean.setTripStatus(appStatusBean.getTripStatus());
                         tripBean.setDriverID(appStatusBean.getDriverID());
                         tripBean.setDriverName(appStatusBean.getDriverName());

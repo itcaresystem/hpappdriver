@@ -33,6 +33,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -109,7 +110,7 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
     private ArrayList<Object> plotList;
     private HashMap markerMap;
     private FragmentManager myFragmentManager;
-    private SupportMapFragment myMapFragment;
+    private static SupportMapFragment myMapFragment = SupportMapFragment.newInstance(options);
     private ViewGroup.LayoutParams param;
     private GoogleMap mMap;
     private LatLng current;
@@ -141,6 +142,9 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
     private ArrayList<PathBean> pathList;
     private Handler mHandler = new Handler();
     private String customer_confirmaion_code ="";
+    private ProgressBar simpleProgressBarTripEnd;
+    private String etaTimeLeft="";
+    private String etaDistance="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,12 +154,13 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
 
         if (getIntent().hasExtra("bean"))
             tripBean = (TripBean) getIntent().getSerializableExtra("bean");
-
-        initViews();
         initMap();
+        getCurrentLocation();
+        initViews();
+
 
         populateTrip();
-
+        fetchAppStatus();
         getSupportActionBar().setTitle(R.string.title_on_trip);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -186,16 +191,17 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
     @Override
     protected void onResume() {
         super.onResume();
-        new Handler().postDelayed(checkAppStatusTask, 5000);
+       // new Handler().postDelayed(checkAppStatusTask, 3000);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        new Handler().removeCallbacks(checkAppStatusTask);
+       // new Handler().removeCallbacks(checkAppStatusTask);
     }
 
     private void initViews() {
+        simpleProgressBarTripEnd=findViewById(R.id.simpleProgressBarTripEnd);
 
         lytBottomSheet = (LinearLayout) findViewById(R.id.ll_bottom_sheet_on_trip);
         lytBeforeTrip = findViewById(R.id.lyt_on_trip_before_trip);
@@ -271,7 +277,7 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
         mapPin = BitmapFactory.decodeResource(getResources(), R.drawable.circle_app);
 
         myFragmentManager = getSupportFragmentManager();
-        myMapFragment = (SupportMapFragment) myFragmentManager.findFragmentById(R.id.fragment_map);
+        myMapFragment = (SupportMapFragment) myFragmentManager.findFragmentById(R.id.fragment_map_ontrip);
         //	mMap = myMapFragment.getMap();
 
         /*param = myMapFragment.getView().getLayoutParams();
@@ -293,7 +299,9 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
                         && !Config.getInstance().getCurrentLatitude().equals("")
                         && Config.getInstance().getCurrentLongitude() != null
                         && !Config.getInstance().getCurrentLongitude().equals("")) {
-                    populateMap();
+
+                    populateMap(Double.parseDouble(Config.getInstance().getCurrentLatitude()),Double.parseDouble(Config.getInstance().getCurrentLongitude()));
+                  //  mapAutoZoom(Double.parseDouble(Config.getInstance().getCurrentLatitude()),Double.parseDouble(Config.getInstance().getCurrentLongitude()));
                 }
 
             }
@@ -324,8 +332,8 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
         }
         mMap.setMyLocationEnabled(true);
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        mMap.getUiSettings().setMapToolbarEnabled(false);
-        mMap.getUiSettings().setMyLocationButtonEnabled(false);
+        mMap.getUiSettings().setMapToolbarEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(true);
 
         //myMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         //myMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
@@ -411,6 +419,7 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
                 lytBeforeTrip.setVisibility(View.VISIBLE);
                 lytBottomSheet.setVisibility(View.GONE);
                 ivBottomSheetProfilePhoto.setVisibility(View.GONE);
+                isArrived=true;
                 break;
             case AppConstants.DRIVER_STATUS_STARTED:
                 llConfirmArrival.setVisibility(View.GONE);
@@ -419,20 +428,24 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
                 lytBeforeTrip.setVisibility(View.GONE);
                 lytBottomSheet.setVisibility(View.VISIBLE);
                 ivBottomSheetProfilePhoto.setVisibility(View.VISIBLE);
+                isArrived=true;
                 break;
+
             case AppConstants.DRIVER_STATUS_ENDED:
-                mHandler.removeCallbacks(checkAppStatusTask);
+                //mHandler.removeCallbacks(checkAppStatusTask);
                 startActivity(new Intent(OnTripActivity.this, TripSummaryActivity.class)
                         .putExtra("trip_id", tripBean.getId()));
                 finish();
                 break;
+                /*
+
             case AppConstants.DRIVER_STATUS_CASH_ACCEPTED:
                 startActivity(new Intent(OnTripActivity.this, TripSummaryActivity.class)
                         .putExtra("trip_id", tripBean.getId()));
                 finish();
                 break;
+                */
             default:
-
                 break;
 
 
@@ -454,6 +467,7 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
     public void onOnTripCompleteTripClick(View view) {
         view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
         //mVibrator.vibrate(25);
+
 
         if (App.isNetworkAvailable()) {
             performTripCompletion();
@@ -533,7 +547,7 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
             dialog = new Dialog(OnTripActivity.this);
             dialog.setTitle("Customer Confirmation Code");
           //  dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setCancelable(false);
+            dialog.setCancelable(true);
             dialog.setContentView(R.layout.create_account_layout);
             customer_given_code = dialog.findViewById(R.id.customer_code_ET);
             registration = dialog.findViewById(R.id.registration);
@@ -611,7 +625,7 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
                     tripBean = setTripBean(appStatusBeanWS);
                     populateTrip();
                 } else {
-                    mHandler.removeCallbacks(checkAppStatusTask);
+                  //  mHandler.removeCallbacks(checkAppStatusTask);
                     startActivity(new Intent(OnTripActivity.this, TripDetailsActivity.class)
                             .putExtra("trip_id", tripBean.getTripId())
                             .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
@@ -641,21 +655,22 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
         }
         return jsonObjectPostData;
     }
-
+/*
     Runnable checkAppStatusTask = new Runnable() {
         @Override
         public void run() {
-            fetchAppStatus();
-            performCarLocationUpade();
-            mHandler.postDelayed(checkAppStatusTask, 5000);
+          //  fetchAppStatus();
+           // performCarLocationUpade();
+            mHandler.postDelayed(checkAppStatusTask, 3000);
         }
     };
+    */
 
-    public void performCarLocationUpade(){
+    public void performCarLocationUpade(Location locationCar){
         JSONObject postData = new JSONObject();
         try {
-            postData.put("car_lat",Config.getInstance().getCurrentLatitude());
-            postData.put("car_long",Config.getInstance().getCurrentLongitude());
+            postData.put("car_lat",String.valueOf(locationCar.getLatitude()));
+            postData.put("car_long",String.valueOf(locationCar.getLongitude()));
             postData.put("phone",Config.getInstance().getPhone());
             postData.put("trip_id",tripBean.getTripId());
         } catch (JSONException e) {
@@ -707,6 +722,7 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
         DataManager.performTripStart(postData, new BasicListener() {
             @Override
             public void onLoadCompleted(BasicBean basicBean) {
+                isArrived=true;
                 swipeView.setRefreshing(false);
 
                 calStart = Calendar.getInstance();
@@ -721,9 +737,14 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
                     pathBean.setLatitude(Config.getInstance().getCurrentLatitude());
                     pathBean.setLongitude(Config.getInstance().getCurrentLongitude());
                     pathBean.setIndex(0);
-                    pathBean.setTime(calStart.getTimeInMillis() / 1000);
+                    if(calStart.getTimeInMillis()!=0){
+                        pathBean.setTime(calStart.getTimeInMillis() / 1000);
+                    }
                     pathList.add(pathBean);
+                    populateMap(Double.parseDouble(Config.getInstance().getCurrentLatitude()),Double.parseDouble(Config.getInstance().getCurrentLongitude()));
+                    mapAutoZoom(Double.parseDouble(Config.getInstance().getCurrentLatitude()),Double.parseDouble(Config.getInstance().getCurrentLongitude()));
                 }
+                fetchAppStatus();
 
                 lytBeforeTrip.setVisibility(View.GONE);
                 lytBottomSheet.setVisibility(View.VISIBLE);
@@ -768,11 +789,23 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
                 swipeView.setRefreshing(false);
                 Snackbar.make(coordinatorLayout, R.string.message_arrival_confirmed, Snackbar.LENGTH_LONG)
                         .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
+                fetchAppStatus();
 
                 llConfirmArrival.setVisibility(View.GONE);
                 llContactPhone.setVisibility(View.GONE);
                 llStartTrip.setVisibility(View.VISIBLE);
                 isArrived = true;
+                intFormap=3;
+
+                if (Config.getInstance().getCurrentLongitude() != null
+                        && !Config.getInstance().getCurrentLongitude().equalsIgnoreCase("")
+                        && Config.getInstance().getCurrentLatitude() != null
+                        && !Config.getInstance().getCurrentLatitude().equalsIgnoreCase("")) {
+
+                    populateMap(Double.parseDouble(Config.getInstance().getCurrentLatitude()),Double.parseDouble(Config.getInstance().getCurrentLongitude()));
+                    mapAutoZoom(Double.parseDouble(Config.getInstance().getCurrentLatitude()),Double.parseDouble(Config.getInstance().getCurrentLongitude()));
+                }
+
 
             }
 
@@ -791,6 +824,7 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
 
         try {
             postData.put("trip_id", tripBean.getId());
+            postData.put("phone",Config.getInstance().getPhone());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -800,7 +834,8 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
 
 
     private void performTripCompletion() {
-        swipeView.setRefreshing(true);
+       // swipeView.setRefreshing(true);
+        simpleProgressBarTripEnd.setVisibility(View.VISIBLE);
 
         calEnd = Calendar.getInstance();
         calEnd.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -812,9 +847,15 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
             PathBean pathBean = new PathBean();
             pathBean.setLatitude(Config.getInstance().getCurrentLatitude());
             pathBean.setLongitude(Config.getInstance().getCurrentLongitude());
-            pathBean.setIndex(pathList.size());
-            pathBean.setTime(calEnd.getTimeInMillis() / 1000);
-            pathList.add(pathBean);
+            if(pathList!=null) {
+                pathBean.setIndex(pathList.size());
+            }
+            if(calEnd.getTimeInMillis()!=0){
+                pathBean.setTime(calEnd.getTimeInMillis() / 1000);
+            }
+            if(pathList!=null) {
+                pathList.add(pathBean);
+            }
         }
 
         JSONObject postData = getTripCompletionJSObj();
@@ -822,11 +863,13 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
         DataManager.performTripCompletion(postData, new TripDetailsListener() {
             @Override
             public void onLoadCompleted(TripBean tripBean) {
-                swipeView.setRefreshing(false);
+               // swipeView.setRefreshing(false);
+                simpleProgressBarTripEnd.setVisibility(View.GONE);
                 Toast.makeText(OnTripActivity.this, R.string.message_trip_ended_please_collect_cash, Toast.LENGTH_LONG).show();
+              //  mHandler.removeCallbacks(checkAppStatusTask);
                 startActivity(new Intent(OnTripActivity.this, TripSummaryActivity.class)
                         .putExtra("trip_id", tripBean.getId()));
-
+                finish();
             }
 
             @Override
@@ -843,9 +886,21 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
         JSONObject postData = new JSONObject();
 
         try {
+            if(calStart==null) {
+                calStart = Calendar.getInstance();
+                calStart.setTimeZone(TimeZone.getTimeZone("UTC"));
+            }
+            if(calEnd==null) {
+                calEnd = Calendar.getInstance();
+                calEnd.setTimeZone(TimeZone.getTimeZone("UTC"));
+            }
+
             postData.put("trip_id", tripBean.getId());
-            postData.put("start_time", calStart.getTimeInMillis() / 1000);
-            postData.put("end_time", calEnd.getTimeInMillis() / 1000);
+            if(calStart.getTimeInMillis()!=0)
+            postData.put("start_time", calStart.getTimeInMillis()/1000);
+            if(calEnd.getTimeInMillis()!=0)
+            postData.put("end_time", calEnd.getTimeInMillis()/1000);
+
 
             JSONArray pathArray = new JSONArray();
             if (pathList != null) {
@@ -873,72 +928,79 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
 
         return postData;
     }
-
-    private void populateMap() {
-        mMap.clear();
-        if (isArrived) {
-            onPlotLatLng(Double.parseDouble(Config.getInstance().getCurrentLatitude()),
-                    Double.parseDouble(Config.getInstance().getCurrentLongitude()),
-                    tripBean.getDDestinationLatitude(), tripBean.getDDestinationLongitude());
-        } else {
-            onPlotLatLng(Double.parseDouble(Config.getInstance().getCurrentLatitude()),
-                    Double.parseDouble(Config.getInstance().getCurrentLongitude()),
-                    tripBean.getDSourceLatitude(), tripBean.getDSourceLongitude());
+int intFormap=0;
+    private void populateMap(double latitude, double longitude) {
+        if(intFormap==5){
+            mMap.clear();
+            intFormap=0;
         }
-        mapAutoZoom();
+
+
+        if (isArrived) {
+            onPlotLatLng(latitude,longitude,
+                    tripBean.getDDestinationLatitude(), tripBean.getDDestinationLongitude(),latitude,longitude);
+        } else {
+            onPlotLatLng(latitude,longitude,
+                    tripBean.getDSourceLatitude(), tripBean.getDSourceLongitude(),latitude,longitude);
+        }
+        if(intFormap==0) {
+           // mapAutoZoom(latitude, longitude);
+        }
+        intFormap++;
     }
 
-    private void onPlotLatLng(double sourceLatitude, double sourceLongitude, double destinationLatitude, double destinationLongitude) {
+    private void onPlotLatLng(double sourceLatitude, double sourceLongitude, double destinationLatitude, double destinationLongitude,double latitude,double longitude) {
 
-        fetchPolyPoint();
+        fetchPolyPoint(latitude,longitude);
 
         LatLng newLatLng = null;
         try {
             newLatLng = new LatLng(sourceLatitude, sourceLongitude);
 
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(newLatLng, 18));
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(newLatLng, 15));
 
-//            mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+           mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 //            mMap.addMarker(new MarkerOptions().position(newLatLng).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_driver_location)));
 
 
             newLatLng = new LatLng(destinationLatitude, destinationLongitude);
 //            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newLatLng, 11));
-            mMap.addMarker(new MarkerOptions().position(newLatLng).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_destination)));
+            mMap.addMarker(new MarkerOptions().position(newLatLng).title("Left "+etaTimeLeft).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_destination)));
 
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
     }
 
-    public void mapAutoZoom() {
+    public void mapAutoZoom(double latitude,double longitude ) {
 
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
         if (isArrived) {
-            builder.include(new LatLng(Double.parseDouble(Config.getInstance().getCurrentLatitude()),
-                    Double.parseDouble(Config.getInstance().getCurrentLongitude())));
+            builder.include(new LatLng(latitude,longitude));
             builder.include(tripBean.getDestinationLatLng());
         } else {
-            builder.include(new LatLng(Double.parseDouble(Config.getInstance().getCurrentLatitude()),
-                    Double.parseDouble(Config.getInstance().getCurrentLongitude())));
+            builder.include(new LatLng(latitude,longitude));
             builder.include(tripBean.getSourceLatLng());
         }
 
         LatLngBounds bounds = builder.build();
+        if(myMapFragment!=null) {
 
-        if (myMapFragment.getView().getHeight() > 150 * px)
-            mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, (int) (50 * px)));
-        else
-            mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, (int) (5 * px)));
+            if (myMapFragment.getView().getHeight() > 150 * px) {
+                mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, (int) (50 * px)));
+            }else {
+                mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, (int) (5 * px)));
+            }
+        }
 
     }
 
-    public void fetchPolyPoint() {
+    public void fetchPolyPoint(double latitude,double longitude) {
 
         HashMap<String, String> urlParams = new HashMap<>();
 
-        urlParams.put("origin", Config.getInstance().getCurrentLatitude() + "," + Config.getInstance().getCurrentLongitude());
+        urlParams.put("origin", String.valueOf(latitude) + "," + String.valueOf(longitude));
         if (isArrived) {
             urlParams.put("destination", tripBean.getDestinationLatitude() + "," + tripBean.getDDestinationLongitude());
         } else {
@@ -954,6 +1016,8 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
                 swipeView.setRefreshing(false);
 
                 polyPointBean = polyPointBeanWS;
+                etaDistance=polyPointBean.getDistanceText();
+                etaTimeLeft=polyPointBean.getTimeText();
                 populatePath();
 
             }
@@ -991,7 +1055,7 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
             }
 
             polyLineOptions.addAll(points);
-            polyLineOptions.width(8);
+            polyLineOptions.width(6);
             polyLineOptions.color(ContextCompat.getColor(getApplicationContext(), R.color.black));
 
         }
@@ -1082,21 +1146,23 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
 
     @Override
     public void onLocationChanged(Location location) {
-/*        if ((Config.getInstance().getCurrentLatitude() == null || Config.getInstance().getCurrentLongitude() == null)
+        /*
+       if ((Config.getInstance().getCurrentLatitude() == null || Config.getInstance().getCurrentLongitude() == null)
                 || (Config.getInstance().getCurrentLatitude().equals("") || Config.getInstance().getCurrentLatitude().equals(""))) {
             Config.getInstance().setCurrentLatitude("" + location.getLatitude());
             Config.getInstance().setCurrentLongitude("" + location.getLongitude());
-            moveToCurrentLocation();
+          //  moveToCurrentLocation();
         } else {
             if (mGoogleApiClient != null) {
                 mGoogleApiClient.disconnect();
             }
-        }*/
+        }
+        */
         Config.getInstance().setCurrentLatitude("" + location.getLatitude());
         Config.getInstance().setCurrentLongitude("" + location.getLongitude());
 
-        Log.i(TAG, "onLocationChanged: LATITUDE : " + location.getLatitude());
-        Log.i(TAG, "onLocationChanged: LONGITUDE : " + location.getLongitude());
+        Log.i(TAG, "onLocationChanged: LATITUDE : OntripActivity" + location.getLatitude());
+        Log.i(TAG, "onLocationChanged: LONGITUDE : ontripActivity" + location.getLongitude());
 
 
         if (isTripStarted) {
@@ -1113,9 +1179,11 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
 
         }
 
-        if ((Calendar.getInstance().getTimeInMillis() - Config.getInstance().getLastUpdate()) > 5000)
+        if ((Calendar.getInstance().getTimeInMillis() - Config.getInstance().getLastUpdate()) > 5000) {
             performDriverLocationUpdate(location);
-        populateMap();
+            performCarLocationUpade(location);
+            populateMap(location.getLatitude(),location.getLongitude());
+        }
 
     }
 
@@ -1178,7 +1246,7 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
     public void onConnectionSuspended(int arg0) {
 
     }
-
+/*
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -1199,6 +1267,27 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
             openOptionsMenu();
         }
         return true;
+    }
+    */
+    boolean doubleBackToExitPressedOnce = false;
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
     }
 
 }

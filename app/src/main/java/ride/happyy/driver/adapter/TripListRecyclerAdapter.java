@@ -332,7 +332,9 @@ public class TripListRecyclerAdapter extends RecyclerView.Adapter<TripListRecycl
 
                 mContext.startActivity(new Intent(mContext, TripDetailsActivity.class)
 //                        .putExtra("bean", tripBean));
-                        .putExtra("trip_id", tripBean.getId()));
+                        .putExtra("trip_id", tripBean.getId())
+                        .putExtra("reqfhis","reqfhis"));
+
             }
         });
 

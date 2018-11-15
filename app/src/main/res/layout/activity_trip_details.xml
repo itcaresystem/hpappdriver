@@ -39,10 +39,11 @@
 
     <ImageView
         android:id="@+id/iv_trip_details_profile_photo"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:layout_marginBottom="70dp"
         android:background="@drawable/circle_carbon_transparent"
         android:onClick="onTripDetailsDetailsClick"
         android:src="@drawable/circle_carbon_transparent"

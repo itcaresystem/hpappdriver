@@ -34,5 +34,6 @@ class ProfileBean : BaseBean() {
     var driver_rating : Int =0
     var commission_rate : Int =0
     var vehicle_no : String =""
-
+    var carBrand : String =""
+    var carFitnessCertificateNo : String =""
 }

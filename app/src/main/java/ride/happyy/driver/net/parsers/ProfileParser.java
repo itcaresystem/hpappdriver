@@ -159,6 +159,13 @@ public class ProfileParser {
                         if (dataObj.has("vehicle_no")) {
                             profileBean.setVehicle_no(dataObj.optString("vehicle_no"));
                         }
+                        if (dataObj.has("car_brand")) {
+                            profileBean.setCarBrand(dataObj.optString("car_brand"));
+                        }
+
+                        if (dataObj.has("car_fitness_certificate")) {
+                            profileBean.setCarFitnessCertificateNo(dataObj.optString("car_fitness_certificate"));
+                        }
 
                         if (dataObj.has("is_active")) {
                             profileBean.set_active(dataObj.optString("is_active"));

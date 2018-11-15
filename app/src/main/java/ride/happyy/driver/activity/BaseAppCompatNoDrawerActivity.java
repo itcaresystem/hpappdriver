@@ -241,6 +241,7 @@ public class BaseAppCompatNoDrawerActivity extends BaseActivity {
         try {
             postData.put("latitude", location.getLatitude());
             postData.put("longitude", location.getLongitude());
+            postData.put("phone",Config.getInstance().getPhone());
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -7,122 +7,166 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context="ride.happyy.driver.activity.EditVehicleDetailsActivity">
-
-
-
-
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="50dp"
-        android:paddingTop="20dp">
+        >
 
-    <LinearLayout
-        android:background="@color/gray_light"
-        android:padding="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
+        <LinearLayout
+            android:id="@+id/editForCarInfoLL"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="CAR INFORMATION"/>
-    </LinearLayout>
+            android:orientation="vertical"
+            android:paddingBottom="50dp"
+            android:paddingTop="20dp">
+
+            <LinearLayout
+                android:background="@color/gray_light"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="CAR INFORMATION"/>
+            </LinearLayout>
 
 
-    <LinearLayout
-        android:padding="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Spinner
-            android:id="@+id/brand_name_SP"
+            <LinearLayout
+                android:visibility="gone"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Spinner
+                    android:id="@+id/brand_name_SP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:entries="@array/car_brand">
+
+                </Spinner>
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="visible"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+               <EditText
+                   android:id="@+id/brandNameET"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:hint="Noah,Hero,TVS"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:background="@color/gray_light"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="REGISTRATION NUMBER"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/vehicle_registration_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Registration number"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/driving_license_ET"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Driving License number*"/>
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/fitness_certificate_ET"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Fitness Certificate number"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:background="@color/gray_light"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="REFERAL CODE"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/referral_code_ET"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Referral Code"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:padding="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:visibility="gone"
+                    android:id="@+id/btn_car_info_save"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_click_black_rectangle_with_semicircle_edge"
+                    android:text="SAVE"
+                    android:onClick="onClickCarInfoSaveBtn"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+            <LinearLayout
+                android:padding="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/editCarInfoBtn"
+                    android:background="@color/red"
+                    android:onClick="onClickEditCarInfoBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_edit"
+                    />
+
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/displayCarInfoLL"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:entries="@array/car_brand">
+            android:layout_height="wrap_content">
+        </LinearLayout>
 
-        </Spinner>
     </LinearLayout>
-
-    <LinearLayout
-        android:padding="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
-            android:id="@+id/driving_license_ET"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Driving License *"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:background="@color/gray_light"
-        android:padding="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="REGISTRATION NUMBER"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:padding="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
-            android:id="@+id/vehicle_registration_number"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Registration number"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:padding="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
-            android:id="@+id/fitness_certificate_ET"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Fitness Certificate number"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:background="@color/gray_light"
-        android:padding="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="REFERAL CODE"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:padding="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
-            android:id="@+id/referral_code_ET"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Referral Code"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:padding="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:id="@+id/btn_car_info_save"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btn_click_black_rectangle_with_semicircle_edge"
-            android:text="SAVE"
-            android:textColor="@color/white" />
-    </LinearLayout>
-
-</LinearLayout>
 </android.support.v4.widget.NestedScrollView>

@@ -99,6 +99,13 @@ public class TripDetailsParser {
                     if (dataObj.has("id")) {
                         tripBean.setId(dataObj.optString("id"));
                     }
+
+                    if (dataObj.has("trip_id")) {
+                        tripBean.setId(dataObj.optString("trip_id"));
+                    }
+                    if (dataObj.has("trip_id")) {
+                        tripBean.setTripId(dataObj.optString("trip_id"));
+                    }
                     if (dataObj.has("trip_status")) {
                         tripBean.setTripStatus(dataObj.optString("trip_status"));
                     }

@@ -29,11 +29,11 @@ public class MyNotificationsActivity extends BaseAppCompatNoDrawerActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         notificationListView = findViewById(R.id.notificationsListView);
-        MyNotification myNotification1 = new MyNotification("Welcome to Happyy Drive ! Earn with Happyy Drive. It is the most oowerfull ride sharing apps.");
-        MyNotification myNotification2 = new MyNotification("Earn With Happyy Drive Test Notification");
+        MyNotification myNotification1 = new MyNotification("Welcome to Happyy Drive ! Earn with Happyy Drive. It is the most powerfull ride sharing apps.");
+        MyNotification myNotification2 = new MyNotification("Earn With Happyy Drive With the best commision in Bangladesh");
 
-        MyNotification myNotification3 = new MyNotification("Welcome to Happyy Drive ! Earn with Happyy Drive. It is the most oowerfull ride sharing apps.");
-        MyNotification myNotification4 = new MyNotification("Earn With Happyy Drive Test Notification");
+        MyNotification myNotification3 = new MyNotification("Earn Extra To Share The Apps.");
+        MyNotification myNotification4 = new MyNotification("Have a nice day.");
         ArrayList<MyNotification> myNotificationArrayList = new ArrayList<>();
         myNotificationArrayList.add(myNotification1);
         myNotificationArrayList.add(myNotification2);
