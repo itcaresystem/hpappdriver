@@ -15,4 +15,12 @@ public class ServerResponse {
     public String getMessage() {
         return messageString;
     }
+
+    public void setStatusString(boolean statusString) {
+        this.statusString = statusString;
+    }
+
+    public void setMessageString(String messageString) {
+        this.messageString = messageString;
+    }
 }

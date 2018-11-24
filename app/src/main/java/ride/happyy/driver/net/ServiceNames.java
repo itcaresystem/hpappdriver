@@ -1,6 +1,4 @@
 package ride.happyy.driver.net;
-
-
 public class ServiceNames {
 
     /*Set BASE URL here*/

@@ -45,12 +45,12 @@
 
                 <ride.happyy.driver.widgets.CustomTextView
                     style="@style/DocumentItemLabel"
-                    android:text="@string/label_driver_license"/>
+                    android:text="@string/label_nid_card"/>
                 <ImageView
                     android:id="@+id/nidordrivinglicense_photo"
                     android:layout_width="250dp"
                     android:layout_height="150dp"
-                    android:scaleType="center"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/logo_red_round"
                     />
 
@@ -64,7 +64,7 @@
             <ride.happyy.driver.widgets.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/marker_location_p"
+                android:background="@drawable/btn_click_app_dark_rectangle_with_semicircle_edge"
                 android:textColor="@color/white"
                 android:padding="8dp"
                 android:text="Upload"/>
@@ -85,20 +85,20 @@
             style="@style/DocumentItemParent"
             android:background="?selectableItemBackground"
             android:onClick="onDocumentsItemClick"
-            android:tag="8">
+            android:tag="2">
 
             <LinearLayout
                 style="@style/DocumentItemLabelParent">
 
                 <ride.happyy.driver.widgets.CustomTextView
                     style="@style/DocumentItemLabel"
-                    android:text="@string/label_vehicle_registration"/>
+                    android:text="@string/label_police_driving_license"/>
 
                 <ImageView
                     android:id="@+id/vehicle_certificate_photo"
                     android:layout_width="250dp"
                     android:layout_height="150dp"
-                    android:scaleType="center"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/logo_red_round"
                     />
 
@@ -111,7 +111,7 @@
             <ride.happyy.driver.widgets.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/marker_location_p"
+                android:background="@drawable/btn_click_app_dark_rectangle_with_semicircle_edge"
                 android:textColor="@color/white"
                 android:padding="8dp"
                 android:text="Upload"/>
@@ -131,20 +131,19 @@
             style="@style/DocumentItemParent"
             android:background="?selectableItemBackground"
             android:onClick="onDocumentsItemClick"
-            android:tag="2">
+            android:tag="3">
 
             <LinearLayout
                 style="@style/DocumentItemLabelParent">
-
                 <ride.happyy.driver.widgets.CustomTextView
                     style="@style/DocumentItemLabel"
-                    android:text="DRIVING LICENSE"/>
+                    android:text="@string/label_vehicle_registration"/>
 
                 <ImageView
                     android:id="@+id/driving_license_photo"
                     android:layout_width="250dp"
                     android:layout_height="150dp"
-                    android:scaleType="center"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/logo_red_round"
                     />
 
@@ -157,7 +156,7 @@
             <ride.happyy.driver.widgets.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/marker_location_p"
+                android:background="@drawable/btn_click_app_dark_rectangle_with_semicircle_edge"
                 android:textColor="@color/white"
                 android:padding="8dp"
                 android:text="Upload"/>

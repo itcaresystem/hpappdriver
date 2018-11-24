@@ -72,7 +72,7 @@ public class DocumentsActivity extends BaseAppCompatNoDrawerActivity {
     private TextView txtPanCardStatus;
     private TextView txtNoObjectionCeritificateStatus;
 
-    private ImageView nidordrivinglicense_photo,vehicle_certificate_photo,driving_license_photo;
+    private ImageView nidordrivinglicense_photo,driving_license_photo,vehicle_certificate_photo;
 
 
     @Override
@@ -198,7 +198,7 @@ public class DocumentsActivity extends BaseAppCompatNoDrawerActivity {
     private void updateDocuments(int type, int status, String documentURL) {
 
         switch (type) {
-            case AppConstants.DOCUMENT_TYPE_DRIVER_LICENCE:
+            case AppConstants.DOCUMENT_TYPE_NID_CARD:
                 ivDriverLicenceError.setVisibility(getVisibility(TYPE_ERROR, status));
                 ivDriverLicenceAccepted.setVisibility(getVisibility(TYPE_ACCEPTED, status));
                 txtDriverLicenceStatus.setText(getDocumentStatus(status));
@@ -209,55 +209,10 @@ public class DocumentsActivity extends BaseAppCompatNoDrawerActivity {
                                 .error(R.drawable.ic_profile_photo_default)
                                 .fallback(R.drawable.ic_profile_photo_default)
                                 .centerCrop()
-                                .circleCrop())
+                                .fitCenter())
                         .into(nidordrivinglicense_photo);
                 break;
-            case AppConstants.DOCUMENT_TYPE_POLICE_CLEARANCE_CERTIFICATE:
-                ivPoliceClearanceCertificateError.setVisibility(getVisibility(TYPE_ERROR, status));
-                ivPoliceClearanceCertificateAccepted.setVisibility(getVisibility(TYPE_ACCEPTED, status));
-                txtPoliceClearanceCertificateStatus.setText(getDocumentStatus(status));
-                txtPoliceClearanceCertificateStatus.setTextColor(ContextCompat.getColor(getApplicationContext(), documentColor[status]));
-                Glide.with(getApplicationContext())
-                        .load(documentURL)
-                        .apply(new RequestOptions()
-                                .error(R.drawable.ic_profile_photo_default)
-                                .fallback(R.drawable.ic_profile_photo_default)
-                                .centerCrop()
-                                .circleCrop())
-                        .into(driving_license_photo);
-
-                break;
-            case AppConstants.DOCUMENT_TYPE_FITNESS_CERTIFICATE:
-                ivFitnessCertificateError.setVisibility(getVisibility(TYPE_ERROR, status));
-                ivFitnessCertificateAccepted.setVisibility(getVisibility(TYPE_ACCEPTED, status));
-                txtFitnessCertificateStatus.setText(getDocumentStatus(status));
-                txtFitnessCertificateStatus.setTextColor(ContextCompat.getColor(getApplicationContext(), documentColor[status]));
-                break;
-            case AppConstants.DOCUMENT_TYPE_VEHICLE_REGISTRATION:
-                ivVehicleRegistrationError.setVisibility(getVisibility(TYPE_ERROR, status));
-                ivVehicleRegistrationAccepted.setVisibility(getVisibility(TYPE_ACCEPTED, status));
-                txtVehicleRegistrationStatus.setText(getDocumentStatus(status));
-                txtVehicleRegistrationStatus.setTextColor(ContextCompat.getColor(getApplicationContext(), documentColor[status]));
-                break;
-            case AppConstants.DOCUMENT_TYPE_VEHICLE_PERMIT:
-                ivVehiclePermitError.setVisibility(getVisibility(TYPE_ERROR, status));
-                ivVehiclePermitAccepted.setVisibility(getVisibility(TYPE_ACCEPTED, status));
-                txtVehiclePermitStatus.setText(getDocumentStatus(status));
-                txtVehiclePermitStatus.setTextColor(ContextCompat.getColor(getApplicationContext(), documentColor[status]));
-                break;
-            case AppConstants.DOCUMENT_TYPE_COMMERCIAL_INSURANCE:
-                ivCommercialInsuranceError.setVisibility(getVisibility(TYPE_ERROR, status));
-                ivCommercialInsuranceAccepted.setVisibility(getVisibility(TYPE_ACCEPTED, status));
-                txtCommercialInsuranceStatus.setText(getDocumentStatus(status));
-                txtCommercialInsuranceStatus.setTextColor(ContextCompat.getColor(getApplicationContext(), documentColor[status]));
-                break;
-            case AppConstants.DOCUMENT_TYPE_TAX_RECEIPT:
-                ivTaxReceiptError.setVisibility(getVisibility(TYPE_ERROR, status));
-                ivTaxReceiptAccepted.setVisibility(getVisibility(TYPE_ACCEPTED, status));
-                txtTaxReceiptStatus.setText(getDocumentStatus(status));
-                txtTaxReceiptStatus.setTextColor(ContextCompat.getColor(getApplicationContext(), documentColor[status]));
-                break;
-            case AppConstants.DOCUMENT_TYPE_PASS_BOOK:
+            case AppConstants.DOCUMENT_TYPE_DRIVING_LICENSE:
                 ivBankPassbookError.setVisibility(getVisibility(TYPE_ERROR, status));
                 ivBankPassbookAccepted.setVisibility(getVisibility(TYPE_ACCEPTED, status));
                 txtBankPassbookStatus.setText(getDocumentStatus(status));
@@ -268,33 +223,25 @@ public class DocumentsActivity extends BaseAppCompatNoDrawerActivity {
                                 .error(R.drawable.ic_profile_photo_default)
                                 .fallback(R.drawable.ic_profile_photo_default)
                                 .centerCrop()
-                                .circleCrop())
+                                .fitCenter())
                         .into(vehicle_certificate_photo);
                 break;
-            case AppConstants.DOCUMENT_TYPE_DRIVER_LICENCE_WITH_BADGE_NUMBER:
-                ivDriverLicenceWithBadgeError.setVisibility(getVisibility(TYPE_ERROR, status));
-                ivDriverLicenceWithBadgeAccepted.setVisibility(getVisibility(TYPE_ACCEPTED, status));
-                txtDriverLicenceWithBadgeStatus.setText(getDocumentStatus(status));
-                txtDriverLicenceWithBadgeStatus.setTextColor(ContextCompat.getColor(getApplicationContext(), documentColor[status]));
+            case AppConstants.DOCUMENT_TYPE_VEHICLE_REGISTRATION_NEW:
+                ivPoliceClearanceCertificateError.setVisibility(getVisibility(TYPE_ERROR, status));
+                ivPoliceClearanceCertificateAccepted.setVisibility(getVisibility(TYPE_ACCEPTED, status));
+                txtPoliceClearanceCertificateStatus.setText(getDocumentStatus(status));
+                txtPoliceClearanceCertificateStatus.setTextColor(ContextCompat.getColor(getApplicationContext(), documentColor[status]));
+                Glide.with(getApplicationContext())
+                        .load(documentURL)
+                        .apply(new RequestOptions()
+                                .error(R.drawable.ic_profile_photo_default)
+                                .fallback(R.drawable.ic_profile_photo_default)
+                                .centerCrop()
+                                .fitCenter())
+                        .into(driving_license_photo);
+
                 break;
-            case AppConstants.DOCUMENT_TYPE_BACKGROUND_CHECK_CONSENT_FORM:
-                ivBackgroundCheckConsentFormError.setVisibility(getVisibility(TYPE_ERROR, status));
-                ivBackgroundCheckConsentFormAccepted.setVisibility(getVisibility(TYPE_ACCEPTED, status));
-                txtBackgroundCheckConsentFormStatus.setText(getDocumentStatus(status));
-                txtBackgroundCheckConsentFormStatus.setTextColor(ContextCompat.getColor(getApplicationContext(), documentColor[status]));
-                break;
-            case AppConstants.DOCUMENT_TYPE_PAN_CARD:
-                ivPanCardError.setVisibility(getVisibility(TYPE_ERROR, status));
-                ivPanCardAccepted.setVisibility(getVisibility(TYPE_ACCEPTED, status));
-                txtPanCardStatus.setText(getDocumentStatus(status));
-                txtPanCardStatus.setTextColor(ContextCompat.getColor(getApplicationContext(), documentColor[status]));
-                break;
-            case AppConstants.DOCUMENT_TYPE_NO_OBJECTION_CERTIFICATE:
-                ivNoObjectionCeritificateError.setVisibility(getVisibility(TYPE_ERROR, status));
-                ivNoObjectionCeritificateAccepted.setVisibility(getVisibility(TYPE_ACCEPTED, status));
-                txtNoObjectionCeritificateStatus.setText(getDocumentStatus(status));
-                txtNoObjectionCeritificateStatus.setTextColor(ContextCompat.getColor(getApplicationContext(), documentColor[status]));
-                break;
+
         }
 
     }
@@ -392,7 +339,7 @@ public class DocumentsActivity extends BaseAppCompatNoDrawerActivity {
 
         for (DocumentBean bean : documentStatusBean.getDocuments()) {
 
-            updateDocuments(bean.getType(), bean.getDocumentStatus(), bean.getDocumentURL());
+             updateDocuments(bean.getType(), bean.getDocumentStatus(), bean.getDocumentURL());
         }
 
         swipeView.setRefreshing(false);

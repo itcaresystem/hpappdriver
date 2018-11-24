@@ -1,6 +1,9 @@
 package ride.happyy.driver.activity;
 
 import android.Manifest;
+import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -10,7 +13,10 @@ import android.icu.util.TimeUnit;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -24,9 +30,11 @@ import android.util.Log;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +59,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -66,8 +75,12 @@ import ride.happyy.driver.listeners.TripDetailsListener;
 import ride.happyy.driver.model.BasicBean;
 import ride.happyy.driver.model.PolyPointBean;
 import ride.happyy.driver.model.RequestDetailsBean;
+import ride.happyy.driver.model.RequestTransferData;
+import ride.happyy.driver.model.ServerResponse;
 import ride.happyy.driver.model.TripBean;
 import ride.happyy.driver.net.DataManager;
+import ride.happyy.driver.net.NetworkCall;
+import ride.happyy.driver.net.ResponseCallback;
 import ride.happyy.driver.util.AppConstants;
 
 public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity implements
@@ -123,12 +136,17 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
     public MediaPlayer voice;
    // private Handler mHandler=new Handler();
     CountDownTimer cdt;
+    private MediaPlayer mMediaPlayer;
+    private ProgressBar progressbar_req_accept_cancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_confirmation);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        final Window win= getWindow();
+        win.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+        win.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+        //getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
        // getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         getSupportActionBar().hide();
         swipeView.setPadding(0, 0, 0, 0);
@@ -145,10 +163,53 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
-        for(int i=0;i<3;i++) {
-            PlayVoice(this, R.raw.happyriderequesttone);
-        }
 
+
+/*
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Calendar startTime = Calendar.getInstance();
+        startTime.add(Calendar.MINUTE, 1);
+        Intent intent = new Intent(RequestConfirmationActivity.this, RequestConfirmationActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(RequestConfirmationActivity.this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmManager.set(AlarmManager.RTC, startTime.getTimeInMillis(), pendingIntent);
+        */
+
+        PlayVoice(this, R.raw.happyriderequesttone);
+
+    }
+
+
+    private void playSound(Context context, Uri alert) {
+        mMediaPlayer = new MediaPlayer();
+        try {
+            mMediaPlayer.setDataSource(context, alert);
+            final AudioManager audioManager = (AudioManager) context
+                    .getSystemService(Context.AUDIO_SERVICE);
+            if (audioManager.getStreamVolume(AudioManager.STREAM_ALARM) != 0) {
+                mMediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
+                mMediaPlayer.prepare();
+                mMediaPlayer.start();
+            }
+        } catch (IOException e) {
+            System.out.println("OOPS");
+        }
+    }
+
+    //Get an alarm sound. Try for an alarm. If none set, try notification,
+    //Otherwise, ringtone.
+    private Uri getAlarmUri() {
+        Uri alert = RingtoneManager
+                .getDefaultUri(RingtoneManager.TYPE_ALARM);
+        if (alert == null) {
+            alert = RingtoneManager
+                    .getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            if (alert == null) {
+                alert = RingtoneManager
+                        .getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+            }
+        }
+        return alert;
     }
     public  void PlayVoice(final Context context, int rawVoice) {
 
@@ -175,7 +236,7 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
         }
 
 
-       cdt = new CountDownTimer(20* 1000, 1000) {
+       cdt = new CountDownTimer(30* 1000, 1000) {
            @Override
            public void onTick(long millisUntilFinished) {
                Log.i(TAG, millisUntilFinished +" millis left");
@@ -185,6 +246,7 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
            public void onFinish() {
                Log.i(TAG, "Timer finished");
                if(App.isNetworkAvailable()) {
+                   progressbar_req_accept_cancel.setVisibility(View.VISIBLE);
                    requestCancelAction();
                }
            }
@@ -236,6 +298,7 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
         ivCarType = (ImageView) findViewById(R.id.iv_request_confirmation_car_type);
 
         btnConfirm = (Button) findViewById(R.id.btn_request_confirmation_confirm);
+        progressbar_req_accept_cancel=findViewById(R.id.progressbar_req_accept_cancel);
 
         btnConfirm.setTypeface(typeface);
 
@@ -432,8 +495,10 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
 
     public void onRequestCancelBtnClick(View view) {
         view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+        progressbar_req_accept_cancel.setVisibility(View.VISIBLE);
 
         if(App.isNetworkAvailable()){
+
             requestCancelAction();
         }
 /*
@@ -479,6 +544,7 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
     */
 
     public void requestCancelAction(){
+        /*
         JSONObject postData = getDriverStatusChangeJSObj();
         DataManager.performDriverStatusChange(postData, new BasicListener() {
             @Override
@@ -489,7 +555,7 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
                 if (voice!=null){
                     voice.release();
                 }
-                Toast.makeText(RequestConfirmationActivity.this,"You are in Offline now !!",Toast.LENGTH_LONG).show();
+                Toast.makeText(RequestConfirmationActivity.this,"The Request Redirect To Other!!",Toast.LENGTH_LONG).show();
                 Intent intentHomePage = new Intent(RequestConfirmationActivity.this,HomeActivity.class);
                 startActivity(intentHomePage);
                 finish();
@@ -500,6 +566,62 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
 
             }
         });
+        */
+
+
+        RequestTransferData requestTransferData = new RequestTransferData();
+        requestTransferData.setPhone(Config.getInstance().getPhone());
+        requestTransferData.setRequest_id(requestID);
+        NetworkCall networkCall=new NetworkCall();
+        networkCall.request_transfer(requestTransferData, new ResponseCallback<ServerResponse>() {
+
+            @Override
+            public void onSuccess(ServerResponse data) {
+                progressbar_req_accept_cancel.setVisibility(View.GONE);
+
+                if(cdt!=null) {
+                    cdt.cancel();
+                }
+                if (voice!=null){
+                    voice.release();
+                }
+                Toast.makeText(RequestConfirmationActivity.this,"The Request Redirect To Other!!",Toast.LENGTH_LONG).show();
+                Intent intentHomePage = new Intent(RequestConfirmationActivity.this,HomeActivity.class);
+                startActivity(intentHomePage);
+                finish();
+            }
+
+            @Override
+            public void onError(Throwable th) {
+                progressbar_req_accept_cancel.setVisibility(View.GONE);
+
+                if(cdt!=null) {
+                    cdt.cancel();
+                }
+                if (voice!=null){
+                    voice.release();
+                }
+                Toast.makeText(RequestConfirmationActivity.this,"The Request Redirect To Other!!",Toast.LENGTH_LONG).show();
+                Intent intentHomePage = new Intent(RequestConfirmationActivity.this,HomeActivity.class);
+                startActivity(intentHomePage);
+                finish();
+
+            }
+        });
+/*
+        progressbar_req_accept_cancel.setVisibility(View.GONE);
+
+        if(cdt!=null) {
+            cdt.cancel();
+        }
+        if (voice!=null){
+            voice.release();
+        }
+        Toast.makeText(RequestConfirmationActivity.this,"The Request Redirect To Other!!",Toast.LENGTH_LONG).show();
+        Intent intentHomePage = new Intent(RequestConfirmationActivity.this,HomeActivity.class);
+        startActivity(intentHomePage);
+        finish();
+        */
 
     }
 
@@ -510,6 +632,7 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
             postData.put("phone",Config.getInstance().getPhone());
             postData.put("is_online", "false");
             postData.put("req_ancel","cancel");
+            postData.put("request_id",requestID);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -562,14 +685,14 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
 
        }
         txtDistance.setText("");
-        txtCarType.setText(requestDetailsBean.getCarType());
+        txtCarType.setText(requestDetailsBean.getCustomerName());
 
 
         Glide.with(getApplicationContext())
                 .load(requestDetailsBean.getCarTypeImage())
                 .apply(new RequestOptions()
-                        .error(R.drawable.ic_car_la_landing_page)
-                        .fallback(R.drawable.ic_car_la_landing_page))
+                        .error(R.drawable.default_profile_pic)
+                        .fallback(R.drawable.default_profile_pic))
                 .into(ivCarType);
 
         if (Config.getInstance().getCurrentLatitude() != null && !Config.getInstance().getCurrentLatitude().equals("")

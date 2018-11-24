@@ -32,6 +32,7 @@ public class DriverListAdapter extends ArrayAdapter<Driver> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        int itm=1;
         String itms = getItem(position).getSlNumber();
        String name = getItem(position).getName();
         String totalEarn = getItem(position).getTotalEarning();
@@ -68,6 +69,7 @@ public class DriverListAdapter extends ArrayAdapter<Driver> {
 
         textViewName.setText(name);
         textViewEarn.setText(totalEarn);
+        itm++;
         return convertView;
 
 

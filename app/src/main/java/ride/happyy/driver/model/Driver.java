@@ -31,6 +31,7 @@ public class Driver {
 
     }
 
+
     public Driver(String name, String totalEarning) {
         this.name = name;
         this.totalEarning = totalEarning;

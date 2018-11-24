@@ -173,7 +173,7 @@ public class LoginActivity extends BaseAppCompatNoDrawerActivity {
                     startActivity(new Intent(LoginActivity.this, OtpVerificationActivity.class));
                     finish();
                 } else {
-                    Toast.makeText(getApplicationContext(),Config.getInstance().getPhone(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Login Success!!!",Toast.LENGTH_LONG).show();
                   startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                   finish();
 

@@ -34,6 +34,7 @@
             android:padding="10dp">
 
             <ride.happyy.driver.widgets.CustomTextView
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:minHeight="30dp"
                 android:layout_height="wrap_content"

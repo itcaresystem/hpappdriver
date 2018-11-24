@@ -28,6 +28,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import ride.happyy.driver.app.App;
+import ride.happyy.driver.config.Config;
 
 
 public class FileOp {
@@ -147,7 +148,7 @@ public class FileOp {
             Log.i(TAG, "getDocumentPhotoPath: File Exists: " + file.exists());
         }
 //        path = context.getFilesDir() + "/images/profile_photo.jpg";
-        path = context.getFilesDir() + "/Documents/" + "Document_" + document + ".jpg";
+        path = context.getFilesDir() + "/Documents/" + "Document_" + document + Config.getInstance().getPhone()+ ".jpg";
         return path;
     }
 

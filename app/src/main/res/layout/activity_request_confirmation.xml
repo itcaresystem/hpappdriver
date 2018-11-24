@@ -51,7 +51,7 @@
                     android:padding="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="PICKYP ADDRESS:"/>
+                    android:text="PICKUP ADDRESS:"/>
             </LinearLayout>
             <LinearLayout
                 android:paddingLeft="0dp"
@@ -170,8 +170,8 @@
 
                 <FrameLayout
                     android:background="@drawable/btn_click_circle_carbon_transparent"
-                    android:layout_width="75dp"
-                    android:layout_height="75dp">
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
 
                     <ImageView
                         android:visibility="gone"
@@ -220,34 +220,51 @@
             android:paddingRight="20dp"
             android:paddingTop="20dp">
 
+            <ProgressBar
+                android:visibility="gone"
+                android:layout_marginTop="20dp"
+                android:id="@+id/progressbar_req_accept_cancel"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:max="100"
+                android:indeterminateTint="@color/red"
+                android:progress="50"
+                android:padding="10dp" style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:indeterminate="true"/>
+
+
 
         </LinearLayout>
 
         <Button
             android:id="@+id/btn_request_confirmation_confirm"
-            android:layout_width="130dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right|bottom"
             android:layout_marginBottom="20dp"
             android:layout_marginTop="120dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="55dp"
             android:background="@drawable/btn_click_green_2_rectangle_with_semicircle_edge"
             android:gravity="center"
             android:minHeight="40dp"
             android:onClick="onRequestConfirmationConfirmClick"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:textAllCaps="true"
             android:text="Accept"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/white"/>
         <Button
-            android:background="@color/white"
-            android:layout_width="80dp"
-            android:layout_height="40dp"
+            android:background="@drawable/btn_click_black_rectangle_with_semicircle_edge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="40dp"
             android:layout_gravity="left|bottom"
             android:layout_marginBottom="20dp"
-            android:layout_marginLeft="10dp"
-            android:textColor="@color/red"
+            android:layout_marginTop="120dp"
+            android:layout_marginLeft="55dp"
+            android:gravity="center"
+            android:textColor="@color/white"
             android:onClick="onRequestCancelBtnClick"
             android:text="Cancel"/>
 

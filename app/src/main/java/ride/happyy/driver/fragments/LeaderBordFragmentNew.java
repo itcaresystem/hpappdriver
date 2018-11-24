@@ -90,14 +90,12 @@ public class LeaderBordFragmentNew extends BaseFragment {
        /* if (getArguments().containsKey("mapBean"))
             mapBean = (MapBean) getArguments().getSerializable("mapBean");*/
        networkCall = new NetworkCall();
-        if (App.isNetworkAvailable()) {
-            fetchDriverList();
-        }
 
         intiView(rootView);
 
-
-
+        if (App.isNetworkAvailable()) {
+            fetchDriverList();
+        }
         return lytBase;
     }
 
@@ -109,29 +107,53 @@ public class LeaderBordFragmentNew extends BaseFragment {
 
         if (App.isNetworkAvailable()) {
              fetchDriverList();
+            fetchDriverListTrip();
         }
 
     }
 
     private void fetchDriverList() {
-        driverArrayListTrip=new ArrayList<>();
+       // driverArrayListTrip=new ArrayList<>();
        driverArrayList=new ArrayList<>();
-        networkCall.getLeaderBordToday("", "", new ResponseCallback<ArrayList<Driver>>() {
+        networkCall.getLeaderBordToday(Config.getInstance().getPhone(), "reqforleaderbord", new ResponseCallback<ArrayList<Driver>>() {
             @Override
             public void onSuccess(ArrayList<Driver> data) {
-                Toast.makeText(getContext(),"test"+data,Toast.LENGTH_LONG).show();
+
                 driverArrayList=data;
-                driverArrayListTrip=data;
+               // driverArrayListTrip=data;
+
+
+                populateLeaderBord();
+                // Toast.makeText(getContext(),"Total earn"+driverArrayListTrip.get(0).getTotalEarning(),Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onError(Throwable th) {
-                Toast.makeText(getContext(),"Error message"+th.getMessage(),Toast.LENGTH_LONG).show();
+               // Toast.makeText(getContext(),"Error message"+th.getMessage(),Toast.LENGTH_LONG).show();
 
             }
         });
     }
+    private void fetchDriverListTrip() {
+        driverArrayListTrip=new ArrayList<>();
+       // driverArrayList=new ArrayList<>();
+        networkCall.getLeaderBordTodayTrips(Config.getInstance().getPhone(), "reqforleaderbord_trip", new ResponseCallback<ArrayList<Driver>>() {
+            @Override
+            public void onSuccess(ArrayList<Driver> data) {
 
+               // driverArrayList=data;
+                driverArrayListTrip=data;
+                populateLeaderBordTrip();
+               // Toast.makeText(getContext(),"Total earn"+driverArrayListTrip.get(0).getTotalEarning(),Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onError(Throwable th) {
+                // Toast.makeText(getContext(),"Error message"+th.getMessage(),Toast.LENGTH_LONG).show();
+
+            }
+        });
+    }
     private void intiView(View rootView) {
         topEarnLinearLayout = rootView.findViewById(R.id.earnLinearLayout);
         topTripLinearLayout = rootView.findViewById(R.id.tripLinearLayout);
@@ -142,143 +164,6 @@ public class LeaderBordFragmentNew extends BaseFragment {
 
         topTenEarneLv = (ListView) rootView.findViewById(R.id.topEarnerList);
         topTenTripsLv = (ListView) rootView.findViewById(R.id.topTripsList);
-//top earn
-        /*
-        Driver driver1 = new Driver("1","Rajib Hossain","10000");
-        Driver driver2 = new Driver("2","Kamrul Hossain","9000");
-        Driver driver3 = new Driver("3","Hossain Imran","8500");
-        Driver driver4 = new Driver("4","Rana Rayhan","7000");
-        Driver driver5 = new Driver("5","Dipu Number2","5000");
-        Driver driver6 = new Driver("6","Tarek Ahossan","5000");
-        Driver driver7 = new Driver("7","Mridul Hasan","4000");
-        Driver driver8 = new Driver("8","Rasel Rohan","3000");
-        Driver driver9 = new Driver("9","Kamal Islam","2000");
-        Driver driver10 = new Driver("10","Arman Rahman","1000");
-
-        //top trip
-
-
-
-        Driver drivert1 = new Driver("1","Kajol Ahosan","15");
-        Driver drivert12 = new Driver("2","Rana Raj","14");
-        Driver drivert13 = new Driver("3","Kamrul Hasan","13");
-        Driver drivert14 = new Driver("4","Biplob Hasan","12");
-        Driver drivert15 = new Driver("5","Rahman Shaikh","11");
-        Driver drivert16 = new Driver("6","Rana Ahmed","10");
-        Driver drivert17 = new Driver("7","Raju Shaikh","9");
-        Driver drivert18 = new Driver("8","Ariful Islam","9");
-        Driver drivert19 = new Driver("9","Lalin Miya","8");
-        Driver drivert10 = new Driver("10","Jubayer Hasan","8");
-
-        driverArrayListTrip.add(drivert1);
-        driverArrayListTrip.add(drivert12);
-        driverArrayListTrip.add(drivert13);
-        driverArrayListTrip.add(drivert14);
-        driverArrayListTrip.add(drivert15);
-        driverArrayListTrip.add(drivert16);
-        driverArrayListTrip.add(drivert17);
-        driverArrayListTrip.add(drivert18);
-        driverArrayListTrip.add(drivert19);
-        driverArrayListTrip.add(drivert10);
-
-
-
-
-
-
-
-
-
-        driverArrayList.add(driver1);
-        driverArrayList.add(driver2);
-        driverArrayList.add(driver3);
-        driverArrayList.add(driver4);
-        driverArrayList.add(driver5);
-        driverArrayList.add(driver6);
-        driverArrayList.add(driver7);
-        driverArrayList.add(driver8);
-        driverArrayList.add(driver9);
-        driverArrayList.add(driver10);
-
-*/
-
-        //  ArrayAdapter arrayAdapter = new ArrayAdapter();
-
-        //textViewEarn
-//Context mContext = getContext();
-        //for top ernerlist
-
-        if(driverArrayList!=null && driverArrayListTrip!=null && driverArrayList.size()>0) {
-            DriverListAdapter driverListAdapter = new DriverListAdapter(getContext(), R.layout.adapter_top_earning_list_view, driverArrayList);
-            topTenEarneLv.setAdapter(driverListAdapter);
-//for top trip List
-            DriverListAdapterTrip driverListAdapterTrip = new DriverListAdapterTrip(getContext(), R.layout.adapter_top_trip_list_view, driverArrayListTrip);
-            topTenTripsLv.setAdapter(driverListAdapterTrip);
-        }else {
-            Driver driver1 = new Driver("1","Rajib Hossain","10000");
-            Driver driver2 = new Driver("2","Kamrul Hossain","9000");
-            Driver driver3 = new Driver("3","Hossain Imran","8500");
-            Driver driver4 = new Driver("4","Rana Rayhan","7000");
-            Driver driver5 = new Driver("5","Dipu Number2","5000");
-            Driver driver6 = new Driver("6","Tarek Ahossan","5000");
-            Driver driver7 = new Driver("7","Mridul Hasan","4000");
-            Driver driver8 = new Driver("8","Rasel Rohan","3000");
-            Driver driver9 = new Driver("9","Kamal Islam","2000");
-            Driver driver10 = new Driver("10","Arman Rahman","1000");
-
-            //top trip
-
-
-
-            Driver drivert1 = new Driver("1","Kajol Ahosan","15");
-            Driver drivert12 = new Driver("2","Rana Raj","14");
-            Driver drivert13 = new Driver("3","Kamrul Hasan","13");
-            Driver drivert14 = new Driver("4","Biplob Hasan","12");
-            Driver drivert15 = new Driver("5","Rahman Shaikh","11");
-            Driver drivert16 = new Driver("6","Rana Ahmed","10");
-            Driver drivert17 = new Driver("7","Raju Shaikh","9");
-            Driver drivert18 = new Driver("8","Ariful Islam","9");
-            Driver drivert19 = new Driver("9","Lalin Miya","8");
-            Driver drivert10 = new Driver("10","Jubayer Hasan","8");
-
-            driverArrayListTrip.add(drivert1);
-            driverArrayListTrip.add(drivert12);
-            driverArrayListTrip.add(drivert13);
-            driverArrayListTrip.add(drivert14);
-            driverArrayListTrip.add(drivert15);
-            driverArrayListTrip.add(drivert16);
-            driverArrayListTrip.add(drivert17);
-            driverArrayListTrip.add(drivert18);
-            driverArrayListTrip.add(drivert19);
-            driverArrayListTrip.add(drivert10);
-
-
-
-
-
-
-
-
-
-            driverArrayList.add(driver1);
-            driverArrayList.add(driver2);
-            driverArrayList.add(driver3);
-            driverArrayList.add(driver4);
-            driverArrayList.add(driver5);
-            driverArrayList.add(driver6);
-            driverArrayList.add(driver7);
-            driverArrayList.add(driver8);
-            driverArrayList.add(driver9);
-            driverArrayList.add(driver10);
-
-            DriverListAdapter driverListAdapter = new DriverListAdapter(getContext(), R.layout.adapter_top_earning_list_view, driverArrayList);
-            topTenEarneLv.setAdapter(driverListAdapter);
-//for top trip List
-            DriverListAdapterTrip driverListAdapterTrip = new DriverListAdapterTrip(getContext(), R.layout.adapter_top_trip_list_view, driverArrayListTrip);
-            topTenTripsLv.setAdapter(driverListAdapterTrip);
-        }
-
-
 
         snackBarRefreshOnClickListener = new View.OnClickListener() {
             @Override
@@ -297,6 +182,9 @@ public class LeaderBordFragmentNew extends BaseFragment {
                 topEarnerTitleLinearLayout.setVisibility(View.VISIBLE);
                 topTripLinearLayout.setVisibility(View.GONE);
                 topTripsTitleLinearLayout.setVisibility(View.GONE);
+                if (App.isNetworkAvailable()) {
+                    fetchDriverList();
+                }
                 //#CCCCCC
                 // topEarnerBtn.setBackgroundColor(Color.GRAY);
                 // topTripBtn.setBackgroundColor(Color.RED);
@@ -318,6 +206,10 @@ public class LeaderBordFragmentNew extends BaseFragment {
                 topEarnerTitleLinearLayout.setVisibility(View.GONE);
                 topTripLinearLayout.setVisibility(View.VISIBLE);
                 topTripsTitleLinearLayout.setVisibility(View.VISIBLE);
+                if (App.isNetworkAvailable()) {
+                   // fetchDriverList();
+                    fetchDriverListTrip();
+                }
                 //#CCCCCC
                 // topTripBtn.setBackgroundColor(Color.GRAY);
                 // topEarnerBtn.setBackgroundColor(Color.RED);
@@ -334,11 +226,75 @@ public class LeaderBordFragmentNew extends BaseFragment {
         });
 
 
+    }
+
+    public void populateLeaderBord(){
+        if(driverArrayList.size()>0) {
+            DriverListAdapter driverListAdapter = new DriverListAdapter(getContext(), R.layout.adapter_top_earning_list_view, driverArrayList);
+            topTenEarneLv.setAdapter(driverListAdapter);
+
+        }else {
+            Driver driver1 = new Driver("1","Rajib Hossain","10000");
+            Driver driver2 = new Driver("2","Kamrul Hossain","9000");
+            Driver driver3 = new Driver("3","Hossain Imran","8500");
+            Driver driver4 = new Driver("4","Rana Rayhan","7000");
+            Driver driver5 = new Driver("5","Dipu Number2","5000");
+            Driver driver6 = new Driver("6","Tarek Ahossan","5000");
+            Driver driver7 = new Driver("7","Mridul Hasan","4000");
+            Driver driver8 = new Driver("8","Rasel Rohan","3000");
+            Driver driver9 = new Driver("9","Kamal Islam","2000");
+            Driver driver10 = new Driver("10","Arman Rahman","1000");
+            driverArrayList.add(driver1);
+            driverArrayList.add(driver2);
+            driverArrayList.add(driver3);
+            driverArrayList.add(driver4);
+            driverArrayList.add(driver5);
+            driverArrayList.add(driver6);
+            driverArrayList.add(driver7);
+            driverArrayList.add(driver8);
+            driverArrayList.add(driver9);
+            driverArrayList.add(driver10);
+            DriverListAdapter driverListAdapter = new DriverListAdapter(getContext(), R.layout.adapter_top_earning_list_view, driverArrayList);
+            topTenEarneLv.setAdapter(driverListAdapter);
+
+        }
 
 
 
+    }
 
+    public void populateLeaderBordTrip(){
 
+        if(driverArrayListTrip.size()>0){
+            //for top trip List
+            DriverListAdapterTrip driverListAdapterTrip = new DriverListAdapterTrip(getContext(), R.layout.adapter_top_trip_list_view, driverArrayListTrip);
+            topTenTripsLv.setAdapter(driverListAdapterTrip);
+        }else {
+            //top trip
+            Driver drivert1 = new Driver("1","Kajol Ahosan","15");
+            Driver drivert12 = new Driver("2","Rana Raj","14");
+            Driver drivert13 = new Driver("3","Kamrul Hasan","13");
+            Driver drivert14 = new Driver("4","Biplob Hasan","12");
+            Driver drivert15 = new Driver("5","Rahman Shaikh","11");
+            Driver drivert16 = new Driver("6","Rana Ahmed","10");
+            Driver drivert17 = new Driver("7","Raju Shaikh","9");
+            Driver drivert18 = new Driver("8","Ariful Islam","9");
+            Driver drivert19 = new Driver("9","Lalin Miya","8");
+            Driver drivert10 = new Driver("10","Jubayer Hasan","8");
+            driverArrayListTrip.add(drivert1);
+            driverArrayListTrip.add(drivert12);
+            driverArrayListTrip.add(drivert13);
+            driverArrayListTrip.add(drivert14);
+            driverArrayListTrip.add(drivert15);
+            driverArrayListTrip.add(drivert16);
+            driverArrayListTrip.add(drivert17);
+            driverArrayListTrip.add(drivert18);
+            driverArrayListTrip.add(drivert19);
+            driverArrayListTrip.add(drivert10);
+            //for top trip List
+            DriverListAdapterTrip driverListAdapterTrip = new DriverListAdapterTrip(getContext(), R.layout.adapter_top_trip_list_view, driverArrayListTrip);
+            topTenTripsLv.setAdapter(driverListAdapterTrip);
+        }
 
     }
 

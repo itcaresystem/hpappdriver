@@ -172,14 +172,14 @@ public class TripDetailsActivity extends BaseAppCompatNoDrawerActivity {
             case android.R.id.home:
                 toolbar.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
                 //                mVibrator.vibrate(25);
-                startActivity(new Intent(this, HomeActivity.class)
+                startActivity(new Intent(this, TripHistoryActivity.class)
                         .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
                 finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
-
+/*
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -195,6 +195,7 @@ public class TripDetailsActivity extends BaseAppCompatNoDrawerActivity {
         }
         return true;
     }
+    */
 
 
     @Override
@@ -612,8 +613,8 @@ public class TripDetailsActivity extends BaseAppCompatNoDrawerActivity {
             }
 
             polyLineOptions.addAll(points);
-            polyLineOptions.width(8);
-            polyLineOptions.color(ContextCompat.getColor(getApplicationContext(), R.color.map_path));
+            polyLineOptions.width(6);
+            polyLineOptions.color(ContextCompat.getColor(getApplicationContext(), R.color.black));
 
         }
 

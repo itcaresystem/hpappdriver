@@ -687,6 +687,7 @@ public class ProfileActivity extends BaseAppCompatNoDrawerActivity  {
             postData.put("name",etxtName.getText().toString());
             postData.put("email",etxtEmail.getText().toString());
             postData.put("gender",genderSpiner.getSelectedItem().toString());
+            postData.put("city",etxtCity.getText().toString());
             postData.put("dob",mDisplayDate.getText().toString());
             postData.put("postal_code",etxtPostalCode.getText().toString());
             postData.put("address",etxtAddress1.getText().toString());

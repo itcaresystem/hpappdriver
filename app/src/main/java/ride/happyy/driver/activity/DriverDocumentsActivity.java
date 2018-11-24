@@ -203,7 +203,7 @@ public class DriverDocumentsActivity extends BaseAppCompatNoDrawerActivity {
         for (DocumentBean bean : documentStatusBean.getDocuments()) {
             Log.i(TAG, "populateDocumentStatus: DocumentBean  : " + new Gson().toJson(bean));
 
-            if (bean.getType() == AppConstants.DOCUMENT_TYPE_DRIVER_LICENCE) {
+            if (bean.getType() == AppConstants.DOCUMENT_TYPE_NID_CARD) {
                 if (bean.isUploaded() || (bean.getDocumentStatus() == AppConstants.DOCUMENT_STATUS_PENDING_APPROVAL
                         && bean.getDocumentStatus() == AppConstants.DOCUMENT_STATUS_APPROVED)) {
                     isDriverLicenceUploaded = true;
@@ -214,7 +214,7 @@ public class DriverDocumentsActivity extends BaseAppCompatNoDrawerActivity {
                     ivDriverLicenceNext.setVisibility(View.VISIBLE);
                     ivDriverLicenceSaved.setVisibility(View.GONE);
                 }
-            } else if (bean.getType() == AppConstants.DOCUMENT_TYPE_POLICE_CLEARANCE_CERTIFICATE) {
+            } else if (bean.getType() == AppConstants.DOCUMENT_TYPE_DRIVING_LICENSE) {
                 if (bean.isUploaded() || (bean.getDocumentStatus() == AppConstants.DOCUMENT_STATUS_PENDING_APPROVAL
                         && bean.getDocumentStatus() == AppConstants.DOCUMENT_STATUS_APPROVED)) {
                     isPoliceClearanceCertificateUploaded = true;
@@ -225,7 +225,7 @@ public class DriverDocumentsActivity extends BaseAppCompatNoDrawerActivity {
                     ivPoliceClearanceCertificateNext.setVisibility(View.VISIBLE);
                     ivPoliceClearanceCertificateSaved.setVisibility(View.GONE);
                 }
-            } else if (bean.getType() == AppConstants.DOCUMENT_TYPE_FITNESS_CERTIFICATE) {
+            } else if (bean.getType() == AppConstants.DOCUMENT_TYPE_VEHICLE_REGISTRATION_NEW) {
                 if (bean.isUploaded() || (bean.getDocumentStatus() == AppConstants.DOCUMENT_STATUS_PENDING_APPROVAL
                         && bean.getDocumentStatus() == AppConstants.DOCUMENT_STATUS_APPROVED)) {
                     isFitnessCertificateUploaded = true;
@@ -292,7 +292,7 @@ public class DriverDocumentsActivity extends BaseAppCompatNoDrawerActivity {
         //mVibrator.vibrate(25);
 
         startActivityForResult(new Intent(DriverDocumentsActivity.this, DocumentUploadActivity.class)
-                        .putExtra("type", AppConstants.DOCUMENT_TYPE_DRIVER_LICENCE),
+                        .putExtra("type", AppConstants.DOCUMENT_TYPE_NID_CARD),
                 REQUEST_DRIVER_LICENCE);
     }
 
@@ -301,7 +301,7 @@ public class DriverDocumentsActivity extends BaseAppCompatNoDrawerActivity {
         //mVibrator.vibrate(25);
 
         startActivityForResult(new Intent(DriverDocumentsActivity.this, DocumentUploadActivity.class)
-                        .putExtra("type", AppConstants.DOCUMENT_TYPE_POLICE_CLEARANCE_CERTIFICATE),
+                        .putExtra("type", AppConstants.DOCUMENT_TYPE_DRIVING_LICENSE),
                 REQUEST_POLICE_CLEARANCE_CERTIFICATE);
     }
 
@@ -310,7 +310,7 @@ public class DriverDocumentsActivity extends BaseAppCompatNoDrawerActivity {
         //mVibrator.vibrate(25);
 
         startActivityForResult(new Intent(DriverDocumentsActivity.this, DocumentUploadActivity.class)
-                        .putExtra("type", AppConstants.DOCUMENT_TYPE_FITNESS_CERTIFICATE),
+                        .putExtra("type", AppConstants.DOCUMENT_TYPE_VEHICLE_REGISTRATION_NEW),
                 REQUEST_FITNESS_CERTIFICATE);
     }
 

@@ -965,7 +965,7 @@ int intFormap=0;
 
             newLatLng = new LatLng(destinationLatitude, destinationLongitude);
 //            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newLatLng, 11));
-            mMap.addMarker(new MarkerOptions().position(newLatLng).title("Left "+etaTimeLeft).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_destination)));
+            mMap.addMarker(new MarkerOptions().position(newLatLng).title("Left "+etaTimeLeft).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_pin_customer)));
 
         } catch (NumberFormatException e) {
             e.printStackTrace();

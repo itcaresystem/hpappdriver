@@ -47,7 +47,6 @@ public class HappyyRideDriverFirebaseMessagingService extends FirebaseMessagingS
     }
         public void initiateDriverRatingService (String requestID){
 
-
             Log.i(TAG, "initiateDriverRatingService: >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> SERVICE STARTED>>>>>>>>>>>>>>>>>>>>>");
 
             Intent intent = new Intent(this, RequestConfirmationActivity.class);

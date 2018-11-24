@@ -8,6 +8,7 @@ import retrofit2.Response;
 import ride.happyy.driver.model.Driver;
 import ride.happyy.driver.model.DriverList;
 import ride.happyy.driver.model.OutOfDhakaServiceModel;
+import ride.happyy.driver.model.RequestTransferData;
 import ride.happyy.driver.model.ServerResponse;
 import ride.happyy.driver.model.User;
 
@@ -99,7 +100,7 @@ public class NetworkCall implements MyApiService {
         });
     }
 
-    @Override
+       @Override
     public void getLeaderBordToday(String phone, String reqforleaderbord, final ResponseCallback<ArrayList<Driver>> getDriversList) {
         RetrofitApiInterface retrofitApiInterface   = RetrofitApiClient.getClient().create(RetrofitApiInterface.class);
         Call<ArrayList<Driver>> call = retrofitApiInterface.getLeaderBordToday(phone,reqforleaderbord);
@@ -121,6 +122,54 @@ public class NetworkCall implements MyApiService {
             }
         });
 
+    }
+    @Override
+    public void getLeaderBordTodayTrips(String phone, String reqforleaderbord, final ResponseCallback<ArrayList<Driver>> getDriversList) {
+        RetrofitApiInterface retrofitApiInterface   = RetrofitApiClient.getClient().create(RetrofitApiInterface.class);
+        Call<ArrayList<Driver>> call = retrofitApiInterface.getLeaderBordTodayTrips(phone,reqforleaderbord);
+        call.enqueue(new Callback<ArrayList<Driver>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Driver>> call, Response<ArrayList<Driver>> response) {
+                ArrayList<Driver> driverArrayList=response.body();
+                if(driverArrayList!=null){
+                    getDriversList.onSuccess(driverArrayList);
+                }else {
+                    getDriversList.onError(new Exception(response.message()));
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Driver>> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    @Override
+    public void request_transfer(RequestTransferData postData, final ResponseCallback<ServerResponse> respnseCallBack) {
+        RetrofitApiInterface retrofitApiInterface   = RetrofitApiClient.getClient().create(RetrofitApiInterface.class);
+        Call<ServerResponse> call = retrofitApiInterface.requestTransferToOthers(postData);
+        call.enqueue(new Callback<ServerResponse>() {
+            @Override
+            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+                ServerResponse validity= response.body();
+                if (validity!=null){
+                    respnseCallBack.onSuccess(validity);
+                }else {
+                    respnseCallBack.onError(new Exception(response.message()));
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ServerResponse> call, Throwable t) {
+
+                respnseCallBack.onError(new Exception(t));
+
+            }
+        });
     }
 
 

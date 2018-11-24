@@ -31,7 +31,7 @@ public class DriverListAdapterTrip extends ArrayAdapter<Driver>{
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         String itms = getItem(position).getSlNumber();
         String name = getItem(position).getName();
-        String totalTrips = getItem(position).getTotalEarning();
+        String totalTrips = getItem(position).getTotalTrips();
 
         Driver driver = new Driver(name,totalTrips);
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);

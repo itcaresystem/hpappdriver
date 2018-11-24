@@ -43,7 +43,7 @@ public class DocumentUploadActivity extends BaseAppCompatNoDrawerActivity {
     private static final int REQUEST_IMAGE_GALLERY = 2;
     private static final int IMAGE_PICKER_SELECT = 2;
     private static final String TAG = "DocUpA";
-    private int type = AppConstants.DOCUMENT_TYPE_DRIVER_LICENCE;
+    private int type = AppConstants.DOCUMENT_TYPE_NID_CARD;
     private String imagePath = "";
     private String documentPath;
     private TextView txtTitle;
@@ -61,7 +61,7 @@ public class DocumentUploadActivity extends BaseAppCompatNoDrawerActivity {
 
 
         if (getIntent().hasExtra("type"))
-            type = getIntent().getIntExtra("type", AppConstants.DOCUMENT_TYPE_DRIVER_LICENCE);
+            type = getIntent().getIntExtra("type", AppConstants.DOCUMENT_TYPE_NID_CARD);
 
         initViews();
 
@@ -123,14 +123,14 @@ public class DocumentUploadActivity extends BaseAppCompatNoDrawerActivity {
 
         switch (type) {
 
-            case AppConstants.DOCUMENT_TYPE_DRIVER_LICENCE:
+            case AppConstants.DOCUMENT_TYPE_NID_CARD:
+                return getString(R.string.label_nid_card);
+
+            case AppConstants.DOCUMENT_TYPE_DRIVING_LICENSE:
+                return getString(R.string.label_police_driving_license);
+
+            case AppConstants.DOCUMENT_TYPE_VEHICLE_REGISTRATION_NEW:
                 return getString(R.string.label_vehicle_registration);
-
-            case AppConstants.DOCUMENT_TYPE_POLICE_CLEARANCE_CERTIFICATE:
-                return getString(R.string.label_police_clearance_certificate);
-
-            case AppConstants.DOCUMENT_TYPE_FITNESS_CERTIFICATE:
-                return getString(R.string.label_fitness_certificate);
 
             case AppConstants.DOCUMENT_TYPE_VEHICLE_REGISTRATION:
                 return getString(R.string.label_vehicle_registration);
