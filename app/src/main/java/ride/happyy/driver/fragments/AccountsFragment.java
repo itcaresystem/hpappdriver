@@ -16,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -36,7 +37,9 @@ import ride.happyy.driver.activity.SettingsActivity;
 import ride.happyy.driver.activity.SplashActivity;
 import ride.happyy.driver.app.App;
 import ride.happyy.driver.config.Config;
+import ride.happyy.driver.listeners.BasicListener;
 import ride.happyy.driver.listeners.ProfileListener;
+import ride.happyy.driver.model.BasicBean;
 import ride.happyy.driver.model.ProfileBean;
 import ride.happyy.driver.net.DataManager;
 
@@ -248,12 +251,39 @@ public class AccountsFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+                Toast.makeText(getContext(),"Please Wait!!!",Toast.LENGTH_LONG).show();
 
                 if (getActivity() != null) {
-                    App.logout();
-                    startActivity(new Intent(getActivity(), SplashActivity.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
-                    getActivity().finish();
+
+                    JSONObject postData = new JSONObject();
+                    try {
+                        postData.put("phone",Config.getInstance().getPhone());
+                        postData.put("is_online",false);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    if(App.isNetworkAvailable()) {
+                        DataManager.performDriverStatusChange(postData, new BasicListener() {
+                            @Override
+                            public void onLoadCompleted(BasicBean basicBean) {
+                                Toast.makeText(getContext(),"Logout!!!",Toast.LENGTH_LONG).show();
+                                App.logout();
+                                startActivity(new Intent(getActivity(), SplashActivity.class)
+                                        .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                                getActivity().finish();
+                            }
+
+                            @Override
+                            public void onLoadFailed(String error) {
+                                Toast.makeText(getContext(),"Please Try Again!!!",Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }else {
+                        Toast.makeText(getContext(),"No network available!!!",Toast.LENGTH_LONG).show();
+                    }
+
                 }
 
 

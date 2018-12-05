@@ -1,35 +1,27 @@
 {
   "project_info": {
-    "project_number": "800946751018",
-    "firebase_url": "https://happyyride-production.firebaseio.com",
-    "project_id": "happyyride-production",
-    "storage_bucket": "happyyride-production.appspot.com"
+    "project_number": "1093700691370",
+    "firebase_url": "https://happyy-ride-project.firebaseio.com",
+    "project_id": "happyy-ride-project",
+    "storage_bucket": "happyy-ride-project.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:800946751018:android:4550871976144e86",
+        "mobilesdk_app_id": "1:1093700691370:android:4550871976144e86",
         "android_client_info": {
           "package_name": "ride.happyy.driver"
         }
       },
       "oauth_client": [
         {
-          "client_id": "800946751018-staf6u9c5gber6kjo1mvq58shfvadnp2.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "ride.happyy.driver",
-            "certificate_hash": "b96e23230025b9d4ec0d95a8a58064774925e0db"
-          }
-        },
-        {
-          "client_id": "800946751018-51h82pk5t8514pg74iau7t2mf8odatsu.apps.googleusercontent.com",
+          "client_id": "1093700691370-rj27bm5fvs411a70f91idgngtm3eft8q.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD7lnNXieheI0cWC4h385tYZm47i5h6Ns4"
+          "current_key": "AIzaSyCXJobvhbpvmBp8_JklIuM_IBRFo9p750I"
         }
       ],
       "services": {
@@ -37,13 +29,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "800946751018-51h82pk5t8514pg74iau7t2mf8odatsu.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2
@@ -52,20 +39,20 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:800946751018:android:c7617e1e9826119d",
+        "mobilesdk_app_id": "1:1093700691370:android:c7617e1e9826119d",
         "android_client_info": {
           "package_name": "ride.happyy.user"
         }
       },
       "oauth_client": [
         {
-          "client_id": "800946751018-51h82pk5t8514pg74iau7t2mf8odatsu.apps.googleusercontent.com",
+          "client_id": "1093700691370-rj27bm5fvs411a70f91idgngtm3eft8q.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD7lnNXieheI0cWC4h385tYZm47i5h6Ns4"
+          "current_key": "AIzaSyCXJobvhbpvmBp8_JklIuM_IBRFo9p750I"
         }
       ],
       "services": {

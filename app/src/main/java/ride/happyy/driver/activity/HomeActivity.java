@@ -146,7 +146,7 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeFragment.
       // mNotificationBadge.setBackgroundColor(Color.TRANSPARENT);
        mNotificationBadge.setNumber(1);
       // notificatinImageButton.setVisibility(View.GONE);
-       Toast.makeText(this,"Notification",Toast.LENGTH_SHORT).show();
+      // Toast.makeText(this,"Notification",Toast.LENGTH_SHORT).show();
        Intent mIntent = new Intent(this,MyNotificationsActivity.class);
        startActivity(mIntent);
     }
@@ -458,11 +458,13 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeFragment.
                 setDriverTitle();
                 if (mySwitchOnlineNew.isChecked()) {
 
-                    Snackbar.make(coordinatorLayout, R.string.message_you_are_online, Snackbar.LENGTH_LONG)
-                            .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
+                  //  Snackbar.make(coordinatorLayout, R.string.message_you_are_online, Snackbar.LENGTH_LONG)
+                         //   .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
+                    Toast.makeText(HomeActivity.this,R.string.message_you_are_online,Toast.LENGTH_LONG).show();
                 } else {
-                    Snackbar.make(coordinatorLayout, R.string.message_you_are_offline_now, Snackbar.LENGTH_LONG)
-                            .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
+                  //  Snackbar.make(coordinatorLayout, R.string.message_you_are_offline_now, Snackbar.LENGTH_LONG)
+                          //  .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
+                    Toast.makeText(HomeActivity.this,R.string.message_you_are_offline_now,Toast.LENGTH_LONG).show();
                 }
                 ((HomeFragment) adapterPager.getItem(0)).setDriverStatus(mySwitchOnlineNew.isChecked());
             }

@@ -1,5 +1,7 @@
 package ride.happyy.driver.net;
 import java.util.ArrayList;
+
+import ride.happyy.driver.model.CurentLocation;
 import ride.happyy.driver.model.Driver;
 import ride.happyy.driver.model.OutOfDhakaServiceModel;
 import ride.happyy.driver.model.RequestTransferData;
@@ -12,4 +14,5 @@ public interface MyApiService {
     void getLeaderBordToday(String phone, String reqforleaderbord, ResponseCallback<ArrayList<Driver>> callback);
     void getLeaderBordTodayTrips(String phone, String reqforleaderbord, ResponseCallback<ArrayList<Driver>> callback);
     void request_transfer(RequestTransferData requestTransferData, ResponseCallback<ServerResponse> respnse);
+    void updateDriverCurrentLocation(CurentLocation curentLocation,ResponseCallback<ServerResponse> responseCallback);
 }

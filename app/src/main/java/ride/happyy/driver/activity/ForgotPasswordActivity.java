@@ -1,8 +1,11 @@
 package ride.happyy.driver.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -57,6 +60,8 @@ public class ForgotPasswordActivity extends BaseAppCompatNoDrawerActivity {
     private PhoneAuthProvider.ForceResendingToken mResendToken;
     private FirebaseAuth mAuth;
     private LinearLayout phoneverificationLinearLayout,newpasswordLinearlayout;
+    private CountDownTimer cdt;
+    private FloatingActionButton RegistrationFAB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,21 +73,53 @@ public class ForgotPasswordActivity extends BaseAppCompatNoDrawerActivity {
         swipeView.setPadding(0, 0, 0, 0);
 
         initViews();
+        timeCountDown();
 
     }
+
+    public void timeCountDown(){
+
+        if(cdt!=null){
+            cdt.cancel();
+            cdt=null;
+
+        }
+
+
+        cdt = new CountDownTimer(65* 1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                RegistrationFAB.setEnabled(false);
+                Log.i(TAG, millisUntilFinished +" millis left");
+            }
+
+            @Override
+            public void onFinish() {
+                Log.i(TAG, "Timer finished");
+                if(App.isNetworkAvailable()) {
+                    RegistrationFAB.setEnabled(true);
+                    RegistrationFAB.setBackgroundColor(Color.GRAY);
+                }
+            }
+        };
+
+        cdt.start();
+    }
+
 
     private void initViews() {
         etxt_registration_phone =findViewById(R.id.etxt_registration_phone );
         if(getIntent().hasExtra("phone")){
             vPhone = getIntent().getStringExtra("phone");
             etxt_registration_phone.setText(vPhone);
-            Toast.makeText(getApplicationContext(),vPhone,Toast.LENGTH_LONG).show();
+          //  Toast.makeText(getApplicationContext(),vPhone,Toast.LENGTH_LONG).show();
 
 
         }
         //liniar layout
         phoneverificationLinearLayout = findViewById(R.id.phoneverificationLinearLayout);
         newpasswordLinearlayout = findViewById(R.id.newpasswordLinearlayout);
+        RegistrationFAB=findViewById(R.id.RegistrationFAB);
 
 
 
@@ -553,8 +590,8 @@ public class ForgotPasswordActivity extends BaseAppCompatNoDrawerActivity {
     private boolean collectForgotPasswordData() {
 
 
-        if (etxPassword.getText().toString().equals("") || etxPassword.getText().length()<8) {
-            Snackbar.make(coordinatorLayout, "Password Field Requred!! and min 8 char!!", Snackbar.LENGTH_LONG)
+        if (etxPassword.getText().toString().equals("") || etxPassword.getText().length()<4) {
+            Snackbar.make(coordinatorLayout, "Password Field Requred!! and min 4 char!!", Snackbar.LENGTH_LONG)
                     .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
             return false;
         }
@@ -573,6 +610,12 @@ public class ForgotPasswordActivity extends BaseAppCompatNoDrawerActivity {
         return true;
     }
 
+    public void onResendFabButton(View view) {
+       Intent intentResend=new Intent(this,ForgotPasswordActivity.class);
+       intentResend.putExtra("phone",vPhone);
+       startActivity(intentResend);
+
+    }
     public void onPasswordResetnMobileNumberSubmitClick(View view) {
         otpCode = "" + etxtOne.getText().toString() + etxtTwo.getText().toString()
                 + etxtThree.getText().toString() + etxtFour.getText().toString()
@@ -591,15 +634,17 @@ public class ForgotPasswordActivity extends BaseAppCompatNoDrawerActivity {
     private void initiatePhoneVerification() {
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 vPhone,        // Phone number to verify
-                2,                 // Timeout duration
+                1,                 // Timeout duration
                 TimeUnit.MINUTES,   // Unit of timeout
                 this,               // Activity (for callback binding)
                 mCallbacks);
 
 
-        Snackbar.make(coordinatorLayout, R.string.message_sending_verification_code, Snackbar.LENGTH_LONG)
-                .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
+      //  Snackbar.make(coordinatorLayout, R.string.message_sending_verification_code, Snackbar.LENGTH_LONG)
+              //  .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
         swipeView.setRefreshing(true);
 
     }
+
+
 }

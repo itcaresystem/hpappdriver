@@ -21,6 +21,7 @@
             android:src="@drawable/logo_white"
             android:layout_marginBottom="50dp"/>
        <TextView
+           android:padding="10dp"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:text="Select Vehicle"
@@ -59,6 +60,7 @@
 
 
         <Button
+            android:visibility="gone"
             android:id="@+id/cngbtn"
             android:layout_marginTop="5dp"
             android:layout_width="250dp"

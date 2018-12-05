@@ -5,8 +5,8 @@
     android:id="@+id/ll_bottom_sheet_on_trip"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
     android:background="@color/transparent"
     android:orientation="vertical"
     app:behavior_hideable="false"
@@ -14,28 +14,38 @@
     app:layout_behavior="@string/bottom_sheet_behavior">
 
 
+
     <LinearLayout
         android:id="@+id/ll_on_trip_driver_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:background="@color/blue_transparent_50"
+        android:background="@color/white_transparent_70"
         android:onClick="onOnTripBottomSheetClick"
         android:gravity="center_vertical"
         android:minHeight="100dp"
         android:orientation="vertical"
-        android:paddingLeft="10dp"
-        android:paddingRight="20dp">
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp">
         <LinearLayout
-            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <View
+            android:layout_width="match_parent"
+            android:background="@color/green"
+            android:layout_height="1dp"
+            />
+        </LinearLayout>
+        <LinearLayout
+            android:padding="6dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center">
 
         <ImageView
             android:id="@+id/iv_on_trip_profile_photo"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_gravity="left"
@@ -45,7 +55,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:padding="10dp"
+            android:padding="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center">
@@ -60,9 +70,24 @@
                 android:textColor="@color/black"
                 android:textStyle="bold"/>
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ProgressBar
+                android:visibility="gone"
+                android:layout_marginTop="0dp"
+                android:id="@+id/simpleProgressBarTripEnd"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:max="100"
+                android:indeterminateTint="@color/red"
+                android:progress="50"
+                android:padding="10dp" style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:indeterminate="true"/>
+        </LinearLayout>
 
         <LinearLayout
-            android:padding="10dp"
+            android:padding="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -77,12 +102,15 @@
                 android:layout_gravity="center"
                 android:src="@drawable/ic_arrow_top_red"/>
             <Button
+                android:id="@+id/tripCompleteBtn"
                 android:background="@drawable/btn_click_green_2_rectangle_with_semicircle_edge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:onClick="onOnTripCompleteTripClick"
                 android:padding="10dp"
+                android:textAllCaps="true"
+                android:textStyle="bold"
                 android:text="@string/btn_complete_trip"/>
         </LinearLayout>
 
@@ -198,7 +226,7 @@
             <ProgressBar
                 android:visibility="gone"
                 android:layout_marginTop="20dp"
-                android:id="@+id/simpleProgressBarTripEnd"
+                android:id="@+id/simpleProgressBarTripEnd_old"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:max="100"

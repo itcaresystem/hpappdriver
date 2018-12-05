@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import ride.happyy.driver.model.CurentLocation;
 import ride.happyy.driver.model.Driver;
 import ride.happyy.driver.model.DriverList;
 import ride.happyy.driver.model.OutOfDhakaServiceModel;
@@ -168,6 +169,24 @@ public class NetworkCall implements MyApiService {
 
                 respnseCallBack.onError(new Exception(t));
 
+            }
+        });
+    }
+
+    @Override
+    public void updateDriverCurrentLocation(CurentLocation curentLocation, final ResponseCallback<ServerResponse> responseCallback) {
+        RetrofitApiInterface retrofitApiInterface=RetrofitApiClient.getClient().create(RetrofitApiInterface.class);
+        Call<ServerResponse> call =retrofitApiInterface.updateDriverLocation(curentLocation);
+        call.enqueue(new Callback<ServerResponse>() {
+            @Override
+            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+                ServerResponse serverResponse=response.body();
+                responseCallback.onSuccess(serverResponse);
+            }
+
+            @Override
+            public void onFailure(Call<ServerResponse> call, Throwable t) {
+                responseCallback.onError(new Exception(t));
             }
         });
     }

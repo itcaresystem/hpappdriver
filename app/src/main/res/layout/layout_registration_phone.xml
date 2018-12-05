@@ -16,7 +16,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="130dp"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical|start"
             android:orientation="vertical"
             android:padding="20dp">
@@ -45,7 +45,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="10dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingLeft="20dp"
@@ -98,7 +98,7 @@
             android:id="@+id/txt_registration_mobile_otp_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:text="@string/label_enter_the_verification_code"/>
@@ -110,7 +110,7 @@
             android:layout_height="80dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingLeft="20dp"
+            android:paddingLeft="40dp"
             android:paddingRight="20dp">
 
             <ride.happyy.driver.widgets.OTPEditText
@@ -197,9 +197,24 @@
                 android:textCursorDrawable="@color/colorPrimaryDark"/>
 
         </LinearLayout>
+        <ride.happyy.driver.widgets.CustomTextView
+            android:id="@+id/resendCodeTVReg"
+            android:layout_marginLeft="12dp"
+            android:padding="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="If didn't get code?  Click resend-icone after 1 minute"/>
 
 
     </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/resend_codeFAB"
+        style="@style/RegistrationRESEND"
+        android:onClick="onClickResendFABtn"
+        app:backgroundTint="@color/white"
+        app:fabSize="normal"
+        app:srcCompat="@drawable/ic_refresh_green_24dp"/>
 
     <android.support.design.widget.FloatingActionButton
         style="@style/RegistrationFAB"

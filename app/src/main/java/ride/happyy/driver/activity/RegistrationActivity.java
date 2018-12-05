@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -22,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.bumptech.glide.Glide;
@@ -85,7 +87,8 @@ public class RegistrationActivity extends BaseAppCompatNoDrawerActivity {
     private OTPEditText etxtFive;
     private OTPEditText etxtSix;
     private LinearLayout llVerification;
-    private TextView txtVerificationLabel;
+    private FloatingActionButton resend_codeFAB;
+    private TextView txtVerificationLabel,resendCodeTVReg;
     private String otpCode;
     private boolean isVerificationEnabled;
     private FirebaseAuth mAuth;
@@ -178,6 +181,8 @@ public class RegistrationActivity extends BaseAppCompatNoDrawerActivity {
 
 
         llVerification = (LinearLayout) findViewById(R.id.ll_registration_mobile_otp);
+        resend_codeFAB=findViewById(R.id.resend_codeFAB);
+        resendCodeTVReg =findViewById(R.id.resendCodeTVReg);
         txtVerificationLabel = (TextView) findViewById(R.id.txt_registration_mobile_otp_label);
 
         spinnerCountryCodes = (Spinner) findViewById(R.id.spinner_registration_mobile_country_code);
@@ -581,9 +586,9 @@ public class RegistrationActivity extends BaseAppCompatNoDrawerActivity {
                 mVerificationId = verificationId;
                 mResendToken = token;
 
-                Snackbar.make(coordinatorLayout, getString(R.string.message_verification_code_sent_to) + " " + registrationBean.getPhone(),
-                        Snackbar.LENGTH_LONG)
-                        .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
+              //  Snackbar.make(coordinatorLayout, getString(R.string.message_verification_code_sent_to) + " " + registrationBean.getPhone(),
+                   //     Snackbar.LENGTH_LONG)
+                     //   .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
 
                 setVerificationLayoutVisibility(true);
                 swipeView.setRefreshing(false);
@@ -597,11 +602,15 @@ public class RegistrationActivity extends BaseAppCompatNoDrawerActivity {
 
         if (isVisible) {
             llVerification.setVisibility(View.VISIBLE);
+            resend_codeFAB.setVisibility(View.VISIBLE);
+            resendCodeTVReg.setVisibility(View.VISIBLE);
             txtVerificationLabel.setVisibility(View.VISIBLE);
             etxtOne.requestFocus();
             isVerificationEnabled = true;
         } else {
             llVerification.setVisibility(View.GONE);
+            resend_codeFAB.setVisibility(View.GONE);
+            resendCodeTVReg.setVisibility(View.GONE);
             txtVerificationLabel.setVisibility(View.GONE);
             etxtOne.setText("");
             etxtTwo.setText("");
@@ -643,7 +652,55 @@ public class RegistrationActivity extends BaseAppCompatNoDrawerActivity {
         } else {
             if (collectMobileNumber()) {
 //            performPhoneRegistration();
+                if(App.isNetworkAvailable()) {
+                    performMobileAvailabilityCheck(registrationBean.getPhone());
+                }else {
+                    Snackbar.make(coordinatorLayout, AppConstants.NO_NETWORK_AVAILABLE, Snackbar.LENGTH_LONG)
+                            .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
+
+                }
+            }
+        }
+    }
+
+    public void onClickResendFABtn(View view) {
+        view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+        //mVibrator.vibrate(25);
+
+//        viewFlipper.setDisplayedChild(0);
+
+        /*if (collectMobileNumber()) {
+//            performPhoneRegistration();
+            performMobileAvailabilityCheck(registrationBean.getPhone());
+        }
+
+        if (isVerificationEnabled) {
+            otpCode = "" + etxtOne.getText().toString() + etxtTwo.getText().toString()
+                    + etxtThree.getText().toString() + etxtFour.getText().toString()
+                    + etxtFive.getText().toString() + etxtSix.getText().toString();
+
+            if (!otpCode.equalsIgnoreCase("")) {
+                PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationId, otpCode);
+                signInWithPhoneAuthCredential(credential);
+            } else {
+                Snackbar.make(coordinatorLayout, getString(R.string.message_invalid_verification_code), Snackbar.LENGTH_LONG)
+                        .setAction(getString(R.string.btn_dismiss), snackBarDismissOnClickListener).show();
+            }
+
+        } else {
+
+        }
+        */
+
+
+        if (collectMobileNumber()) {
+//            performPhoneRegistration();
+            if(App.isNetworkAvailable()) {
                 performMobileAvailabilityCheck(registrationBean.getPhone());
+            }else {
+                Snackbar.make(coordinatorLayout, AppConstants.NO_NETWORK_AVAILABLE, Snackbar.LENGTH_LONG)
+                        .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
+
             }
         }
     }
@@ -718,7 +775,7 @@ public class RegistrationActivity extends BaseAppCompatNoDrawerActivity {
 
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 registrationBean.getPhone(),        // Phone number to verify
-                2,                 // Timeout duration
+                1,                 // Timeout duration
                 TimeUnit.MINUTES,   // Unit of timeout
                 this,               // Activity (for callback binding)
                 mCallbacks);
@@ -753,16 +810,22 @@ public class RegistrationActivity extends BaseAppCompatNoDrawerActivity {
                         intentforgetPassword.putExtra("phone",registrationBean.getPhone());
                         startActivity(intentforgetPassword);
                     } else {
-                        Snackbar.make(coordinatorLayout, phone + "This Number is not Registered!!", Snackbar.LENGTH_LONG)
-                                .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
+                        //Snackbar.make(coordinatorLayout, /*phone + */"This Number is not Registered!!", Snackbar.LENGTH_LONG)
+                             //   .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
+                        Toast.makeText(RegistrationActivity.this,"This Number is not Registered!!",Toast.LENGTH_LONG).show();
+
+                        Intent intentforgetPassword = new Intent(getBaseContext(),WelcomeActivity.class);
+                        //intentforgetPassword.putExtra("phone",registrationBean.getPhone());
+                        startActivity(intentforgetPassword);
                     }
 
-                }
-                if (basicBean.isPhoneAvailable()) {
-                    initiatePhoneVerification();
-                } else {
-                    Snackbar.make(coordinatorLayout, phone + getString(R.string.message_is_already_registered), Snackbar.LENGTH_LONG)
-                            .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
+                }else {
+                    if (basicBean.isPhoneAvailable()) {
+                        initiatePhoneVerification();
+                    } else {
+                        Snackbar.make(coordinatorLayout, /*phone + */getString(R.string.message_is_already_registered), Snackbar.LENGTH_LONG)
+                                .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
+                    }
                 }
             }
 
@@ -879,7 +942,7 @@ public class RegistrationActivity extends BaseAppCompatNoDrawerActivity {
             Snackbar.make(coordinatorLayout, R.string.message_password_is_required, Snackbar.LENGTH_LONG)
                     .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
             return false;
-        } else if (registrationBean.getPassword().length() < 8) {
+        } else if (registrationBean.getPassword().length() < 4) {
             Snackbar.make(coordinatorLayout, R.string.message_password_minimum_character, Snackbar.LENGTH_LONG)
                     .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
             return false;

@@ -34,6 +34,7 @@ public class SplashActivity extends BaseAppCompatNoDrawerActivity {
 
     private static final String TAG = "Splash";
     private String requestID = "";
+    private String reIdFroMess="";
     private View.OnClickListener snackBarRefreshOnClickListener;
     private AppStatusBean appStatusBean;
     private PopupMessage popupMessage;
@@ -42,6 +43,10 @@ public class SplashActivity extends BaseAppCompatNoDrawerActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        if (getIntent().hasExtra("request_id")) {
+            reIdFroMess = getIntent().getStringExtra("request_id");
+        }
 
         App.getInstance().setDemo(false);
         swipeView.setPadding(0, 0, 0, 0);
@@ -144,7 +149,7 @@ public class SplashActivity extends BaseAppCompatNoDrawerActivity {
             if (Config.getInstance().isPhoneVerified()) {
 //                    startActivity(new Intent(SplashActivity.this, RegistrationActivity.class));
 
-                if (requestID.equalsIgnoreCase("")) {
+                if (reIdFroMess.equalsIgnoreCase("") ) {
 
                     if (appStatusBean.getAppStatus() == AppConstants.APP_STATUS_IDLE) {
                         /*
@@ -177,8 +182,11 @@ public class SplashActivity extends BaseAppCompatNoDrawerActivity {
                                 .putExtra("bean", tripBean));
                     }
                 } else {
-                    startActivity(new Intent(SplashActivity.this, RequestConfirmationActivity.class)
-                            .putExtra("request_id", requestID));
+                    if(!Config.getInstance().getPhone().equalsIgnoreCase("")) {
+                        startActivity(new Intent(SplashActivity.this, RequestConfirmationActivity.class)
+                                .putExtra("request_id", reIdFroMess));
+                       finish();
+                    }
 //                    startActivity(new Intent(SplashActivity.this, RegistrationActivity.class));
                 }
                 finish();
@@ -207,8 +215,8 @@ public class SplashActivity extends BaseAppCompatNoDrawerActivity {
 
             @Override
             public void onLoadFailed(String error) {
-                Snackbar.make(coordinatorLayout, error, Snackbar.LENGTH_LONG)
-                        .setAction(R.string.btn_retry, snackBarRefreshOnClickListener).show();
+               // Snackbar.make(coordinatorLayout, error, Snackbar.LENGTH_LONG)
+                    //    .setAction(R.string.btn_retry, snackBarRefreshOnClickListener).show();
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                     if (!isDestroyed() && !isFinishing()) {

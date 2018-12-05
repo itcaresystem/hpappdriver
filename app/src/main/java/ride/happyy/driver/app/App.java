@@ -17,6 +17,7 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StrictMode;
+import android.os.SystemClock;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -52,6 +53,10 @@ import java.util.TimeZone;
 import ride.happyy.driver.R;
 import ride.happyy.driver.config.Config;
 import ride.happyy.driver.model.AuthBean;
+import ride.happyy.driver.services.AnotherGoogleService;
+import ride.happyy.driver.services.BackgroundService;
+import ride.happyy.driver.services.GoogleService;
+import ride.happyy.driver.services.Timerservice;
 import ride.happyy.driver.util.AppConstants;
 import ride.happyy.driver.util.FileOp;
 import ride.happyy.driver.util.RobotoTextStyleExtractor;
@@ -201,6 +206,11 @@ public class App extends Application {
 
         TypefaceManager.addTextStyleExtractor(RobotoTextStyleExtractor.getInstance());
         setDefaultFont();
+       //startService(new Intent(this, BackgroundService.class));
+       // setDriverAvailAbleServ();
+        //scheduleAlarm();
+       // startService(new Intent(this, AnotherGoogleService.class));
+
 
         r = getResources();
         px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, r.getDisplayMetrics());
@@ -208,6 +218,33 @@ public class App extends Application {
         height = r.getDisplayMetrics().heightPixels;
 
     }
+
+    public void scheduleAlarm() {
+        // Construct an intent that will execute the AlarmReceiver
+        Intent intent = new Intent(getApplicationContext(), BackgroundService.class);
+        // Create a PendingIntent to be triggered when the alarm goes off
+      PendingIntent  pIntent = PendingIntent.getBroadcast(this, Timerservice.REQUEST_CODE,
+                intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        // Setup periodic alarm every 5 seconds
+        long firstMillis = System.currentTimeMillis(); // alarm is set right away
+       AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        // First parameter is the type: ELAPSED_REALTIME, ELAPSED_REALTIME_WAKEUP, RTC_WAKEUP
+        // Interval can be INTERVAL_FIFTEEN_MINUTES, INTERVAL_HALF_HOUR, INTERVAL_HOUR, INTERVAL_DAY
+        alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, firstMillis,
+                20000, pIntent);
+
+    }
+
+    public void setDriverAvailAbleServ(){
+        Intent alarm = new Intent(getApplicationContext(), Timerservice.class);
+        boolean alarmRunning = (PendingIntent.getBroadcast(getApplicationContext(), 0, alarm, PendingIntent.FLAG_NO_CREATE) != null);
+        if(alarmRunning == false) {
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, alarm, 0);
+            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), 40000, pendingIntent);
+        }
+    }
+
 
     private void setDefaultFont() {
 

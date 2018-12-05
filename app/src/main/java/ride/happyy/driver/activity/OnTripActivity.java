@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -145,12 +146,20 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
     private ProgressBar simpleProgressBarTripEnd;
     private String etaTimeLeft="";
     private String etaDistance="";
+    private Button tripCompleteBtn;
+    private Bitmap smallMarker;
+   private Bitmap smallMarker_pick;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_trip);
-
+           BitmapDrawable bitmapDrawable = (BitmapDrawable) getResources().getDrawable(R.drawable.ic_destination_new);
+           BitmapDrawable bitmapDrawable_pick = (BitmapDrawable) getResources().getDrawable(R.drawable.pickupnewicone);
+        Bitmap b = bitmapDrawable.getBitmap();
+        smallMarker = Bitmap.createScaledBitmap(b, 185, 130, false);
+        Bitmap b_pick = bitmapDrawable_pick.getBitmap();
+        smallMarker_pick = Bitmap.createScaledBitmap(b_pick, 110, 110, false);
 
         if (getIntent().hasExtra("bean"))
             tripBean = (TripBean) getIntent().getSerializableExtra("bean");
@@ -160,7 +169,9 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
 
 
         populateTrip();
-        fetchAppStatus();
+        if(App.isNetworkAvailable()) {
+            fetchAppStatus();
+        }
         getSupportActionBar().setTitle(R.string.title_on_trip);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -191,13 +202,13 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
     @Override
     protected void onResume() {
         super.onResume();
-       // new Handler().postDelayed(checkAppStatusTask, 3000);
+        mHandler.postDelayed(checkAppStatusTask, 6500);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-       // new Handler().removeCallbacks(checkAppStatusTask);
+        mHandler.removeCallbacks(checkAppStatusTask);
     }
 
     private void initViews() {
@@ -219,6 +230,7 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
         llConfirmArrival = (LinearLayout) findViewById(R.id.ll_on_trip_before_trip_confirm_arrival);
         llContactPhone = (LinearLayout) findViewById(R.id.ll_on_trip_before_trip_contact);
         llStartTrip = (LinearLayout) findViewById(R.id.ll_on_trip_before_trip_start);
+        tripCompleteBtn =findViewById(R.id.tripCompleteBtn);
 
 
         lytBottomSheet.setVisibility(View.GONE);
@@ -400,7 +412,13 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
         setCurrentDriverStatus(tripBean.getDriverStatus());
 
     }
+    private void populateTripOntheret() {
+        txtDestination.setText(tripBean.getDestinationLocation());
+        txtBeforeTripCustomerName.setText(tripBean.getCustomerName());
+        txtBottomSheetCustomerName.setText(tripBean.getCustomerName());
+        setCurrentDriverStatus(tripBean.getDriverStatus());
 
+    }
     private void setCurrentDriverStatus(int driverStatus) {
 
         switch (driverStatus) {
@@ -432,7 +450,7 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
                 break;
 
             case AppConstants.DRIVER_STATUS_ENDED:
-                //mHandler.removeCallbacks(checkAppStatusTask);
+                mHandler.removeCallbacks(checkAppStatusTask);
                 startActivity(new Intent(OnTripActivity.this, TripSummaryActivity.class)
                         .putExtra("trip_id", tripBean.getId()));
                 finish();
@@ -465,11 +483,13 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
     }
 
     public void onOnTripCompleteTripClick(View view) {
+
         view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
         //mVibrator.vibrate(25);
-
+        simpleProgressBarTripEnd.setVisibility(View.VISIBLE);
 
         if (App.isNetworkAvailable()) {
+            tripCompleteBtn.setEnabled(false);
             performTripCompletion();
         } else {
             Snackbar.make(coordinatorLayout, AppConstants.NO_NETWORK_AVAILABLE, Snackbar.LENGTH_LONG)
@@ -611,6 +631,22 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
     }
 
 
+    public void onRefreshClick(View view) {
+        Intent i = getBaseContext().getPackageManager()
+                .getLaunchIntentForPackage( getBaseContext().getPackageName() );
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+
+        /*
+        view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+       Intent intentSplash = new Intent(OnTripActivity.this,SplashActivity.class);
+       startActivity(intentSplash);
+       finish();
+       */
+
+    }
+
+
     private void fetchAppStatus() {
 
         HashMap<String, String> urlParams = new HashMap<>();
@@ -623,10 +659,11 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
 
                 if (appStatusBeanWS.getAppStatus() == AppConstants.APP_STATUS_ASSIGNED) {
                     tripBean = setTripBean(appStatusBeanWS);
-                    populateTrip();
+
                 } else {
-                  //  mHandler.removeCallbacks(checkAppStatusTask);
-                    startActivity(new Intent(OnTripActivity.this, TripDetailsActivity.class)
+                    if(mHandler!=null)
+                    mHandler.removeCallbacks(checkAppStatusTask);
+                    startActivity(new Intent(OnTripActivity.this, SplashActivity.class)
                             .putExtra("trip_id", tripBean.getTripId())
                             .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
                     finish();
@@ -655,18 +692,31 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
         }
         return jsonObjectPostData;
     }
-/*
+
     Runnable checkAppStatusTask = new Runnable() {
         @Override
         public void run() {
-          //  fetchAppStatus();
+            if(App.isNetworkAvailable()) {
+                fetchAppStatus();
+            }
+            if (Config.getInstance().getCurrentLatitude() != null
+                    && !Config.getInstance().getCurrentLatitude().equals("")
+                    && Config.getInstance().getCurrentLongitude() != null
+                    && !Config.getInstance().getCurrentLongitude().equals("")) {
+
+                populateMap(Double.parseDouble(Config.getInstance().getCurrentLatitude()),Double.parseDouble(Config.getInstance().getCurrentLongitude()));
+                //  mapAutoZoom(Double.parseDouble(Config.getInstance().getCurrentLatitude()),Double.parseDouble(Config.getInstance().getCurrentLongitude()));
+            }
+          //  performCarLocationUpade();
+          //  populateMap();
            // performCarLocationUpade();
-            mHandler.postDelayed(checkAppStatusTask, 3000);
+            mHandler.postDelayed(checkAppStatusTask, 6500);
         }
     };
-    */
 
-    public void performCarLocationUpade(Location locationCar){
+
+
+    public void performCarLocationUpade(Location locationCar ){
         JSONObject postData = new JSONObject();
         try {
             postData.put("car_lat",String.valueOf(locationCar.getLatitude()));
@@ -715,7 +765,7 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
     }
 
     private void performTripStart() {
-        swipeView.setRefreshing(true);
+      //  swipeView.setRefreshing(true);
 
         JSONObject postData = getTripStartJSObj();
 
@@ -723,7 +773,7 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
             @Override
             public void onLoadCompleted(BasicBean basicBean) {
                 isArrived=true;
-                swipeView.setRefreshing(false);
+              //  swipeView.setRefreshing(false);
 
                 calStart = Calendar.getInstance();
                 calStart.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -744,20 +794,27 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
                     populateMap(Double.parseDouble(Config.getInstance().getCurrentLatitude()),Double.parseDouble(Config.getInstance().getCurrentLongitude()));
                     mapAutoZoom(Double.parseDouble(Config.getInstance().getCurrentLatitude()),Double.parseDouble(Config.getInstance().getCurrentLongitude()));
                 }
-                fetchAppStatus();
+                if (App.isNetworkAvailable()) {
+                    fetchAppStatus();
+                }
+
+                populateTripOntheret();
 
                 lytBeforeTrip.setVisibility(View.GONE);
                 lytBottomSheet.setVisibility(View.VISIBLE);
 
-                Snackbar.make(coordinatorLayout, R.string.message_trip_started, Snackbar.LENGTH_LONG)
-                        .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
+                Toast.makeText(OnTripActivity.this, R.string.message_trip_started, Toast.LENGTH_LONG).show();
+
+             //   Snackbar.make(coordinatorLayout, R.string.message_trip_started, Snackbar.LENGTH_LONG)
+                    //    .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
             }
 
             @Override
             public void onLoadFailed(String error) {
-                swipeView.setRefreshing(false);
-                Snackbar.make(coordinatorLayout, error, Snackbar.LENGTH_LONG)
-                        .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
+                Toast.makeText(OnTripActivity.this, "Trip Code Not Maching!!!", Toast.LENGTH_LONG).show();
+              //  swipeView.setRefreshing(false);
+               // Snackbar.make(coordinatorLayout, error, Snackbar.LENGTH_LONG)
+                  //      .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
             }
         });
 
@@ -787,9 +844,14 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
             @Override
             public void onLoadCompleted(BasicBean basicBean) {
                 swipeView.setRefreshing(false);
-                Snackbar.make(coordinatorLayout, R.string.message_arrival_confirmed, Snackbar.LENGTH_LONG)
-                        .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
-                fetchAppStatus();
+              //  Snackbar.make(coordinatorLayout, R.string.message_arrival_confirmed, Snackbar.LENGTH_LONG)
+                    //    .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
+
+                Toast.makeText(OnTripActivity.this, R.string.message_arrival_confirmed, Toast.LENGTH_LONG).show();
+                if(App.isNetworkAvailable()) {
+                    fetchAppStatus();
+                }
+                populateTripOntheret();
 
                 llConfirmArrival.setVisibility(View.GONE);
                 llContactPhone.setVisibility(View.GONE);
@@ -812,8 +874,10 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
             @Override
             public void onLoadFailed(String error) {
                 swipeView.setRefreshing(false);
-                Snackbar.make(coordinatorLayout, error, Snackbar.LENGTH_LONG)
-                        .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
+               // Toast.makeText(OnTripActivity.this, "Please Try Again!!!", Toast.LENGTH_LONG).show();
+
+              //  Snackbar.make(coordinatorLayout, error, Snackbar.LENGTH_LONG)
+                    //    .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
 
             }
         });
@@ -835,7 +899,8 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
 
     private void performTripCompletion() {
        // swipeView.setRefreshing(true);
-        simpleProgressBarTripEnd.setVisibility(View.VISIBLE);
+
+        mHandler.removeCallbacks(checkAppStatusTask);
 
         calEnd = Calendar.getInstance();
         calEnd.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -866,7 +931,6 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
                // swipeView.setRefreshing(false);
                 simpleProgressBarTripEnd.setVisibility(View.GONE);
                 Toast.makeText(OnTripActivity.this, R.string.message_trip_ended_please_collect_cash, Toast.LENGTH_LONG).show();
-              //  mHandler.removeCallbacks(checkAppStatusTask);
                 startActivity(new Intent(OnTripActivity.this, TripSummaryActivity.class)
                         .putExtra("trip_id", tripBean.getId()));
                 finish();
@@ -875,8 +939,11 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
             @Override
             public void onLoadFailed(String error) {
                 swipeView.setRefreshing(false);
-                Snackbar.make(coordinatorLayout, error, Snackbar.LENGTH_LONG)
-                        .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
+                tripCompleteBtn.setEnabled(true);
+                simpleProgressBarTripEnd.setVisibility(View.GONE);
+               // Toast.makeText(OnTripActivity.this, "Please try again!!", Toast.LENGTH_LONG).show();
+              //  Snackbar.make(coordinatorLayout, error, Snackbar.LENGTH_LONG)
+                     //   .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
             }
         });
 
@@ -936,19 +1003,20 @@ int intFormap=0;
         }
 
 
-        if (isArrived) {
-            onPlotLatLng(latitude,longitude,
-                    tripBean.getDDestinationLatitude(), tripBean.getDDestinationLongitude(),latitude,longitude);
-        } else {
-            onPlotLatLng(latitude,longitude,
-                    tripBean.getDSourceLatitude(), tripBean.getDSourceLongitude(),latitude,longitude);
-        }
-        if(intFormap==0) {
-           // mapAutoZoom(latitude, longitude);
-        }
-        intFormap++;
-    }
+            if (isArrived) {
+                onPlotLatLng1(latitude, longitude,
+                        tripBean.getDDestinationLatitude(), tripBean.getDDestinationLongitude(), latitude, longitude);
+            } else {
+                onPlotLatLng(latitude, longitude,
+                        tripBean.getDSourceLatitude(), tripBean.getDSourceLongitude(), latitude, longitude);
+            }
+            if (intFormap == 0) {
+                // mapAutoZoom(latitude, longitude);
+            }
+            intFormap++;
 
+    }
+int once=1;
     private void onPlotLatLng(double sourceLatitude, double sourceLongitude, double destinationLatitude, double destinationLongitude,double latitude,double longitude) {
 
         fetchPolyPoint(latitude,longitude);
@@ -956,8 +1024,10 @@ int intFormap=0;
         LatLng newLatLng = null;
         try {
             newLatLng = new LatLng(sourceLatitude, sourceLongitude);
-
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(newLatLng, 15));
+if(once==1) {
+    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(newLatLng, 15));
+    once=0;
+}
 
            mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 //            mMap.addMarker(new MarkerOptions().position(newLatLng).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_driver_location)));
@@ -965,7 +1035,34 @@ int intFormap=0;
 
             newLatLng = new LatLng(destinationLatitude, destinationLongitude);
 //            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newLatLng, 11));
-            mMap.addMarker(new MarkerOptions().position(newLatLng).title("Left "+etaTimeLeft).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_pin_customer)));
+            mMap.addMarker(new MarkerOptions().position(newLatLng).title("Left "+etaTimeLeft).icon(BitmapDescriptorFactory.fromBitmap(smallMarker_pick)));
+
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    int once2=1;
+    private void onPlotLatLng1(double sourceLatitude, double sourceLongitude, double destinationLatitude, double destinationLongitude,double latitude,double longitude) {
+
+        fetchPolyPoint(latitude,longitude);
+
+        LatLng newLatLng = null;
+        try {
+            newLatLng = new LatLng(sourceLatitude, sourceLongitude);
+            if(once2==1) {
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(newLatLng, 15));
+                once2=0;
+            }
+
+            mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+//            mMap.addMarker(new MarkerOptions().position(newLatLng).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_driver_location)));
+
+
+            newLatLng = new LatLng(destinationLatitude, destinationLongitude);
+//            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newLatLng, 11));
+            mMap.addMarker(new MarkerOptions().position(newLatLng).title("Left "+etaTimeLeft).icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
 
         } catch (NumberFormatException e) {
             e.printStackTrace();
@@ -1025,8 +1122,10 @@ int intFormap=0;
             @Override
             public void onLoadFailed(String error) {
                 swipeView.setRefreshing(false);
-                Snackbar.make(coordinatorLayout, error, Snackbar.LENGTH_LONG)
-                        .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
+               // Toast.makeText(OnTripActivity.this,"Loading..",Toast.LENGTH_SHORT).show();
+
+               // Snackbar.make(coordinatorLayout, error, Snackbar.LENGTH_LONG)
+                      //  .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
             }
         });
     }
@@ -1179,11 +1278,21 @@ int intFormap=0;
 
         }
 
-        if ((Calendar.getInstance().getTimeInMillis() - Config.getInstance().getLastUpdate()) > 5000) {
+        if ((Calendar.getInstance().getTimeInMillis() - Config.getInstance().getLastUpdate()) > 6500) {
             performDriverLocationUpdate(location);
-            performCarLocationUpade(location);
-            populateMap(location.getLatitude(),location.getLongitude());
+           // performCarLocationUpade(location);
+          //  populateMap(location.getLatitude(),location.getLongitude());
+          //  fetchAppStatus();
         }
+
+/*
+        if ((Calendar.getInstance().getTimeInMillis() - Config.getInstance().getLastUpdate()) > 10000) {
+           // performDriverLocationUpdate(location);
+           // performCarLocationUpade(location);
+           // populateMap(location.getLatitude(),location.getLongitude());
+            fetchAppStatus();
+        }
+        */
 
     }
 

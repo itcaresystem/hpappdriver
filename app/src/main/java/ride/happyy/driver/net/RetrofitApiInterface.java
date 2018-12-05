@@ -5,6 +5,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+import ride.happyy.driver.model.CurentLocation;
 import ride.happyy.driver.model.Driver;
 import ride.happyy.driver.model.OutOfDhakaServiceModel;
 import ride.happyy.driver.model.RequestTransferData;
@@ -23,6 +24,8 @@ public interface RetrofitApiInterface {
     Call<ArrayList<Driver>> getLeaderBordTodayTrips(@Query("phone") String phone, @Query("reqforleaderbord_trip") String reqforleaderbord);
     @POST("request_transfer.php")
     Call<ServerResponse> requestTransferToOthers(@Body RequestTransferData requestTransferData);
+    @POST("update_driver_location.php")
+    Call<ServerResponse> updateDriverLocation(@Body CurentLocation curentLocation);
 }
 
 

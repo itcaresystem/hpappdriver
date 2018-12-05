@@ -255,6 +255,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/white"/>
         <Button
+            android:id="@+id/tripCancelBtn"
             android:background="@drawable/btn_click_black_rectangle_with_semicircle_edge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

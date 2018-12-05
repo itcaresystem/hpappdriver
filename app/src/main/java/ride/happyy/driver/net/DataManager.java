@@ -367,21 +367,21 @@ public class DataManager {
                     @Override
                     public void dataDownloadedSuccessfully(BasicBean basicBean) {
                         if (basicBean == null)
-                            listener.onLoadFailed(AppConstants.WEB_ERROR_BASEBEAN_NULL);
+                            listener.onLoadFailed(AppConstants.WEB_ERROR_MSG);
                         else {
                             if (basicBean.getStatus().equalsIgnoreCase("Success")) {
                                 listener.onLoadCompleted(basicBean);
                             } else if (basicBean.getStatus().equalsIgnoreCase("Error")) {
                                 listener.onLoadFailed(basicBean.getErrorMsg());
                             } else {
-                                listener.onLoadFailed(AppConstants.WEB_ERROR_BASEBEAN_LOAD_FAIL);
+                                listener.onLoadFailed(AppConstants.NO_NETWORK_AVAILABLE);
                             }
                         }
                     }
 
                     @Override
                     public void dataDownloadFailed() {
-                        listener.onLoadFailed(AppConstants.WEB_ERROR_BASEBEAN_DOWNLOAD_FAIL);
+                        listener.onLoadFailed(AppConstants.NO_NETWORK_AVAILABLE);
                     }
                 });
         mobileAvailabilityCheckTask.execute();
@@ -1073,21 +1073,21 @@ public class DataManager {
             @Override
             public void dataDownloadedSuccessfully(BasicBean basicBean) {
                 if (basicBean == null)
-                    listener.onLoadFailed(AppConstants.WEB_ERROR_BASEBEAN_NULL);
+                    listener.onLoadFailed(AppConstants.WEB_ERROR_MSG);
                 else {
                     if (basicBean.getStatus().equalsIgnoreCase("Success")) {
                         listener.onLoadCompleted(basicBean);
                     } else if (basicBean.getStatus().equalsIgnoreCase("Error")) {
                         listener.onLoadFailed(basicBean.getErrorMsg());
                     } else {
-                        listener.onLoadFailed(AppConstants.WEB_ERROR_BASEBEAN_LOAD_FAIL);
+                        listener.onLoadFailed(AppConstants.WEB_ERROR_MSG);
                     }
                 }
             }
 
             @Override
             public void dataDownloadFailed() {
-                listener.onLoadFailed(AppConstants.WEB_ERROR_BASEBEAN_DOWNLOAD_FAIL);
+                listener.onLoadFailed(AppConstants.NO_NETWORK_AVAILABLE);
             }
         });
         profilePhotoSaveTask.execute();

@@ -1,15 +1,11 @@
 package ride.happyy.driver.activity;
 
 import android.Manifest;
-import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.icu.util.TimeUnit;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -17,15 +13,15 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Handler;
-import android.speech.tts.Voice;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
@@ -61,18 +57,15 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
 import ride.happyy.driver.R;
 import ride.happyy.driver.app.App;
 import ride.happyy.driver.config.Config;
-import ride.happyy.driver.listeners.BasicListener;
 import ride.happyy.driver.listeners.PolyPointListener;
 import ride.happyy.driver.listeners.RequestDetailsListener;
 import ride.happyy.driver.listeners.TripDetailsListener;
-import ride.happyy.driver.model.BasicBean;
 import ride.happyy.driver.model.PolyPointBean;
 import ride.happyy.driver.model.RequestDetailsBean;
 import ride.happyy.driver.model.RequestTransferData;
@@ -117,7 +110,7 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
     private TextView txtDistance;
     private TextView txtCarType;
     private TextView pickup_addressTV,destination_addressTV;
-    private Button btnConfirm;
+    private Button btnConfirm,tripCancelBtn;
     private ImageView ivCarType;
     private HashMap markerMap;
     private ArrayList<Object> plotList;
@@ -135,9 +128,10 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
     private boolean isInit;
     public MediaPlayer voice;
    // private Handler mHandler=new Handler();
-    CountDownTimer cdt;
+    private CountDownTimer cdt;
     private MediaPlayer mMediaPlayer;
     private ProgressBar progressbar_req_accept_cancel;
+    private Vibrator v;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -176,6 +170,15 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
         */
 
         PlayVoice(this, R.raw.happyriderequesttone);
+         v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        // Vibrate for 1000 milliseconds
+        if (Build.VERSION.SDK_INT >= 26) {
+            v.vibrate(VibrationEffect.createOneShot(25000,VibrationEffect.DEFAULT_AMPLITUDE));
+        }else{
+            long[] pattern = {0, 5000, 2000, 5000, 3000, 5000, 2000, 5000, 100};
+            //deprecated in API 26
+            v.vibrate(pattern,-1);
+        }
 
     }
 
@@ -225,6 +228,8 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
         voice.start();
 
 
+
+
     }
 
    public void timeCountDown(){
@@ -248,6 +253,9 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
                if(App.isNetworkAvailable()) {
                    progressbar_req_accept_cancel.setVisibility(View.VISIBLE);
                    requestCancelAction();
+               }else {
+                   Snackbar.make(coordinatorLayout, AppConstants.NO_NETWORK_AVAILABLE, Snackbar.LENGTH_LONG)
+                           .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
                }
            }
        };
@@ -284,7 +292,7 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
             @Override
             public void onClick(View v) {
                 v.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
-//                mVibrator.vibrate(25);
+              // mVibrator.vibrate(25000);
                 setProgressScreenVisibility(true, true);
                 getData(false);
             }
@@ -298,6 +306,7 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
         ivCarType = (ImageView) findViewById(R.id.iv_request_confirmation_car_type);
 
         btnConfirm = (Button) findViewById(R.id.btn_request_confirmation_confirm);
+        tripCancelBtn=findViewById(R.id.tripCancelBtn);
         progressbar_req_accept_cancel=findViewById(R.id.progressbar_req_accept_cancel);
 
         btnConfirm.setTypeface(typeface);
@@ -481,9 +490,12 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
 
     public void onRequestConfirmationConfirmClick(View view) {
         view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
-        //mVibrator.vibrate(25);
+        progressbar_req_accept_cancel.setVisibility(View.VISIBLE);
+
+        mVibrator.vibrate(25);
 
         if (App.isNetworkAvailable()) {
+            btnConfirm.setEnabled(false);
             performConfirmTrip();
         }else{
             Snackbar.make(coordinatorLayout, AppConstants.NO_NETWORK_AVAILABLE, Snackbar.LENGTH_LONG)
@@ -498,8 +510,11 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
         progressbar_req_accept_cancel.setVisibility(View.VISIBLE);
 
         if(App.isNetworkAvailable()){
-
+            tripCancelBtn.setEnabled(false);
             requestCancelAction();
+        }else {
+            Snackbar.make(coordinatorLayout, AppConstants.NO_NETWORK_AVAILABLE, Snackbar.LENGTH_LONG)
+                    .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
         }
 /*
         Toast.makeText(this,"Please swich onto Offline if don't accept the request!!!",Toast.LENGTH_LONG).show();
@@ -584,27 +599,42 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
                 }
                 if (voice!=null){
                     voice.release();
+                    mVibrator.cancel();
                 }
                 Toast.makeText(RequestConfirmationActivity.this,"The Request Redirect To Other!!",Toast.LENGTH_LONG).show();
-                Intent intentHomePage = new Intent(RequestConfirmationActivity.this,HomeActivity.class);
-                startActivity(intentHomePage);
+
+              //  Intent intentHomePage = new Intent(RequestConfirmationActivity.this,HomeActivity.class);
+              //  startActivity(intentHomePage);
+              //  finish();
+
+                Intent i = getBaseContext().getPackageManager()
+                        .getLaunchIntentForPackage( getBaseContext().getPackageName() );
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
                 finish();
             }
 
             @Override
             public void onError(Throwable th) {
                 progressbar_req_accept_cancel.setVisibility(View.GONE);
+                tripCancelBtn.setEnabled(true);
 
                 if(cdt!=null) {
                     cdt.cancel();
                 }
                 if (voice!=null){
                     voice.release();
+                    mVibrator.cancel();
                 }
                 Toast.makeText(RequestConfirmationActivity.this,"The Request Redirect To Other!!",Toast.LENGTH_LONG).show();
-                Intent intentHomePage = new Intent(RequestConfirmationActivity.this,HomeActivity.class);
-                startActivity(intentHomePage);
-                finish();
+               // Intent intentHomePage = new Intent(RequestConfirmationActivity.this,HomeActivity.class);
+               // startActivity(intentHomePage);
+              //  finish();
+
+                Intent i = getBaseContext().getPackageManager()
+                        .getLaunchIntentForPackage( getBaseContext().getPackageName() );
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
 
             }
         });
@@ -662,9 +692,10 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
 
             @Override
             public void onLoadFailed(String errorMsg) {
+                /*
                 Snackbar.make(coordinatorLayout, errorMsg, Snackbar.LENGTH_INDEFINITE)
                         .setAction(R.string.btn_retry, snackBarRefreshOnClickListener).show();
-                setProgressScreenVisibility(true, false);
+                setProgressScreenVisibility(true, false); */
                 swipeView.setRefreshing(false);
 
             }
@@ -719,20 +750,30 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
                 }
                 if (voice!=null){
                     voice.release();
+                    mVibrator.cancel();
                 }
                 swipeView.setRefreshing(false);
+                progressbar_req_accept_cancel.setVisibility(View.GONE);
                 Toast.makeText(RequestConfirmationActivity.this, R.string.message_trip_confirmed, Toast.LENGTH_SHORT).show();
 
-                startActivity(new Intent(RequestConfirmationActivity.this, OnTripActivity.class)
-                        .putExtra("bean", tripBean));
+               // startActivity(new Intent(RequestConfirmationActivity.this, OnTripActivity.class)
+                //        .putExtra("bean", tripBean));
+               // finish();
+
+                Intent i = getBaseContext().getPackageManager()
+                        .getLaunchIntentForPackage( getBaseContext().getPackageName() );
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
                 finish();
             }
 
             @Override
             public void onLoadFailed(String error) {
                 swipeView.setRefreshing(false);
-                Snackbar.make(coordinatorLayout, error, Snackbar.LENGTH_LONG)
-                        .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
+                progressbar_req_accept_cancel.setVisibility(View.GONE);
+                btnConfirm.setEnabled(true);
+              //  Snackbar.make(coordinatorLayout, error, Snackbar.LENGTH_LONG)
+                   //     .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
             }
         });
 
@@ -830,8 +871,7 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
             @Override
             public void onLoadFailed(String error) {
                 swipeView.setRefreshing(false);
-                Snackbar.make(coordinatorLayout, error, Snackbar.LENGTH_LONG)
-                        .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
+               // Toast.makeText(RequestConfirmationActivity.this,"Loading..",Toast.LENGTH_SHORT).show();
             }
         });
     }

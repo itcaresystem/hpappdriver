@@ -175,9 +175,15 @@ public class TripSummaryActivity extends BaseAppCompatNoDrawerActivity {
 
                 Toast.makeText(TripSummaryActivity.this, R.string.message_trip_completed_successfully, Toast.LENGTH_SHORT).show();
                 viewFilpper.showNext();
-                Intent homeIntent = new Intent(TripSummaryActivity.this,HomeActivity.class);
-                startActivity(homeIntent);
+
+                Intent i = getBaseContext().getPackageManager()
+                        .getLaunchIntentForPackage( getBaseContext().getPackageName() );
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
                 finish();
+              //  Intent homeIntent = new Intent(TripSummaryActivity.this,SplashActivity.class);
+             //   startActivity(homeIntent);
+             //   finish();
 
             }
 

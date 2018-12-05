@@ -446,8 +446,8 @@ public class TripDetailsActivity extends BaseAppCompatNoDrawerActivity {
 
             @Override
             public void onLoadFailed(String error) {
-                Snackbar.make(coordinatorLayout, error, Snackbar.LENGTH_INDEFINITE)
-                        .setAction(R.string.btn_retry, snackBarRefreshOnClickListener).show();
+               // Snackbar.make(coordinatorLayout, error, Snackbar.LENGTH_INDEFINITE)
+                   //     .setAction(R.string.btn_retry, snackBarRefreshOnClickListener).show();
                 swipeView.setRefreshing(false);
                 setProgressScreenVisibility(true, false);
 
@@ -506,7 +506,7 @@ public class TripDetailsActivity extends BaseAppCompatNoDrawerActivity {
             setProgressScreenVisibility(false, false);
 
         } else {
-            Toast.makeText(getApplicationContext(), R.string.message_something_went_wrong, Toast.LENGTH_LONG).show();
+           // Toast.makeText(getApplicationContext(), R.string.message_something_went_wrong, Toast.LENGTH_LONG).show();
             finish();
         }
 
@@ -583,8 +583,8 @@ public class TripDetailsActivity extends BaseAppCompatNoDrawerActivity {
             @Override
             public void onLoadFailed(String error) {
                 swipeView.setRefreshing(false);
-                Snackbar.make(coordinatorLayout, error, Snackbar.LENGTH_LONG)
-                        .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
+              //  Snackbar.make(coordinatorLayout, error, Snackbar.LENGTH_LONG)
+                    //    .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
             }
         });
     }

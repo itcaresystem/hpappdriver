@@ -168,6 +168,7 @@ public class LoginActivity extends BaseAppCompatNoDrawerActivity {
             @Override
             public void onLoadCompleted(AuthBean authBean) {
                 swipeView.setRefreshing(false);
+                authBean.setAuthToken("login");
                 App.saveToken(authBean);
                 if (!Config.getInstance().isPhoneVerified()) {
                     startActivity(new Intent(LoginActivity.this, OtpVerificationActivity.class));
@@ -183,8 +184,8 @@ public class LoginActivity extends BaseAppCompatNoDrawerActivity {
             @Override
             public void onLoadFailed(String error) {
                 swipeView.setRefreshing(false);
-                Snackbar.make(coordinatorLayout, error, Snackbar.LENGTH_INDEFINITE)
-                        .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
+             //   Snackbar.make(coordinatorLayout, error, Snackbar.LENGTH_INDEFINITE)
+                    //    .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
                 Toast.makeText(getApplicationContext(),"Your password or phone number is not corect!!",Toast.LENGTH_LONG).show();
 
                    /* To Be Removed....*/
