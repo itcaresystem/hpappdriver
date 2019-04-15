@@ -240,7 +240,7 @@ public class AccountsFragment extends BaseFragment {
                 view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
 
                 Intent mIntent = new Intent(getActivity(), InviteActivity.class);
-                mIntent.putExtra("code","hrin1");
+                mIntent.putExtra("code",profileBean.getDriver_ref_code());
 
                 startActivity(mIntent);
 
@@ -375,6 +375,9 @@ public class AccountsFragment extends BaseFragment {
         lifetimeTripTv.setText(lifeTimeTrips);
         lifetimeEarnTv.setText("৳ "+lifeTimeEarn);
         accountTotalDueTv.setText("৳ "+String.valueOf(profileBean.getTotal_due()));
+        accountReferralBonusTv.setText("৳ "+String.valueOf(profileBean.getRef_bonus()));
+        accountRatingTv.setText(String.valueOf(profileBean.getDriver_rating()));
+        accountCommissionRateTv.setText(String.valueOf(profileBean.getCommission_rate()));
 
 
     }

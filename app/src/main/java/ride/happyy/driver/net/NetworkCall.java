@@ -8,6 +8,7 @@ import retrofit2.Response;
 import ride.happyy.driver.model.CurentLocation;
 import ride.happyy.driver.model.Driver;
 import ride.happyy.driver.model.DriverList;
+import ride.happyy.driver.model.MyNotification;
 import ride.happyy.driver.model.OutOfDhakaServiceModel;
 import ride.happyy.driver.model.RequestTransferData;
 import ride.happyy.driver.model.ServerResponse;
@@ -187,6 +188,29 @@ public class NetworkCall implements MyApiService {
             @Override
             public void onFailure(Call<ServerResponse> call, Throwable t) {
                 responseCallback.onError(new Exception(t));
+            }
+        });
+    }
+
+    @Override
+    public void getMyAllMessage(String phone, final ResponseCallback<ArrayList<MyNotification>> responseCallback) {
+        RetrofitApiInterface retrofitApiInterface = RetrofitApiClient.getClient().create(RetrofitApiInterface.class);
+        Call<ArrayList<MyNotification>> call = retrofitApiInterface.getMyAllMessage(phone);
+        call.enqueue(new Callback<ArrayList<MyNotification>>() {
+            @Override
+            public void onResponse(Call<ArrayList<MyNotification>> call, Response<ArrayList<MyNotification>> response) {
+                ArrayList<MyNotification> myNotifications =response.body();
+                if(myNotifications!=null){
+                    responseCallback.onSuccess(myNotifications);
+
+                }else {
+                    responseCallback.onError(new Exception(response.message()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<MyNotification>> call, Throwable t) {
+
             }
         });
     }

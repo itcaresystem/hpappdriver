@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import ride.happyy.driver.fragments.AccountsFragment;
 import ride.happyy.driver.fragments.EarningsFragment;
 import ride.happyy.driver.fragments.HomeFragment;
-import ride.happyy.driver.fragments.LeaderBordFragment;
 import ride.happyy.driver.fragments.LeaderBordFragmentNew;
 import ride.happyy.driver.fragments.RatingsFragment;
 

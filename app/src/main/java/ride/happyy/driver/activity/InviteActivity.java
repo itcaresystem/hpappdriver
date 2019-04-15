@@ -41,8 +41,8 @@ public class InviteActivity extends BaseAppCompatNoDrawerActivity {
                     Intent i = new Intent(Intent.ACTION_SEND);
                     i.setType("text/plain");
                     i.putExtra(Intent.EXTRA_SUBJECT, "My application name");
-                    String sAux = "Get 50% off (upto BDT 100) on your first Happyy ride! To accept, sinup and use code"+"'"+code+"'"+"\n\n";
-                    sAux = sAux +"Download now:"+ "https://play.google.com/store/apps/details?id=the.package.id \n";
+                    String sAux = "Get 100% off  on your first trip! To accept, signup and use code"+"'"+code+"'"+"\n\n";
+                    sAux = sAux +"Download now:"+ "https://play.google.com/store/apps/details?id=ride.happyy.driver \n";
                     i.putExtra(Intent.EXTRA_TEXT, sAux);
                     startActivity(Intent.createChooser(i, "choose one"));
                 } catch(Exception e) {

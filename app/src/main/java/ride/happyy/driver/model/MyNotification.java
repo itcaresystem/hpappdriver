@@ -1,15 +1,19 @@
 package ride.happyy.driver.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class MyNotification {
+    @SerializedName("id")
     private int id;
+    @SerializedName("title")
     private String title;
+    @SerializedName("details")
     private String details;
 
+    public MyNotification(){}
     public MyNotification(String details) {
         this.details = details;
     }
-
-
     public int getId() {
         return id;
     }

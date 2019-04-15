@@ -173,9 +173,9 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
          v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         // Vibrate for 1000 milliseconds
         if (Build.VERSION.SDK_INT >= 26) {
-            v.vibrate(VibrationEffect.createOneShot(25000,VibrationEffect.DEFAULT_AMPLITUDE));
+            v.vibrate(VibrationEffect.createOneShot(27000,VibrationEffect.DEFAULT_AMPLITUDE));
         }else{
-            long[] pattern = {0, 5000, 2000, 5000, 3000, 5000, 2000, 5000, 100};
+            long[] pattern = {0, 6000, 1000, 6000, 1000, 6000, 1000, 6000, 0};
             //deprecated in API 26
             v.vibrate(pattern,-1);
         }
@@ -956,7 +956,7 @@ public class RequestConfirmationActivity extends BaseAppCompatNoDrawerActivity i
                 && !requestDetailsBean.getCustomerLatitude().equalsIgnoreCase("")
                 && requestDetailsBean.getCustomerLongitude() != null
                 && !requestDetailsBean.getCustomerLongitude().equalsIgnoreCase("")) {
-            populateMap();
+           // populateMap();
         }
 
     }

@@ -704,7 +704,7 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
                     && Config.getInstance().getCurrentLongitude() != null
                     && !Config.getInstance().getCurrentLongitude().equals("")) {
 
-                populateMap(Double.parseDouble(Config.getInstance().getCurrentLatitude()),Double.parseDouble(Config.getInstance().getCurrentLongitude()));
+               // populateMap(Double.parseDouble(Config.getInstance().getCurrentLatitude()),Double.parseDouble(Config.getInstance().getCurrentLongitude()));
                 //  mapAutoZoom(Double.parseDouble(Config.getInstance().getCurrentLatitude()),Double.parseDouble(Config.getInstance().getCurrentLongitude()));
             }
           //  performCarLocationUpade();
@@ -997,10 +997,13 @@ public class OnTripActivity extends BaseAppCompatNoDrawerActivity implements
     }
 int intFormap=0;
     private void populateMap(double latitude, double longitude) {
+        /*
         if(intFormap==5){
             mMap.clear();
             intFormap=0;
         }
+        */
+        mMap.clear();
 
 
             if (isArrived) {

@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -37,6 +38,7 @@ import ride.happyy.driver.R;
 import ride.happyy.driver.adapter.HomePagerAdapter;
 import ride.happyy.driver.app.App;
 import ride.happyy.driver.config.Config;
+import ride.happyy.driver.dialogs.PopupMessage;
 import ride.happyy.driver.fragments.AccountsFragment;
 import ride.happyy.driver.fragments.EarningsFragment;
 import ride.happyy.driver.fragments.HomeFragment;
@@ -49,6 +51,8 @@ import ride.happyy.driver.net.WSAsyncTasks.FCMRegistrationTask;
 import ride.happyy.driver.util.AppConstants;
 import ride.happyy.driver.util.FileOp;
 import ride.happyy.driver.widgets.CustomTextView;
+
+import static android.provider.Settings.Secure.LOCATION_MODE_HIGH_ACCURACY;
 
 public class HomeActivity extends BaseAppCompatActivity implements HomeFragment.HomeFragmentListener,
         EarningsFragment.EarningsFragmentListener, RatingsFragment.RatingsFragmentListener,
@@ -121,6 +125,7 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeFragment.
             }
         });
 
+
         initViews();
         initFCM();
 
@@ -138,15 +143,17 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeFragment.
         mNotificationBadge      = findViewById(R.id.notificationBadge);
         countNotification = 4;
        mNotificationBadge.setNumber(countNotification);
+       // checkHighAcouracy();
 
     }
 
    public void onClickNotification(View view){
        view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
       // mNotificationBadge.setBackgroundColor(Color.TRANSPARENT);
+      // Toast.makeText(getApplicationContext(),"befor notification !!",Toast.LENGTH_LONG).show();
        mNotificationBadge.setNumber(1);
       // notificatinImageButton.setVisibility(View.GONE);
-      // Toast.makeText(this,"Notification",Toast.LENGTH_SHORT).show();
+     // Toast.makeText(this,"Notification",Toast.LENGTH_SHORT).show();
        Intent mIntent = new Intent(this,MyNotificationsActivity.class);
        startActivity(mIntent);
     }
@@ -176,7 +183,11 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeFragment.
             }
         }
         onRefresh();
+
+        checkHighAcouracy();
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -242,6 +253,39 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeFragment.
         } else {
             Snackbar.make(coordinatorLayout, AppConstants.NO_NETWORK_AVAILABLE, Snackbar.LENGTH_LONG)
                     .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
+        }
+    }
+
+    public void checkHighAcouracy(){
+        int locationMode = 0;
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+                locationMode = Settings.Secure.getInt(getContentResolver(), Settings.Secure.LOCATION_MODE);
+        } catch (Settings.SettingNotFoundException e) {
+            e.printStackTrace();
+        }
+        if(locationMode == LOCATION_MODE_HIGH_ACCURACY) {
+            //request location updates
+            // initViews();
+        } else { //redirect user to settings page
+            PopupMessage popupMessage = new PopupMessage(this);
+            popupMessage.show(getString(R.string.message_please_enable_location_service_from_the_settings),
+                    0, getString(R.string.btn_open_settings)," ");
+            popupMessage.setPopupActionListener(new PopupMessage.PopupActionListener() {
+                @Override
+                public void actionCompletedSuccessfully(boolean result) {
+                    Log.d(TAG, "actionCompletedSuccessfully: Settings Button clicked : ");
+                    Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    startActivity(myIntent);
+                    // isLocationServiceEnableRequestShown = false;
+                }
+
+                @Override
+                public void actionFailed() {
+                    // isLocationServiceEnableRequestShown = false;
+                }
+            });
+            //startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
         }
     }
 

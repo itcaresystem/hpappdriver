@@ -207,7 +207,7 @@ public class App extends Application {
         TypefaceManager.addTextStyleExtractor(RobotoTextStyleExtractor.getInstance());
         setDefaultFont();
        //startService(new Intent(this, BackgroundService.class));
-       // setDriverAvailAbleServ();
+        setDriverAvailAbleServ();
         //scheduleAlarm();
        // startService(new Intent(this, AnotherGoogleService.class));
 

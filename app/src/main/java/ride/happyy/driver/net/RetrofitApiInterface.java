@@ -7,6 +7,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 import ride.happyy.driver.model.CurentLocation;
 import ride.happyy.driver.model.Driver;
+import ride.happyy.driver.model.MyNotification;
 import ride.happyy.driver.model.OutOfDhakaServiceModel;
 import ride.happyy.driver.model.RequestTransferData;
 import ride.happyy.driver.model.ServerResponse;
@@ -26,6 +27,8 @@ public interface RetrofitApiInterface {
     Call<ServerResponse> requestTransferToOthers(@Body RequestTransferData requestTransferData);
     @POST("update_driver_location.php")
     Call<ServerResponse> updateDriverLocation(@Body CurentLocation curentLocation);
+    @GET("get_all_message.php")
+    Call<ArrayList<MyNotification>> getMyAllMessage(@Query("driver_phone") String phone);
 }
 
 

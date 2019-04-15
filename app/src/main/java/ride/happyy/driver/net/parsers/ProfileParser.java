@@ -171,6 +171,10 @@ public class ProfileParser {
                             profileBean.set_active(dataObj.optString("is_active"));
                         }
 
+                        if (dataObj.has("driver_ref_code")) {
+                            profileBean.setDriver_ref_code(dataObj.optString("driver_ref_code"));
+                        }
+
                         if (dataObj.has("total_trips")) {
                             profileBean.setTotal_trips(dataObj.optInt("total_trips"));
                         }

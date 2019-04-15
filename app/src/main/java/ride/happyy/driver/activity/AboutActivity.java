@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,7 +16,7 @@ public class AboutActivity extends BaseAppCompatNoDrawerActivity {
 
     private LinearLayout llAboutSoftwareLicences;
     private LinearLayout llAboutMapLicences;
-    private TextView txtAboutVersionCode;
+    private TextView txtAboutVersionCode,terms_and_condition_tv;
     private String version;
 
     @Override
@@ -32,7 +34,14 @@ public class AboutActivity extends BaseAppCompatNoDrawerActivity {
 
     private void initViews() {
 
+
+
         txtAboutVersionCode = (TextView) findViewById(R.id.txt_about_app_version);
+        terms_and_condition_tv = findViewById(R.id.terms_and_condition_tv);
+
+       // TextView link = (TextView) findViewById(R.id.textView1);
+
+
 
         PackageInfo pInfo = null;
         try {
@@ -42,6 +51,9 @@ public class AboutActivity extends BaseAppCompatNoDrawerActivity {
             e.printStackTrace();
         }
         txtAboutVersionCode.setText("v "+version);
+        String linkText = "<a href='http://happyyride.com/terms_and_conditions.php'>Terms of Service</a>";
+        terms_and_condition_tv.setText(Html.fromHtml(linkText));
+        terms_and_condition_tv.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     public void onAboutSoftwareLicencesClick(View view) {

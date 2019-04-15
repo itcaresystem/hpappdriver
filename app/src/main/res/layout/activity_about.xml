@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="ride.happyy.driver.activity.AboutActivity">
+    <!--
 
     <LinearLayout
         android:id="@+id/ll_about_software_licences"
@@ -63,5 +64,53 @@
         android:layout_marginTop="5dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+        -->
+<LinearLayout
+    android:layout_marginTop="40dp"
+    android:padding="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:layout_gravity="center">
+    <ImageView
+        android:padding="10dp"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:src="@drawable/ic_launcher_round"/>
+    <ride.happyy.driver.widgets.CustomTextView
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textAllCaps="true"
+        android:text="version"/>
+    <ride.happyy.driver.widgets.CustomTextView
+        android:id="@+id/txt_about_app_version"
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textAllCaps="true"
+        android:text="1.0.0"/>
+    <ride.happyy.driver.widgets.CustomTextView
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:text="@string/about_content"/>
+    <ride.happyy.driver.widgets.CustomTextView
+        android:id="@+id/terms_and_condition_tv"
+        android:padding="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textAllCaps="true"
+        android:text="@string/label_termsand_condition"/>
+
+</LinearLayout>
 
 </LinearLayout>
