@@ -89,7 +89,7 @@ public class RegistrationActivity extends BaseAppCompatNoDrawerActivity {
     private LinearLayout llVerification;
     private FloatingActionButton resend_codeFAB;
     private TextView txtVerificationLabel,resendCodeTVReg;
-    private String otpCode;
+    private String otpCode,ref_code;
     private boolean isVerificationEnabled;
     private FirebaseAuth mAuth;
 
@@ -100,7 +100,13 @@ public class RegistrationActivity extends BaseAppCompatNoDrawerActivity {
 
         initViews();
 
+        if (getIntent().hasExtra("ref_code")) {
+            ref_code = getIntent().getStringExtra("ref_code");
 
+            registrationBean.setRef_code(ref_code);
+            // registrationBean.setPhone(phone);
+//            etxtPhone.setText(phone);
+        }
 
         if (getIntent().hasExtra("Bike")) {
            // vehicleType = getIntent().getStringExtra("Bike");
@@ -759,7 +765,7 @@ public class RegistrationActivity extends BaseAppCompatNoDrawerActivity {
             return false;
         }
 
-        if (etxtPhone.getText().toString().length()!=10) {
+        if (etxtPhone.getText().toString().length()!=11) {
             Snackbar.make(coordinatorLayout, getString(R.string.message_phone_number_is_required_valid), Snackbar.LENGTH_LONG)
                     .setAction(getString(R.string.btn_dismiss), snackBarDismissOnClickListener).show();
             return false;
@@ -844,6 +850,7 @@ public class RegistrationActivity extends BaseAppCompatNoDrawerActivity {
         JSONObject postData = new JSONObject();
         try {
             postData.put("phone", phone);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -1027,6 +1034,7 @@ public class RegistrationActivity extends BaseAppCompatNoDrawerActivity {
             public void onLoadCompleted(AuthBean authBean) {
                 swipeView.setRefreshing(false);
                 App.saveToken(authBean);
+                /*
                 if(registrationBean.getVehicletype()!=""&&registrationBean.getVehicletype()=="3") {
 
                     startActivity(new Intent(RegistrationActivity.this, HomeActivity.class));
@@ -1035,6 +1043,10 @@ public class RegistrationActivity extends BaseAppCompatNoDrawerActivity {
                     startActivity(new Intent(RegistrationActivity.this, HomeActivity.class));
                     finish();
                 }
+                */
+
+                startActivity(new Intent(RegistrationActivity.this, HomeActivity.class));
+                finish();
             }
 
             @Override
@@ -1046,8 +1058,8 @@ public class RegistrationActivity extends BaseAppCompatNoDrawerActivity {
 
                 /* To Be Removed....*/
                 if (App.getInstance().isDemo()) {
-                    startActivity(new Intent(RegistrationActivity.this, DriverLicenceTypeActivity.class));
-                    finish();
+                 //   startActivity(new Intent(RegistrationActivity.this, DriverLicenceTypeActivity.class));
+                 //   finish();
                 }
             }
         });
@@ -1069,6 +1081,7 @@ public class RegistrationActivity extends BaseAppCompatNoDrawerActivity {
         JSONObject postData = new JSONObject();
 
         try {
+            postData.put("ref_code",registrationBean.getRef_code());
             postData.put("name", registrationBean.getName());
 //            postData.put("gender", registrationBean.getGender());
 //            postData.put("DOB", registrationBean.getDOB());

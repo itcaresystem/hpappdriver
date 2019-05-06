@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/welcome_bg"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".SelectVehicle"
     >
@@ -15,44 +16,54 @@
         android:orientation="vertical"
         android:gravity="center"
         android:id="@+id/linearLayout">
+
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/logo_white"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_launcher_round"
             android:layout_marginBottom="50dp"/>
-       <TextView
-           android:padding="10dp"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="Select Vehicle"
-           android:shadowColor="#0000"
-           android:textStyle="bold"
-           android:textSize="21dp"/>
+        <TextView
+            android:visibility="gone"
+            android:padding="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Vehicle and use Ref. code(if available)"
+            android:shadowColor="#0000"
+            android:layout_marginBottom="20dp"/>
+
+
+        <EditText
+            android:id="@+id/ref_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:maxLength="6"
+            android:hint="Ref. Code Here(if available) "
+            android:layout_marginBottom="10dp"/>
         <Button
             android:id="@+id/bikebtn"
             android:layout_marginTop="5dp"
-            android:layout_width="250dp"
-            android:layout_height="35dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginRight="25dp"
             android:layout_marginLeft="25dp"
             android:padding="5dp"
             android:textStyle="italic"
-            android:textSize="22dp"
-            android:textAllCaps="false"
+            android:textAllCaps="true"
             android:textColor="#ffff"
             android:background="@color/red"
             android:text="Bike"/>
         <Button
             android:id="@+id/carbtn"
-            android:layout_marginTop="5dp"
-            android:layout_width="250dp"
-            android:layout_height="35dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginRight="25dp"
             android:layout_marginLeft="25dp"
             android:padding="5dp"
             android:textStyle="italic"
-            android:textSize="22dp"
-            android:textAllCaps="false"
+            android:textAllCaps="true"
             android:textColor="#ffff"
             android:background="@color/red"
             android:text="Car"/>
@@ -62,29 +73,27 @@
         <Button
             android:visibility="gone"
             android:id="@+id/cngbtn"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:layout_width="250dp"
-            android:layout_height="35dp"
+            android:layout_height="34dp"
             android:layout_marginRight="25dp"
             android:layout_marginLeft="25dp"
             android:padding="5dp"
             android:textStyle="italic"
-            android:textSize="22dp"
             android:textAllCaps="false"
             android:textColor="#ffff"
-            android:background="@color/red"
+            android:background="@color/black"
             android:text="CNG"/>
         <Button
             android:id="@+id/ambulance"
-            android:layout_marginTop="5dp"
-            android:layout_width="250dp"
-            android:layout_height="35dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginRight="25dp"
             android:layout_marginLeft="25dp"
             android:padding="5dp"
             android:textStyle="italic"
-            android:textSize="22dp"
-            android:textAllCaps="false"
+            android:textAllCaps="true"
             android:textColor="#ffff"
             android:background="@color/red"
             android:text="Ambulance"/>

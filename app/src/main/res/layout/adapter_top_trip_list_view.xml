@@ -22,7 +22,7 @@
         android:layout_weight="45"/>
     <ride.happyy.driver.widgets.CustomTextView
         android:gravity="left"
-        android:text="Rajib Hossain"
+        android:text="Rahim"
         android:layout_width="match_parent"
         android:layout_height="@dimen/leaderbord_list_height"
         android:id="@+id/ernerNameTv"
@@ -33,7 +33,7 @@
     <ride.happyy.driver.widgets.CustomTextView
         android:gravity="right"
         android:id="@+id/tripTv"
-        android:text="20"
+        android:text="0"
         android:layout_width="match_parent"
         android:layout_height="@dimen/leaderbord_list_height"
         android:textSize="18dp"

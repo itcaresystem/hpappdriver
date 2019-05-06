@@ -12,6 +12,8 @@ import ride.happyy.driver.model.OutOfDhakaServiceModel;
 import ride.happyy.driver.model.RequestTransferData;
 import ride.happyy.driver.model.ServerResponse;
 import ride.happyy.driver.model.User;
+import ride.happyy.driver.model.VehicleInfo;
+
 public interface RetrofitApiInterface {
     @POST("server_side_code.php")
     Call<ServerResponse> getUserValidity(@Body User userLoginCredential);
@@ -27,6 +29,8 @@ public interface RetrofitApiInterface {
     Call<ServerResponse> requestTransferToOthers(@Body RequestTransferData requestTransferData);
     @POST("update_driver_location.php")
     Call<ServerResponse> updateDriverLocation(@Body CurentLocation curentLocation);
+    @POST("update_driver_vehicle_info.php")
+    Call<ServerResponse> updateDriverVehicleInfo(@Body VehicleInfo vehicleInfo);
     @GET("get_all_message.php")
     Call<ArrayList<MyNotification>> getMyAllMessage(@Query("driver_phone") String phone);
 }

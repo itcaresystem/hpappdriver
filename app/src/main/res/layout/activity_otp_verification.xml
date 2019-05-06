@@ -6,6 +6,7 @@
     android:id="@+id/activity_otp_verification"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/welcome_bg"
     tools:context="ride.happyy.driver.activity.OtpVerificationActivity">
 
 
@@ -97,7 +98,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
-            android:text="@string/label_enter_the_4_digit_code"
+            android:text="@string/label_enter_the_6_digit_code"
             android:textSize="18sp"/>
 
         <ride.happyy.driver.widgets.CustomTextView

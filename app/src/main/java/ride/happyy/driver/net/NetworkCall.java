@@ -13,6 +13,7 @@ import ride.happyy.driver.model.OutOfDhakaServiceModel;
 import ride.happyy.driver.model.RequestTransferData;
 import ride.happyy.driver.model.ServerResponse;
 import ride.happyy.driver.model.User;
+import ride.happyy.driver.model.VehicleInfo;
 
 
 public class NetworkCall implements MyApiService {
@@ -190,6 +191,27 @@ public class NetworkCall implements MyApiService {
                 responseCallback.onError(new Exception(t));
             }
         });
+    }
+
+    @Override
+    public void updateDriverVehicleInfo(VehicleInfo vehicleInfo, final ResponseCallback<ServerResponse> responseCallback) {
+        RetrofitApiInterface retrofitApiInterface=RetrofitApiClient.getClient().create(RetrofitApiInterface.class);
+        Call<ServerResponse> call =retrofitApiInterface.updateDriverVehicleInfo(vehicleInfo);
+        call.enqueue(new Callback<ServerResponse>() {
+            @Override
+            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+                ServerResponse serverResponse=response.body();
+                responseCallback.onSuccess(serverResponse);
+
+            }
+
+            @Override
+            public void onFailure(Call<ServerResponse> call, Throwable t) {
+                responseCallback.onError(new Exception(t));
+
+            }
+        });
+
     }
 
     @Override

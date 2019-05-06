@@ -539,7 +539,7 @@ public class ProfileActivity extends BaseAppCompatNoDrawerActivity  {
         */
         editProfileBean = new ProfileBean();
         editProfileBean.setState(" ");
-
+/*
         if (postalCode.equals("")) {
             Snackbar.make(coordinatorLayout, R.string.message_postal_code_is_required, Snackbar.LENGTH_LONG)
                     .setAction(R.string.btn_dismiss, snackBarDismissOnClickListener).show();
@@ -549,7 +549,7 @@ public class ProfileActivity extends BaseAppCompatNoDrawerActivity  {
                 editProfileBean = new ProfileBean();
             editProfileBean.setPostalCode(postalCode);
         }
-
+*/
 
         return true;
     }

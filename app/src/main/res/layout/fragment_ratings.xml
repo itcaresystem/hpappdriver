@@ -6,7 +6,7 @@
     style="@style/NestedScrollBarStyle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/login_bd_image"
     tools:context="ride.happyy.driver.fragments.RatingsFragment">
 
 
@@ -39,7 +39,7 @@
             android:numStars="5"
             android:secondaryProgressTint="@color/colorPrimaryDark"
             android:progressTint="@color/colorPrimary"
-            android:rating="3"
+            android:rating="4.5"
             android:stepSize=".1"/>
 
 

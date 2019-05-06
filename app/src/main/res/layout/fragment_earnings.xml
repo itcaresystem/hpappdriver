@@ -6,7 +6,7 @@
     style="@style/NestedScrollBarStyle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/welcome_bg"
     tools:context="ride.happyy.driver.fragments.EarningsFragment">
 
     <LinearLayout
@@ -91,7 +91,7 @@
             android:layout_height="0dp"
             android:layout_marginTop="10dp"
             android:layout_weight="1"
-            android:background="@color/white"
+            android:background="@color/transparent"
             android:orientation="vertical"
             android:paddingBottom="50dp"
             android:paddingTop="10dp">

@@ -5,10 +5,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.DriverLicenceTypeActivity">
+    tools:context=".activity.DriverLicenceTypeActivity"
+    android:background="@drawable/login_bd_image">
 
     <LinearLayout
-        android:background="@color/white"
+        android:background="@color/transparent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -51,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:background="@color/bg_driver_Type"
+            android:background="@color/transparent"
             android:minHeight="100dp"
             android:onClick="onDriverLicenceTypeDriverCumOwnerClick"
             android:padding="15dp">
@@ -127,7 +128,7 @@
             android:layout_gravity="center"
             android:layout_marginBottom="20dp"
             android:layout_marginTop="50dp"
-            android:background="@drawable/btn_click_black_rectangle_with_semicircle_edge"
+            android:background="@color/blue_transparent_70"
             android:onClick="onDriverLicenceTypeSubmitClick"
             android:text="@string/btn_continue"
             android:textColor="@color/white"/>

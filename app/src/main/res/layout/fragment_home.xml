@@ -20,13 +20,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="25dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
-        android:scaleType="centerInside"
+        android:scaleType="fitCenter"
         android:src="@drawable/ic_my_location"
         android:tint="@color/white"
-        app:backgroundTint="@color/red"
+        app:backgroundTint="@color/gray"
         app:elevation="2dp"
         app:fabSize="auto"/>
 

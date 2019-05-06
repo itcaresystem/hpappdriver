@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -25,7 +26,11 @@ import ride.happyy.driver.app.App;
 import ride.happyy.driver.config.Config;
 import ride.happyy.driver.listeners.ProfileListener;
 import ride.happyy.driver.model.ProfileBean;
+import ride.happyy.driver.model.ServerResponse;
+import ride.happyy.driver.model.VehicleInfo;
 import ride.happyy.driver.net.DataManager;
+import ride.happyy.driver.net.NetworkCall;
+import ride.happyy.driver.net.ResponseCallback;
 import ride.happyy.driver.util.AppConstants;
 
 public class EditVehicleDetailsActivity extends BaseAppCompatNoDrawerActivity {
@@ -34,14 +39,18 @@ public class EditVehicleDetailsActivity extends BaseAppCompatNoDrawerActivity {
     private EditText carRegNumberET,drivinLicenseNoET,carFitnessNumberET,carBrandNameET;
     private Spinner brandNameSP;
     private Button saveBtn;
-    private ImageButton editBtn;
+    private Button editBtn;
     private boolean isEditing = false;
     private View.OnClickListener snackBarRefreshOnClickListener;
     private ProfileBean profileBean;
+    private NetworkCall networkCall;
+    private VehicleInfo vehicleInfo;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        vehicleInfo = new VehicleInfo();
+        networkCall = new NetworkCall();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_vehicle_details);
         getSupportActionBar().setTitle(R.string.label_vehicle_info);
@@ -119,8 +128,30 @@ public class EditVehicleDetailsActivity extends BaseAppCompatNoDrawerActivity {
     }
 
     public void onClickCarInfoSaveBtn(View view){
-        saveBtn.setVisibility(View.GONE);
-        editBtn.setVisibility(View.GONE);
+        vehicleInfo.setPhone(Config.getInstance().getPhone());
+        vehicleInfo.setVehicle_brand(carBrandNameET.getText().toString());
+        vehicleInfo.setVehicle_no(carRegNumberET.getText().toString());
+        vehicleInfo.setDriving_license_number(drivinLicenseNoET.getText().toString());
+        vehicleInfo.setCar_fitness_certificate(carFitnessNumberET.getText().toString());
+
+        networkCall.updateDriverVehicleInfo(vehicleInfo, new ResponseCallback<ServerResponse>() {
+            @Override
+            public void onSuccess(ServerResponse data) {
+                Toast.makeText(getBaseContext(),"Vehicle Info Updated Success!!!",Toast.LENGTH_LONG).show();
+                setEditable(false);
+                saveBtn.setVisibility(View.GONE);
+                editBtn.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onError(Throwable th) {
+                Toast.makeText(getBaseContext(),"Something wrong or your have no permission to change the content.",Toast.LENGTH_LONG).show();
+                setEditable(false);
+                saveBtn.setVisibility(View.GONE);
+                editBtn.setVisibility(View.VISIBLE);
+            }
+        });
+
     }
 
     private void getData(boolean isSwipeRefreshing) {
@@ -182,6 +213,7 @@ public class EditVehicleDetailsActivity extends BaseAppCompatNoDrawerActivity {
        // drivinLicenseNoET.setEnabled(isEditing);
        // drivinLicenseNoET.setEnabled(isEditing);
         carFitnessNumberET.setText(profileBean.getCarFitnessCertificateNo());
+        drivinLicenseNoET.setText(profileBean.getDriving_license_number());
 
         swipeView.setRefreshing(false);
         setProgressScreenVisibility(false, false);

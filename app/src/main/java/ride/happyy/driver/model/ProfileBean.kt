@@ -37,4 +37,5 @@ class ProfileBean : BaseBean() {
     var carBrand : String =""
     var carFitnessCertificateNo : String =""
     var driver_ref_code : String =""
+     var driving_license_number: String? = null
 }

@@ -5,7 +5,8 @@
     android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.DriverDocumentsActivity">
+    tools:context=".activity.DriverDocumentsActivity"
+    android:background="@drawable/login_bd_image">
 
     <LinearLayout
         android:layout_width="match_parent"

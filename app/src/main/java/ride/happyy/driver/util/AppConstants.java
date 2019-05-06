@@ -115,7 +115,7 @@ public class AppConstants {
 
 */
 
-    private static final String COUNTRY_LIST = "{\"countries\":[{\"name\":\"Bangladesh\",\"dial_code\":\"+880\",\"code\":\"BD\"}]}";
+    private static final String COUNTRY_LIST = "{\"countries\":[{\"name\":\"Bangladesh\",\"dial_code\":\"+88\",\"code\":\"BD\"}]}";
 
     public static final String FEEDBACK1 = App.getInstance().getResources().getString(R.string.sample_lorem_ipsum_small);
     public static final String FEEDBACK2 = App.getInstance().getResources().getString(R.string.sample_lorem_ipsum_small);

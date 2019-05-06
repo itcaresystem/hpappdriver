@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.skyfishjy.library.RippleBackground;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,6 +44,8 @@ public class SplashActivity extends BaseAppCompatNoDrawerActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        final RippleBackground rippleBackground=(RippleBackground)findViewById(R.id.content);
+        rippleBackground.startRippleAnimation();
 
         if (getIntent().hasExtra("request_id")) {
             reIdFroMess = getIntent().getStringExtra("request_id");
@@ -191,7 +194,7 @@ public class SplashActivity extends BaseAppCompatNoDrawerActivity {
                 }
                 finish();
             } else {
-                startActivity(new Intent(SplashActivity.this, OtpVerificationActivity.class));
+                startActivity(new Intent(SplashActivity.this, WelcomeActivity.class));
                 finish();
             }
         } else {

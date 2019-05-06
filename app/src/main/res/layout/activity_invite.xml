@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/welcome_bg"
     tools:context="ride.happyy.driver.activity.InviteActivity">
 
     <LinearLayout
@@ -17,8 +18,9 @@
 
         <ride.happyy.driver.widgets.CustomTextView
             style="@style/MenuItemLabel"
-            android:layout_margin="10dp"
-            android:paddingTop="30dp"
+
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:gravity="center"
             android:textSize="24dp"
             android:text="@string/label_share_invite_code"/>
@@ -36,9 +38,10 @@
             android:id="@+id/code_tv"
             style="@style/MenuItemLabel"
             android:gravity="center"
-            android:padding="50dp"
-            android:textSize="30dp"
-            android:textColor="@color/blue"
+            android:padding="40dp"
+            android:textSize="25dp"
+            android:textColor="@color/white"
+            android:background="@color/blue_transparent_70"
             android:text="@string/label_sample_code"/>
 
 
@@ -66,12 +69,12 @@
 
         <Button
             android:id="@+id/btn_invite_friends"
-            android:padding="2dp"
+            android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="INVITE FRIENDS"
+            android:text="INVITE "
             android:textColor="@color/white"
-            android:background="@drawable/btn_click_black_rectangle_with_semicircle_edge"/>
+            android:background="@color/blue_click"/>
 
     </LinearLayout>
 

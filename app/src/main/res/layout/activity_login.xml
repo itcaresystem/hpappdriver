@@ -6,10 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/welcome_bg"
     tools:context="ride.happyy.driver.activity.LoginActivity">
 
     <LinearLayout
-        android:background="@color/white"
+        android:background="@color/transparent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
@@ -24,7 +25,7 @@
             android:padding="3dp"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:src="@drawable/logo_red_round"/>
+            android:src="@drawable/ic_launcher_round"/>
 
 
         <ride.happyy.driver.widgets.CustomTextView
@@ -33,7 +34,7 @@
             android:layout_margin="8dp"
             android:text="@string/label_happyy_ride"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/text_5"
+            android:textColor="@color/blue_click"
             android:textStyle="bold"/>
 
         <ride.happyy.driver.widgets.CustomTextView
@@ -41,7 +42,7 @@
             android:layout_height="wrap_content"
             android:text="@string/label_driver"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/text_3"
+            android:textColor="@color/blue_transparent_70"
             android:textStyle="bold"/>
 
 
@@ -66,7 +67,7 @@
             android:layout_marginTop="80dp"
             android:backgroundTint="@color/gray_transparent_50"
             android:gravity="center_horizontal"
-            android:hint="01714790220"
+            android:hint="Mobile Number"
             android:minHeight="50dp"
             android:maxLength="11"
             android:inputType="number"/>
@@ -87,7 +88,7 @@
             android:layout_height="40dp"
             android:layout_gravity="center"
             android:layout_marginBottom="50dp"
-            android:background="@drawable/btn_click_black_rectangle_with_semicircle_edge"
+            android:background="@drawable/btn_click_green_2_rectangle_with_semicircle_edge"
             android:onClick="onLoginSubmitClick"
             android:text="@string/btn_log_in"
             android:textAppearance="?android:attr/textAppearanceMedium"
@@ -103,7 +104,7 @@
             android:onClick="onLoginForgotPasswordClick"
             android:text="@string/btn_forgot_password"
             android:textColor="@color/red"
-            android:textStyle="bold"/>
+            />
 
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

@@ -6,13 +6,14 @@
     android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/welcome_bg"
     tools:context=".activity.RegistrationActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:background="@color/transparent"
         android:paddingBottom="30dp">
 
         <ImageView

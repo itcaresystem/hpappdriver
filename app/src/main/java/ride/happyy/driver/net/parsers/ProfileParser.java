@@ -163,6 +163,10 @@ public class ProfileParser {
                             profileBean.setCarBrand(dataObj.optString("car_brand"));
                         }
 
+                        if (dataObj.has("driving_license_number")) {
+                            profileBean.setDriving_license_number(dataObj.optString("driving_license_number"));
+                        }
+
                         if (dataObj.has("car_fitness_certificate")) {
                             profileBean.setCarFitnessCertificateNo(dataObj.optString("car_fitness_certificate"));
                         }

@@ -18,6 +18,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.StrictMode;
 import android.os.SystemClock;
+import android.support.multidex.MultiDexApplication;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -64,7 +65,7 @@ import ride.happyy.driver.util.TypefaceManager;
 
 //import com.digits.sdk.android.Digits;
 
-public class App extends Application {
+public class App extends MultiDexApplication {
 
     // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
     private static final String TWITTER_KEY = "aSvPSyxOkaQoM4HAQmAEREaKs";

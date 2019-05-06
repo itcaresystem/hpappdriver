@@ -9,6 +9,7 @@ class RegistrationBean : BaseBean() {
     var password: String= ""
     var location: String= ""
     var vehicletype: String= ""
+    var ref_code: String = ""
 }
 
 

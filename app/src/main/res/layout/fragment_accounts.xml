@@ -5,6 +5,7 @@
     style="@style/NestedScrollBarStyle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/welcome_bg"
     tools:context="ride.happyy.driver.fragments.AccountsFragment">
 
     <LinearLayout
@@ -68,7 +69,7 @@
             android:gravity="center|top"
             android:layout_gravity="center"
             android:minHeight="20dp"
-            android:text="01623473041"
+            android:text="01XXXXXXX"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/text_5"
             android:textStyle="bold"/>
@@ -221,7 +222,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="5dp"
         android:layout_weight="1"
-        android:background="@color/gray_light"
+        android:background="@color/transparent"
         android:orientation="vertical"
         android:paddingTop="5dp"
         android:paddingRight="10dp"
@@ -256,10 +257,13 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_margin="10dp"
             android:padding="10dp"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/white">
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:background="@drawable/circle_green">
 
             <ride.happyy.driver.widgets.CustomTextView
                 android:id="@+id/accounCommRateTv"
@@ -268,7 +272,7 @@
                 android:gravity="center"
                 android:textSize="20dp"
                 android:paddingBottom="5dp"
-                android:textColor="@color/green"
+                android:textColor="@color/white"
                 android:text="85"/>
 
 
@@ -463,7 +467,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@color/white"
+            android:background="@color/transparent"
             android:orientation="vertical"
             android:paddingBottom="5dp"
             android:paddingTop="1dp">

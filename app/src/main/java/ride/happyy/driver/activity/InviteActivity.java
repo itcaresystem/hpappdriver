@@ -40,8 +40,8 @@ public class InviteActivity extends BaseAppCompatNoDrawerActivity {
                 try {
                     Intent i = new Intent(Intent.ACTION_SEND);
                     i.setType("text/plain");
-                    i.putExtra(Intent.EXTRA_SUBJECT, "My application name");
-                    String sAux = "Get 100% off  on your first trip! To accept, signup and use code"+"'"+code+"'"+"\n\n";
+                    i.putExtra(Intent.EXTRA_SUBJECT, "Happyy Drive");
+                    String sAux = "Get bonus to signup and use ref. code"+"'"+code+"'"+"\n\n";
                     sAux = sAux +"Download now:"+ "https://play.google.com/store/apps/details?id=ride.happyy.driver \n";
                     i.putExtra(Intent.EXTRA_TEXT, sAux);
                     startActivity(Intent.createChooser(i, "choose one"));

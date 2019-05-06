@@ -488,7 +488,7 @@ public class HomeFragment extends BaseFragment implements
         mapPinRed = BitmapFactory.decodeResource(getResources(), R.drawable.ic_hunt_red);
 */
 
-        mapPin = BitmapFactory.decodeResource(getResources(), R.drawable.car_logo_for_curren_location);
+     //   mapPin = BitmapFactory.decodeResource(getResources(), R.drawable.car_logo_for_curren_location);
 
 
         myFragmentManager = getChildFragmentManager();

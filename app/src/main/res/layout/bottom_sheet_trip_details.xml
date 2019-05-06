@@ -10,6 +10,7 @@
     android:orientation="vertical"
     app:behavior_hideable="false"
     app:behavior_peekHeight="80dp"
+    android:background="@drawable/welcome_bg"
     app:layout_behavior="@string/bottom_sheet_behavior">
 
 
@@ -17,7 +18,7 @@
         android:id="@+id/ll_trip_details_driver_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/transparent"
         android:minHeight="80dp"
         android:onClick="onTripDetailsDetailsClick"
         android:orientation="horizontal"
@@ -95,7 +96,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:progressTint="@color/colorPrimaryDark"
-                android:rating="3"
+                android:rating="4"
                 android:progress="5"
                 android:numStars="5"
                 android:max="5"
@@ -118,7 +119,7 @@
         android:id="@+id/ll_trip_details_detailed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/transparent"
         android:minHeight="230dp"
         android:orientation="vertical"
         android:paddingBottom="20dp"

@@ -297,37 +297,31 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeFragment.
             inflater = getLayoutInflater();
         customTab = (CustomTextView) inflater.inflate(R.layout.custom_tab, null);
         customTab.setText(R.string.btn_home);
-        customTab.setBackgroundResource(R.drawable.btn_click_app_rectangle_with_semicircle_edge);
+        customTab.setCompoundDrawablesWithIntrinsicBounds(0,R.drawable.ic_home_blue_24dp,0,0);
         tabLayout.addTab(tabLayout.newTab()
-                .setText(R.string.btn_home)
-               .setIcon(R.drawable.ic_home_white_24dp)
                .setCustomView(customTab));
 
         customTab = (CustomTextView) inflater.inflate(R.layout.custom_tab, null);
         customTab.setText(R.string.btn_earnings);
+        customTab.setCompoundDrawablesWithIntrinsicBounds(0,R.drawable.ic_monetization_on_blue_24dp,0,0);
         tabLayout.addTab(tabLayout.newTab()
-                .setText(R.string.btn_earnings)
-                //                .setIcon(R.drawable.ic_action_popular)
                 .setCustomView(customTab));
         customTab = (CustomTextView) inflater.inflate(R.layout.custom_tab, null);
         customTab.setText(R.string.btn_leaderbord);
+        customTab.setCompoundDrawablesWithIntrinsicBounds(0,R.drawable.ic_dashboard_blue_24dp,0,0);
         tabLayout.addTab(tabLayout.newTab()
-                .setText(R.string.btn_leaderbord)
-                //                .setIcon(R.drawable.ic_action_popular)
                 .setCustomView(customTab));
 
         customTab = (CustomTextView) inflater.inflate(R.layout.custom_tab, null);
         customTab.setText(R.string.btn_ratings);
+        customTab.setCompoundDrawablesWithIntrinsicBounds(0,R.drawable.ic_rate_review_blue_24dp,0,0);
         tabLayout.addTab(tabLayout.newTab()
-                .setText(R.string.btn_ratings)
-                //                .setIcon(R.drawable.ic_action_popular)
                 .setCustomView(customTab));
 
         customTab = (CustomTextView) inflater.inflate(R.layout.custom_tab, null);
         customTab.setText(R.string.btn_accounts);
+        customTab.setCompoundDrawablesWithIntrinsicBounds(0,R.drawable.ic_person_blue_24dp,0,0);
         tabLayout.addTab(tabLayout.newTab()
-                .setText(R.string.btn_accounts)
-                //                .setIcon(R.drawable.ic_action_popular)
                 .setCustomView(customTab));
 //        tab_layout.addTab(tab_layout.newTab()/*.setText("Stream")*/.setIcon(R.drawable.ic_action_stream));
 
@@ -343,7 +337,7 @@ public class HomeActivity extends BaseAppCompatActivity implements HomeFragment.
             public void onTabSelected(TabLayout.Tab tab) {
                 pager.setCurrentItem(tab.getPosition());
                 try {
-                    tab.getCustomView().setBackgroundResource(R.drawable.btn_click_app_rectangle_with_semicircle_edge);
+                    tab.getCustomView().setBackgroundResource(R.drawable.circle_white_with_gray_edge);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

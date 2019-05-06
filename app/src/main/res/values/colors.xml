@@ -162,7 +162,7 @@
 
     <color name="text_red_1">#aa0092</color>
     <color name="text_red_2">#8C4650</color>
-    <color name="text_red_3">#aa0092</color>
+    <color name="text_red_3">#3b3b3b</color>
     <color name="tint_photo">#D57865</color>
 
     <color name="bg_feedback">#f2f2f2</color>
